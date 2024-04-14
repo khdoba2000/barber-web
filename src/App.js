@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import BarberProfile from './components/BarberProfile';
+import BarberSlots from './components/BarberSlots';
+import VerifyPhoneNumber from './components/VerifyPhoneNumber';
+import CreateReservation from './components/CreateReservation';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    return (
+        <Router>
+            <Routes>
+                <Route path="/barbers/:id" element={<BarberProfile />} />
+                <Route path="/slots" element={<BarberSlots />} />
+                <Route path="/verify" element={<VerifyPhoneNumber />} />
+                <Route path="/reservation" element={<CreateReservation />} />
+            </Routes>
+        </Router>
+    );
+};
 
 export default App;

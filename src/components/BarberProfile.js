@@ -3,54 +3,30 @@ import styled from "styled-components";
 import { useParams } from 'react-router-dom';
 import { fetchBarberProfile } from '../api/barberProfileApi';
 import { fetchBarberPhotos } from '../api/barberPhotosApi';
+import {BookingPage} from './BookingPage';
 
-const BarberProfileOld = () => {
-    const { id } = useParams(); // Get the ID parameter from the URL path
-    const [profile, setProfile] = useState(null);
+import { Link } from 'react-router-dom';
 
 
-// const hairCutsData = [
-//     { id: 1, src: "https://cdn.builder.io/api/v1/image/assets/TEMP/bb668fb67db21e7d668c44e099ae3330cc6753394312f10a5f32b5d018526bf3?apiKey=70b926e372dc42878f761519e49b3044&" },
-//     { id: 2, src: "https://cdn.builder.io/api/v1/image/assets/TEMP/10408ea148b029b18bc5fb437c6d60b0a0807320d6d297d3ab2e48732ef8da8c?apiKey=70b926e372dc42878f761519e49b3044&" },
-//     { id: 3, src: "https://cdn.builder.io/api/v1/image/assets/TEMP/c60281cff6b1bbd20dd2119139830ac0619b19c757762655fd73cbd950f627e8?apiKey=70b926e372dc42878f761519e49b3044&" },
-//     { id: 4, src: "https://cdn.builder.io/api/v1/image/assets/TEMP/406ae5eea47ba6da7a346f67f20a234d54cf3a4d799f6c7e0aebcd40589542d3?apiKey=70b926e372dc42878f761519e49b3044&" },
-//     { id: 5, src: "https://cdn.builder.io/api/v1/image/assets/TEMP/ac20f2f47e42ed59b3cb78aeaeea449eabbd70c3cd5a095420b1c43e45f5cf29?apiKey=70b926e372dc42878f761519e49b3044&" },
-//     { id: 6, src: "https://cdn.builder.io/api/v1/image/assets/TEMP/798b1d77385afd79ff2d7988bfdf5f30a054113c2ac9a2460329b95b1d0cea09?apiKey=70b926e372dc42878f761519e49b3044&" },
-//   ];
-
-  
-    useEffect(() => {
-        const getBarberProfile = async () => {
-            const data = await fetchBarberProfile(id);
-            setProfile(data);
-        };
-        getBarberProfile();
-    }, []);
-
-    if (!profile) return <div>Loading...</div>;
-
-    return (
-        <div>
-            <h1>{profile.fullname}</h1>
-            <img src={profile.profile_photo} alt="Barber Profile" />
-            <p>{profile.bio}</p>
-            <p>Profile data</p>
-            
-            {/* Render other profile details */}
-        </div>
-    );
+const weekdays = {
+  en: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+  uz: ['Dushanba', 'Seshanba', 'Chorshanba', 'Payshanba', 'Juma', 'Shanba', 'Yakshanba'],
+  ru: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
 };
-
 
 function BarberProfile() {
     const { id } = useParams(); // Get the ID parameter from the URL path
     const [barberData, setProfile] = useState(null);
     const [barberPhotos, setPhotos] = useState(null);
-    // let barberPhotos = null;
     useEffect(() => {
         const getBarberProfile = async () => {
-            const data = await fetchBarberProfile(id);
-            setProfile(data);
+            const profile = await fetchBarberProfile(id);
+            const photos = await fetchBarberPhotos(id);
+            // console.log("photos:", photos)
+            // console.log("profile:", profile)
+
+            setProfile(profile);
+            setPhotos(photos);
         };
         getBarberProfile();
     }, []);
@@ -58,12 +34,6 @@ function BarberProfile() {
     if (!barberData) {
         return <div>Loading...</div>;
     }
-
-    const getBarberPhotos = () => {
-            const data = fetchBarberPhotos(id);
-            setPhotos(data);
-    };
-    getBarberPhotos();
 
     return (
       <ProfileWrapper>
@@ -101,45 +71,68 @@ function BarberProfile() {
           </BarberRating>
         
         <WorkingHoursTitle>Working Hours</WorkingHoursTitle>
+       
         <WorkingHours>
-          <DaysContainer>
-            <Day>Monday</Day>
-            <Day>Tuesday</Day>
-          </DaysContainer>
-          <HoursContainer>
-            <Hours>08:00 AM - 10:00 PM</Hours>
-            <Hours>10:00 AM - 20:00 PM</Hours>
-          </HoursContainer>
+          {
+          <BarberSchedule schedule={barberData.schedule} />
+          }
         </WorkingHours>
+        <Link to={{
+          pathname: `/booking/${id}`, 
+          state:  barberData,
+        }}>
+        <BookNowButton>Book Now</BookNowButton>
+        </Link>
 
-          <BookNowButton>Book now</BookNowButton>
+        
         </ProfileHeader>
         
-
         <ProfileContent>
-        <ServicesNav>
-          <ServiceNavItem>
-            <ServiceNavButton>Hair cuts</ServiceNavButton>
-          </ServiceNavItem>
-          <ServiceNavItem>
-            <ServiceNavButton className="active">Services</ServiceNavButton>
-          </ServiceNavItem>
-        </ServicesNav>
         <HairCutsTitle>Hair cuts</HairCutsTitle>
-        {/* <HairCutsGallery>
-        if (barberPhotos!=nil && barberPhotos.photos!=nil) {
-            barberPhotos.photos.map((hairCut) => (
-                <HairCutImage key={hairCut.id} src={hairCut.photo} alt={`Hair Cut ${hairCut.id}`} />
-            ))
-          };
-        </HairCutsGallery> */}
+        <HairCutsGallery>
+        {
+          getBarberPhotos(barberPhotos).map((hairCut) => (
+            // console.log("hairCut:", hairCut),
+            <HairCutImage 
+              key={hairCut.id} 
+              src={hairCut.photo} 
+              alt={`Hair Cut ${hairCut.id}`}             
+            />
+           ))
+        }
+        </HairCutsGallery>
       </ProfileContent>
-    
 
       </ProfileWrapper>
     );
   }
   
+
+const BarberSchedule = ({ schedule }) => {
+  return (
+      <div>
+          <div className="schedule-list">
+              {weekdays.en.map((day, index) => (
+                    <div key={index} className="schedule-item">
+                     {/* <ProfileDay>{weekdays.uz[index]} <ProfileHour>{schedule[`${day.toLowerCase()}_interval`]}</ProfileHour></ProfileDay> */}
+                     <p className="weekday">{day}</p>
+                     <p className="interval">{schedule[`${day.toLowerCase()}_interval`]}</p>
+                    </div>
+                ))
+            }
+          </div>
+      </div>
+  );
+};
+
+
+  const getBarberPhotos = (barberPhotos) => {
+  //  console.log("getBarberPhotos barberPhotos:", barberPhotos)
+    if (barberPhotos==null || barberPhotos.photos==null) {
+      return []
+    }
+    return barberPhotos.photos
+  }
   const ProfileWrapper = styled.div`
     max-width: 375px;
     display: flex;
@@ -272,8 +265,6 @@ function BarberProfile() {
   `;
   
   const WorkingHours = styled.div`
-    display: flex;
-    gap: 20px;
     color: var(--White-bg, #fff);
     font: 14px Roboto, sans-serif;
     letter-spacing: 0.15px;
@@ -281,52 +272,6 @@ function BarberProfile() {
     padding: 0 1px;
   `;
 
-    const Day = styled.span`
-    white-space: nowrap;
-
-    &:not(:first-child) {
-    margin-top: 20px;
-    }
-    `;
-  const DaysContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    font-weight: 400;
-    flex: 1;
-  
-    div {
-      font-feature-settings: "clig" off, "liga" off;
-  
-      &:last-child {
-        margin-top: 20px;
-      }
-    }
-  `;
-  
-
-
-const Hours = styled.span`
-&:not(:first-child) {
-  margin-top: 23px;
-}  
-`;
-  const HoursContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    font-weight: 500;
-    text-align: right;
-    align-self: start;
-    flex: 1;
-  
-    div {
-      font-feature-settings: "clig" off, "liga" off;
-  
-      &:last-child {
-        margin-top: 23px;
-      }
-    }
-  `;
-  
   const BookNowButton = styled.button`
     background-color: var(--Primary-orange, #c79b5e);
     color: #fff;
@@ -337,15 +282,6 @@ const Hours = styled.span`
     margin-top: 29px;
     justify-content: center;
     align-items: center;
-  `;
-  
-  const ProfileTabs = styled.div`
-    display: flex;
-    gap: 8px;
-    font: 400 14px Roboto, sans-serif;
-    text-align: center;
-    margin: 24px 0 0 16px;
-    align-self: start;
   `;
   
   const Tab = styled.div`
@@ -371,48 +307,13 @@ const Hours = styled.span`
           `}
   `;
   
-  const TabLabel = styled.div`
-    white-space: nowrap;
-    justify-content: center;
-  `;
-
-
 
 const ProfileContent = styled.main`
-  padding: 24px 16px 0;
-`;
-
-const ServicesNav = styled.nav`
-  display: flex;
-  gap: 8px;
-  font: 400 14px Roboto, sans-serif;
-  text-align: center;
-`;
-
-const ServiceNavItem = styled.div`
-  flex: 1;
-`;
-
-const ServiceNavButton = styled.button`
-  width: 100%;
-  padding: 13px;
-  color: #959189;
-  font: inherit;
-  background-color: #fff;
-  border: 1px solid #d0d7de;
-  border-radius: 12px;
-  box-shadow: 0 0 4px rgba(147, 147, 147, 0.25);
-  cursor: pointer;
-  
-  &.active {
-    color: #fff;
-    background-color: #1d1d1d;
-    border-color: #1d1d1d;
-  }
+  padding: 8px 16px 0;
 `;
 
 const HairCutsTitle = styled.h2`
-  margin-top: 27px;
+  margin-top: 0px;
   color: #000;
   font: 700 16px Roboto, sans-serif;
   letter-spacing: 0.06px;

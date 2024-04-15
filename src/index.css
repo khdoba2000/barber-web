@@ -7,6 +7,63 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.schedule-list{
+  width: 100%;
+}
+
+.schedule-item {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.weekday {
+  text-align: right;
+  margin-right: 8px;
+}
+
+.interval {
+  margin-left: 8px;
+}
+
+/* Hicon
+.checkbox{
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  left: 32px;
+  top: 244px;
+} */
+
+.checkbox-wrapper input[type="checkbox"] {
+  /* removing default appearance */
+  -webkit-appearance: none;
+  appearance: none;
+  /* creating a custom design */
+  width: 1.6em;
+  height: 1.6em;
+  border-radius: 0.15em;
+  border: 0.15em solid #007a7e;
+  outline: none;
+  cursor: pointer;
+
+}
+
+input.checked {
+  background-color: #007a7e;
+  position: relative;
+}
+
+input.checked::before {
+  content: "✔";
+  font-size: 1.5em;
+  color: #fff;
+  position: absolute;
+  right: 1px;
+  top: -5px;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

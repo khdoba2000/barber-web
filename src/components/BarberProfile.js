@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { useParams } from 'react-router-dom';
 import { fetchBarberProfile } from '../api/barberProfileApi';
 import { fetchBarberPhotos } from '../api/barberPhotosApi';
-import {BookingPage} from './BookingPage';
+
+// import {BookingPage} from './BookingPage';
 
 import { Link } from 'react-router-dom';
 
@@ -77,9 +78,12 @@ function BarberProfile() {
           <BarberSchedule schedule={barberData.schedule} />
           }
         </WorkingHours>
+        {/* {console.log("barberData:", barberData)}
+        {console.log("testState:", testState)} */}
+
         <Link to={{
           pathname: `/booking/${id}`, 
-          state:  barberData,
+          // state:  {testState},
         }}>
         <BookNowButton>Book Now</BookNowButton>
         </Link>

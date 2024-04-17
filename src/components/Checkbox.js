@@ -16,7 +16,7 @@ const Checkbox = ({ label, labelRight, onChangeFunc }) => {
 
             className={isChecked ? "checked" : ""}
           />
-          <span style={{'justify-content': 'space-between', width: '100%', 'margin-bottom': '0px'}}>{label}</span>
+          <span style={{justifyContent: 'space-between', width: '100%', marginBottom: '0px'}}>{label}</span>
           {labelRight != null && <span style={{textAlign: 'right'}}> -  {labelRight} so‘m</span>}
         </label>
         {/* <p>{isChecked ? "Selected" : "Unchecked"}</p> */}

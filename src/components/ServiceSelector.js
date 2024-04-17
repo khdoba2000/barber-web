@@ -3,26 +3,26 @@ import  { useState } from "react";
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import Checkbox from './Checkbox';
-const services = [
-  {
-    id: 1,
-    name: "Hair Cut",
-    duration: "1 hour",
-    price: "50000",
-  },
-  {
-    id: 2,
-    name: "Beard",
-    duration: "20 min",
-    price: "25000",
-  },
-  {
-    id: 3,
-    name: "Special Cut",
-    duration: "1 hour",
-    price: "90000",
-  },
-];
+// const services = [
+//   {
+//     id: 1,
+//     name: "Hair Cut",
+//     duration: "1 hour",
+//     price: "50000",
+//   },
+//   {
+//     id: 2,
+//     name: "Beard",
+//     duration: "20 min",
+//     price: "25000",
+//   },
+//   {
+//     id: 3,
+//     name: "Special Cut",
+//     duration: "1 hour",
+//     price: "90000",
+//   },
+// ];
 
 
 
@@ -38,9 +38,9 @@ const ServiceSelector = (props) => {
     };
 
     
-
+    let services=props.barberData.services;
     const mappedServices = services.map((service, index) => {
-        const labelName = `${service.name} - ${service.duration}` ;
+        const labelName = `${service.name} - ${service.duration}(min)` ;
        
        return  (<ServiceCard key={service.id} value={service.id} >
              <Checkbox 
@@ -62,7 +62,7 @@ const ServiceSelector = (props) => {
         </Link>
       </Header>
        {mappedServices}
-      {/* <p>Selected Services: {selectedServices.join(', ')}</p> */}
+      <p>Selected Services: {selectedServices.join(', ')}</p>
        
     </Container>
   );

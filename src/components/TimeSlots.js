@@ -1,7 +1,6 @@
 // TimeSlots.js
-
-import React, { useState,useEffect } from 'react';
-// import { useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Button } from '@mantine/core';
 import { createReservation } from '../api/createReservationApi'; // Import your API functions
 
 const TimeSlots = (props) => {
@@ -35,22 +34,21 @@ const TimeSlots = (props) => {
 
     return (
         <div>
-            <h2>Booking Page for Barber ID: {barberID}</h2>
             <p>Selected Date: {selectedDate}</p>
             <h3>Available Slots</h3>
-            
             <ul>
                 {availableSlots.map((slot, index) => (
-                    <li key={index} onClick={() => handleSlotSelection(slot)}>
+                    <Button key={index}
+                     onClick={() => handleSlotSelection(slot)}>
                        <p>{slot.Start} - {slot.End}</p>
                         <p>IsBusy: {slot.IsBusy ? 'Yes' : 'No'}</p>
-                    </li>
+                    </Button>
                 ))}
             </ul>
             {selectedSlot && (
                 <div>
                     <p>Selected Slot: {selectedSlot.Start} - {selectedSlot.End}</p>
-                    <button onClick={handleReservation}>Confirm Reservation</button>
+                    <Button onClick={handleReservation}>Confirm Reservation</Button>
                 </div>
             )}
         </div>

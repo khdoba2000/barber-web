@@ -1,67 +1,41 @@
 import  React, {useEffect, useState}  from "react";
 import styled from "styled-components";
 import { useParams } from 'react-router-dom';
-// import { Button } from '@mantine/core';
+import { Button } from '@mantine/core';
 
 import Calendar from './Calendar';
-import TimeSlots from './TimeSlots';
 import ServiceSelector from './ServiceSelector';
 import { fetchBarberProfile } from '../api/barberProfileApi';
-import { fetchAvailableSlots } from '../api/barberSlotsApi';
 
 const BookingPage = () => {
   const { id } = useParams(); 
 
   const [barberData, setProfile] = useState(null);
-  const [availableSlots, setAvailableSlots] = useState([]);
   const barberID = id
-  const selectedDate = "2024-04-23"
 
-  console.log("barberID:", barberID)
-  console.log("selectedDate:", selectedDate)
- 
+  console.log("barberID:", barberID) 
   
-  console.log("availableSlots:", availableSlots)
   useEffect(() => {
         const getBarberProfile = async () => {
             const profile = await fetchBarberProfile(id);
             // console.log("profile:", profile)
-
             setProfile(profile);
         };
         getBarberProfile();
+  }, []);
 
-        if (selectedDate && barberID) {
-          fetchAvailableSlots(barberID, selectedDate)
-              .then((slots) => setAvailableSlots(slots))
-              .catch((error) => console.error('Error fetching available slots:', error));
-        } else {
-                console.log("No selected date or barber ID",selectedDate, barberID)
-        }
-    }, []);
-
-    if (!barberData) {
+  if (!barberData) {
         return <div>Loading...</div>;
-    }
-  // const location = useLocation();
-  // const barberData  = location.state;
-  // console.log("location:", location)
-
-    // Now you can use barberData in this component
-  // console.log("barberData", barberData);
-  // const data = location.state;
-  // console.log("data:", data)
+  }
   
   return (
       <div>
-                 {/* <Button>Click me!</Button>; */}
-
+          {/* <Button>Click me!</Button>; */}
           <h2>Booking page</h2>
           <ServiceSelector id={id} barberData={barberData} />
-          <Calendar />
-          <TimeSlots selectedDate={selectedDate} availableSlots={availableSlots} barberID={barberID}/>
+          <Calendar barberID={barberID}/>
           {/* {/* Add a button to confirm booking */}
-          <button >Confirm Booking</button>
+          <Button >Confirm Booking</Button>
       </div>
   );
 };

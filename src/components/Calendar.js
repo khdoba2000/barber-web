@@ -7,8 +7,9 @@ import TimeSlots from './TimeSlots';
 import { fetchAvailableSlots } from '../api/barberSlotsApi';
 
 const Calendar = (props) => {
-  const [selectedDate, setValue] = useState(null);
-  const [availableSlots, setAvailableSlots] = useState([]);
+    const [selectedDate, setDate] = useState(null);
+    const [selectedSlot, setSlot] = useState(null);
+    const [availableSlots, setAvailableSlots] = useState([]);
   const [selectedDateString, setSelectedDateString] = useState(null);
   const barberID = props.barberID
   
@@ -36,14 +37,21 @@ const Calendar = (props) => {
             } else {
                     console.log("No selected barber ID", barberID)
             }
-            setValue(selectedDate)
+            setDate(selectedDate)
+
+            setSlot(null)
         }}
         defaultDate={new Date()}
         minDate={new Date(2024, 3, 18)}
         maxDate={new Date(2026, 8, 1)}
       />
 
-      <TimeSlots selectedDate={selectedDateString} availableSlots={availableSlots} barberID={barberID}/>
+      <TimeSlots 
+      selectedDate={selectedDateString} 
+      selectedSlot={selectedSlot}
+      setSlot={setSlot}
+      availableSlots={availableSlots} 
+      barberID={barberID}/>
     </CalendarStyle>
   );
 };

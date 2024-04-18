@@ -7,11 +7,16 @@ import { createReservation } from '../api/createReservationApi'; // Import your 
 
 const TimeSlots = (props) => {
     // const { id } = useParams(); // Get barberID and selectedDate from URL params
-    const [selectedSlot, setSelectedSlot] = useState(null);
-    
+    // const [selectedSlot, setSelectedSlot] = useState(null);
+    const selectedSlot = props.selectedSlot;
+    const setSelectedSlot = props.setSlot;
     const availableSlots = props.availableSlots
     const barberID = props.barberID
     const selectedDate = props.selectedDate
+    // props.selectedDate.onChange(() => {
+    //     setSelectedSlot(null);
+    // })
+
     const handleSlotSelection = (slot) => {
         setSelectedSlot(slot);
     };

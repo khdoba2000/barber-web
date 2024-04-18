@@ -34,8 +34,6 @@ const TimeSlots = (props) => {
 
     return (
         <div>
-            <p>Selected Date: {selectedDate}</p>
-            <h3>Available Slots</h3>
             <ul>
                 {availableSlots.map((slot, index) => (
                     <Button key={index}

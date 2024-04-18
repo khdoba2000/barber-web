@@ -40,32 +40,30 @@ const ServiceSelector = (props) => {
     
     let services=props.barberData.services;
     const mappedServices = services.map((service, index) => {
-        const labelName = `${service.name} - ${service.duration}(min)` ;
-       
-       return  (<ServiceCard key={service.id} value={service.id} >
+      const labelName = `${service.name} - ${service.duration}(min)` ;
+      return(
+      <ServiceCard key={service.id} value={service.id} >
              <Checkbox 
                 label={labelName} 
                 labelRight={service.price} 
                 onChangeFunc={() => handleServiceSelection(service.id)}
                 checked={index==0?true:false}/>                        
-        </ServiceCard>
-        )
-       });
+      </ServiceCard>
+      )
+    });
 
-  return (
-    <Container>
-      <Header>
-      <Link to={`/barbers/${props.id}`}>
-        <IconWrapper>
-          <Icon src="https://cdn.builder.io/api/v1/image/assets/TEMP/82bdbaf7d9576d129b6a07c4693b6c81faa1282868e1822876c984946f76f55b?apiKey=70b926e372dc42878f761519e49b3044&" alt="Schedule icon" />
-        </IconWrapper>
-        </Link>
-      </Header>
-       {mappedServices}
-      <p>Selected Services: {selectedServices.join(', ')}</p>
-       
-    </Container>
-  );
+    return (
+      <Container>
+        <Header>
+        <Link to={`/barbers/${props.id}`}>
+          <IconWrapper>
+            <Icon src="https://cdn.builder.io/api/v1/image/assets/TEMP/82bdbaf7d9576d129b6a07c4693b6c81faa1282868e1822876c984946f76f55b?apiKey=70b926e372dc42878f761519e49b3044&" alt="Schedule icon" />
+          </IconWrapper>
+          </Link>
+        </Header>
+        {mappedServices}       
+      </Container>
+    );
 }
 
 const Container = styled.div`

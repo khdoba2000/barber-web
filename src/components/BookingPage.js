@@ -35,7 +35,6 @@ const BookingPage = () => {
           <ServiceSelector id={id} barberData={barberData} />
           <Calendar barberID={barberID}/>
           {/* {/* Add a button to confirm booking */}
-          <Button >Confirm Booking</Button>
       </div>
   );
 };

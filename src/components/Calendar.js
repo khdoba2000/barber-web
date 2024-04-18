@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Group } from '@mantine/core';
+import styled from "styled-components";
+
 import { DatePicker } from '@mantine/dates';
 import TimeSlots from './TimeSlots';
 import { fetchAvailableSlots } from '../api/barberSlotsApi';
@@ -11,7 +13,7 @@ const Calendar = (props) => {
   const barberID = props.barberID
   
   return (
-    <Group position="center" >
+     <CalendarStyle>
       <DatePicker
         value={selectedDate}
         onChange={(selectedDate)=>{ 
@@ -40,10 +42,21 @@ const Calendar = (props) => {
         minDate={new Date(2024, 3, 18)}
         maxDate={new Date(2026, 8, 1)}
       />
-      
+
       <TimeSlots selectedDate={selectedDateString} availableSlots={availableSlots} barberID={barberID}/>
-    </Group>
+    </CalendarStyle>
   );
 };
 
 export default Calendar;
+
+
+const CalendarStyle = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 20 24px;
+  align-items: center;
+`;

@@ -40,12 +40,12 @@ const ServiceSelector = (props) => {
     
     let services=props.barberData.services;
     const mappedServices = services.map((service, index) => {
-      const labelName = `${service.name} - ${service.duration}(min)` ;
+      const labelName = `${service.name} ` ;
       return(
       <ServiceCard key={service.id} value={service.id} >
              <Checkbox 
                 label={labelName} 
-                labelRight={service.price} 
+                labelRight={`${service.duration}(min) - ${service.price}`} 
                 onChangeFunc={() => handleServiceSelection(service.id)}
                 checked={index==0?true:false}/>                        
       </ServiceCard>
@@ -101,26 +101,24 @@ const Icon = styled.img`
 // `;
 
 const ServiceCard = styled.div`
-  display: flex;
   justify-content: space-between;
-  align-items: center;
-  gap: 14px;
+  align: left;
+  gap: 4px;
   padding: 4px 8px;
   margin-top: 4px;
   margin-bottom: 6px;
-  width: 100%;
-  max-width: 343px;
+  width: 90%;
+  max-width: 293px;
   background-color: #fff;
   border: 1px solid rgba(208, 215, 222, 1);
   border-radius: 4px;
-  font-weight: 600;
+  font-weight: 400;
 `;
 
 const ServiceDetails = styled.div`
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 16px;
 `;
 
 const ServiceIcon = styled.img`

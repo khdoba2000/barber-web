@@ -40,25 +40,31 @@ body {
   /* removing default appearance */
   -webkit-appearance: none;
   appearance: none;
+  font-size: 10px;
   /* creating a custom design */
   width: 1.6em;
   height: 1.6em;
   border-radius: 0.15em;
-  border: 0.15em solid #007a7e;
+  border: 0.15em solid #c8c8c8;
   outline: none;
   cursor: pointer;
+  vertical-align: center;
+}
 
+.checkbox-wrapper{
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
 }
 
 input.checked {
-  background-color: #007a7e;
   position: relative;
 }
 
 input.checked::before {
   content: "✔";
-  font-size: 1.5em;
-  color: #fff;
+  font-size: 1.7em;
+  color: #0d882e;
   position: absolute;
   right: 1px;
   top: -5px;

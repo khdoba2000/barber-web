@@ -1,10 +1,13 @@
 // TimeSlots.js
 import React, { useState } from 'react';
 import styled from "styled-components";
+import { Input } from '@mantine/core';
+import { useId } from '@mantine/hooks';
+import { IMaskInput } from 'react-imask';
 
 import { Button } from '@mantine/core';
 import { createReservation } from '../api/createReservationApi'; // Import your API functions
-
+import {sendVerificationCode} from '../api/sendCodeApi';
 const TimeSlots = (props) => {
     // const { id } = useParams(); // Get barberID and selectedDate from URL params
     // const [selectedSlot, setSelectedSlot] = useState(null);
@@ -13,6 +16,9 @@ const TimeSlots = (props) => {
     const availableSlots = props.availableSlots
     const barberID = props.barberID
     const selectedDate = props.selectedDate
+    const [userPhone, setUserPhone] = useState(null);
+    const [message, setMessage] = useState('');
+
     // props.selectedDate.onChange(() => {
     //     setSelectedSlot(null);
     // })
@@ -39,6 +45,14 @@ const TimeSlots = (props) => {
         }
     };
 
+
+    const handleSendCode = async () => {
+        const response = await sendVerificationCode(userPhone);
+        setMessage(response ? 'Kod yuborildi' : 'Kod yuborilmadi. Iltimos, qaytadan urinib ko\'ring.');
+    };
+
+    const id = useId();
+
     return (
         <div>
             <SlotContainer>
@@ -57,7 +71,27 @@ const TimeSlots = (props) => {
             {selectedSlot && (
                 <div>
                     <p>Selected Slot: {selectedSlot.Start} - {selectedSlot.End}</p>
-                    <Button onClick={handleReservation}>Confirm Reservation</Button>
+                    <Input.Wrapper id={id} label="Telefon raqam" required maw={320} mx="auto">
+                    <Input
+                        component={IMaskInput}
+                        mask="+998(00) 000-00-00"
+                        id={id}
+                        placeholder="Telefon raqamingizni kiriting"
+                        defaultValue="+998"
+                        required={true}
+                        onChange={(event) => setUserPhone(event.target.value)}
+                    />
+                    </Input.Wrapper>
+                    {userPhone && (
+                        <Button onClick={handleSendCode}>Kod yuborish</Button>
+                    )}
+                    {message!='' && (
+                        <p>{message}</p>
+                    )}
+
+                    {/* {userPhone && (
+                        <Button onClick={handleReservation}>Confirm Reservation</Button>
+                    )} */}
                 </div>
             )}
         </div>

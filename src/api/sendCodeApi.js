@@ -18,8 +18,9 @@ const sendVerificationCode = async (phoneNumber, code) => {
 
 
 const verifyVerificationCode = async (phoneNumber, code) => {
+    phoneNumber= '+998905741148'
     try {
-        const response = await axios.post(`${API_URL}/verify/${phoneNumber}/${code}`);
+        const response = await axios.get(`${API_URL}/verify/${phoneNumber}/${code}/`);
         return response.data;
     } catch (error) {
         console.error('Error verifying code:', error);

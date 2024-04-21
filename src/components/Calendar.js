@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Group } from '@mantine/core';
 import styled from "styled-components";
 
 import { DatePicker } from '@mantine/dates';
@@ -11,8 +10,8 @@ const Calendar = (props) => {
     const [selectedSlot, setSlot] = useState(null);
     const [availableSlots, setAvailableSlots] = useState([]);
   const [selectedDateString, setSelectedDateString] = useState(null);
-  const barberID = props.barberID
-  
+  const barberData=props.barberData
+  // const [resetKey, setResetKey] = useState(0);
   return (
      <CalendarStyle>
       <DatePicker
@@ -30,16 +29,17 @@ const Calendar = (props) => {
             const selectedDateString = `${year}-${month}-${day}`
             setSelectedDateString(selectedDateString)
             
-            if (barberID) {
-                fetchAvailableSlots(barberID, selectedDateString)
+            if (barberData.id) {
+                fetchAvailableSlots(barberData.id, selectedDateString)
                     .then((slots) => setAvailableSlots(slots))
                     .catch((error) => console.error('Error fetching available slots:', error));
             } else {
-                    console.log("No selected barber ID", barberID)
+                    console.log("No selected barber ID", barberData.id)
             }
             setDate(selectedDate)
 
             setSlot(null)
+            // setResetKey((prevKey) => prevKey + 1);
         }}
         defaultDate={new Date()}
         minDate={new Date(2024, 3, 18)}
@@ -47,11 +47,13 @@ const Calendar = (props) => {
       />
 
       <TimeSlots 
+      // key={resetKey}
       selectedDate={selectedDateString} 
       selectedSlot={selectedSlot}
       setSlot={setSlot}
+      
       availableSlots={availableSlots} 
-      barberID={barberID}/>
+      barberData={barberData}/>
     </CalendarStyle>
   );
 };

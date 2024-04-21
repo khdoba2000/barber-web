@@ -1,7 +1,6 @@
 import  React, {useEffect, useState}  from "react";
 import styled from "styled-components";
 import { useParams } from 'react-router-dom';
-import { Button } from '@mantine/core';
 
 import Calendar from './Calendar';
 import ServiceSelector from './ServiceSelector';
@@ -33,7 +32,7 @@ const BookingPage = () => {
           {/* <Button>Click me!</Button>; */}
           <h2>Booking page</h2>
           <ServiceSelector id={id} barberData={barberData} />
-          <Calendar barberID={barberID}/>
+          <Calendar barberID={barberID} barberData={barberData}/>
           {/* {/* Add a button to confirm booking */}
       </div>
   );

@@ -1,36 +1,58 @@
 // TimeSlots.js
 import React, { useState } from 'react';
 import styled from "styled-components";
-import { Input } from '@mantine/core';
+import { Input} from '@mantine/core';
 import { useId } from '@mantine/hooks';
 import { IMaskInput } from 'react-imask';
+import { Link } from 'react-router-dom';
 
 import { Button } from '@mantine/core';
 import { createReservation } from '../api/createReservationApi'; // Import your API functions
-import {sendVerificationCode} from '../api/sendCodeApi';
+import {sendVerificationCode, verifyVerificationCode} from '../api/sendCodeApi';
 const TimeSlots = (props) => {
-    // const { id } = useParams(); // Get barberID and selectedDate from URL params
-    // const [selectedSlot, setSelectedSlot] = useState(null);
     const selectedSlot = props.selectedSlot;
     const setSelectedSlot = props.setSlot;
     const availableSlots = props.availableSlots
-    const barberID = props.barberID
+    const barberData = props.barberData
     const selectedDate = props.selectedDate
     const [userPhone, setUserPhone] = useState(null);
+    const [enableSendCode, setEnableSendCode] = useState(false);
     const [message, setMessage] = useState('');
+    const [isCodeSent, setIsCodeSent] = useState(null);
+    const [isCodeVerified, setIsCodeVerified] = useState(null);
+    const [codeInput, setCodeInput] = useState(null);
 
     // props.selectedDate.onChange(() => {
     //     setSelectedSlot(null);
     // })
+    // useEffect(() => {
+    //     // Your initialization logic here
+    
+    //     return () => {
+    //       // Your cleanup logic here
+    //       clearAll()
+    //       console.log('ChildComponent unmounted or reset');
+    //     };
+    //   }, []);
+
+    // const clearAll = () => {
+    //     setSelectedSlot(null);
+    //     // setUserPhone(null);
+    //     // setEnableSendCode(false);
+    //     // setMessage('');
+    //     // setIsCodeSent(null);
+    //     // setIsCodeVerified(null);
+    //     // setCodeInput(null);
+    // };
 
     const handleSlotSelection = (slot) => {
         setSelectedSlot(slot);
     };
 
-    const handleReservation = () => {
+    const handleReservationConfirm = () => {
         if (selectedSlot) {
             const reservationData = {
-                barberID,
+                barberData,
                 date: selectedDate,
                 time: selectedSlot,
                 // Other reservation details like client phone, services, etc.
@@ -38,8 +60,13 @@ const TimeSlots = (props) => {
 
             createReservation(reservationData)
                 .then((response) => {
-                    // Handle successful reservation
-                    console.log('Reservation successful:', response);
+                    if (response.code === 200) {
+                        // Handle successful reservation
+                        console.log('Reservation successful:', response);
+                    } else {
+                        // Handle failed reservation
+                        console.log('Reservation failed:', response);
+                    }
                 })
                 .catch((error) => console.error('Error creating reservation:', error));
         }
@@ -48,9 +75,21 @@ const TimeSlots = (props) => {
 
     const handleSendCode = async () => {
         const response = await sendVerificationCode(userPhone);
-        setMessage(response ? 'Kod yuborildi' : 'Kod yuborilmadi. Iltimos, qaytadan urinib ko\'ring.');
+        setMessage(response ? '' : 'Kod yuborilmadi. Iltimos, qaytadan urinib ko\'ring.');
+        setIsCodeSent(true)
+        setEnableSendCode(false);
     };
 
+    const handleCodeInput = async (code) => {
+        setCodeInput(code);
+        console.log('CodeInput:', code);
+        if (code.length >= 4) {
+            const response = await verifyVerificationCode(userPhone, code);
+            setIsCodeVerified(response ? true : false);
+        }
+    };
+
+    
     const id = useId();
 
     return (
@@ -79,24 +118,61 @@ const TimeSlots = (props) => {
                         placeholder="Telefon raqamingizni kiriting"
                         defaultValue="+998"
                         required={true}
-                        onChange={(event) => setUserPhone(event.target.value)}
+                        onChange={(event) => {
+                            console.log('Phone:', event.target.value);
+                            if (event.target.value.length >= 18) {
+                                setUserPhone(event.target.value);
+                                setEnableSendCode(true);
+                            }else{
+                                setEnableSendCode(false);
+                            }
+                            setIsCodeVerified(false);
+                            setMessage('');
+                            setCodeInput('');
+                            setIsCodeSent(false);
+                        }}
                     />
-                    </Input.Wrapper>
-                    {userPhone && (
+                     {enableSendCode && (
                         <Button onClick={handleSendCode}>Kod yuborish</Button>
-                    )}
+                    )} 
                     {message!='' && (
                         <p>{message}</p>
                     )}
+                    </Input.Wrapper>
+                   
+                    {isCodeSent && (
+                        <Input.Wrapper id={id} label="Telefon raqamingizga yuborilgan kodni kiriting" required maw={320} mx="auto">
+                        <Input id={id} 
+                        placeholder="Kodni kiriting" 
+                        onChange={(event) => handleCodeInput(event.target.value)}
+                        allowNegative={false}
+                        value={codeInput}
+                        disabled={isCodeVerified}
+                        />   
+                        </Input.Wrapper>
+                    )}
 
-                    {/* {userPhone && (
-                        <Button onClick={handleReservation}>Confirm Reservation</Button>
-                    )} */}
+                <Link to={{
+                    pathname: `/barbers/${barberData.id}`, 
+                    // state:  {testState},
+                    }}>
+                     {( <IconWrapper>
+                                <Icon src="https://cdn.builder.io/api/v1/image/assets/TEMP/82bdbaf7d9576d129b6a07c4693b6c81faa1282868e1822876c984946f76f55b?apiKey=70b926e372dc42878f761519e49b3044&" alt="Schedule icon" />
+                        </IconWrapper> 
+                    )}
+                </Link>
+
+                {isCodeVerified && (
+                        <Button onClick={handleReservationConfirm}>
+                            Tasdiqlash
+                        </Button>
+                )}
+
                 </div>
             )}
         </div>
     );
-};
+} ;
 
 export default TimeSlots;
 
@@ -151,6 +227,7 @@ const SlotButton = styled.button`
         cursor: not-allowed;
     }
 `;
+
 const SlotItem2 = styled.button`
     font-family: Roboto, sans-serif;
     justify-content: center;
@@ -160,4 +237,19 @@ const SlotItem2 = styled.button`
     border-width: 1px;
     background-color: #fff;
     color: var(--Dark, #323232);
+`;
+
+
+const IconWrapper = styled.div`
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  color: var(--Primary-Orange, #b3532d);
+`;
+
+const Icon = styled.img`
+  width: 24px;
+  aspect-ratio: 1;
+  object-fit: contain;
+  color: var(--Primary-Orange, #b3532d);
 `;

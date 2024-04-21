@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@mantine/core';
 import { createReservation } from '../api/createReservationApi'; // Import your API functions
 import {sendVerificationCode, verifyVerificationCode} from '../api/sendCodeApi';
+import reformatPhoneNumber from '../util';
 const TimeSlots = (props) => {
     const selectedSlot = props.selectedSlot;
     const setSelectedSlot = props.setSlot;
@@ -74,6 +75,7 @@ const TimeSlots = (props) => {
 
 
     const handleSendCode = async () => {
+        console.log('Phone:', userPhone);
         const response = await sendVerificationCode(userPhone);
         setMessage(response ? '' : 'Kod yuborilmadi. Iltimos, qaytadan urinib ko\'ring.');
         setIsCodeSent(true)
@@ -121,7 +123,7 @@ const TimeSlots = (props) => {
                         onChange={(event) => {
                             console.log('Phone:', event.target.value);
                             if (event.target.value.length >= 18) {
-                                setUserPhone(event.target.value);
+                                setUserPhone(reformatPhoneNumber(event.target.value));
                                 setEnableSendCode(true);
                             }else{
                                 setEnableSendCode(false);

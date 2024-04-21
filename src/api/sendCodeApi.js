@@ -2,11 +2,11 @@ import axios from 'axios';
 
 import { API_URL } from '../config';
 
-const sendVerificationCode = async (phoneNumber, code) => {
+const sendVerificationCode = async (phoneNumber) => {
     try {
         const response = await axios.post(
             `${API_URL}/send-code/`, 
-           {"phone_number": '+998905741148'},
+           {"phone_number": phoneNumber},
             { headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': true} }
         );
         return response.data;
@@ -18,7 +18,6 @@ const sendVerificationCode = async (phoneNumber, code) => {
 
 
 const verifyVerificationCode = async (phoneNumber, code) => {
-    phoneNumber= '+998905741148'
     try {
         const response = await axios.get(`${API_URL}/verify/${phoneNumber}/${code}/`);
         return response.data;

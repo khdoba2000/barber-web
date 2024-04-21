@@ -12,4 +12,4 @@ function reformatPhoneNumber(phoneNumber) {
     return cleanedNumber;
   };
 
-export default reformatPhoneNumber;
+export {reformatPhoneNumber};

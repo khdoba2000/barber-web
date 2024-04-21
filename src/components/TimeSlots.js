@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@mantine/core';
 import { createReservation } from '../api/createReservationApi'; // Import your API functions
 import {sendVerificationCode, verifyVerificationCode} from '../api/sendCodeApi';
-import reformatPhoneNumber from '../util';
+import {reformatPhoneNumber, splitSlot} from '../util';
 const TimeSlots = (props) => {
     const selectedSlot = props.selectedSlot;
     const setSelectedSlot = props.setSlot;
@@ -21,6 +21,7 @@ const TimeSlots = (props) => {
     const [message, setMessage] = useState('');
     const [isCodeSent, setIsCodeSent] = useState(null);
     const [isCodeVerified, setIsCodeVerified] = useState(null);
+    const [reservationMessage, setReservationMessage] = useState('');
     const [codeInput, setCodeInput] = useState(null);
 
     // props.selectedDate.onChange(() => {
@@ -53,21 +54,34 @@ const TimeSlots = (props) => {
     const handleReservationConfirm = () => {
         if (selectedSlot) {
             const reservationData = {
-                barberData,
                 date: selectedDate,
-                time: selectedSlot,
+                time_start: selectedSlot.Start,
+                time_end: selectedSlot.End,
+                barber_info: {"id": barberData.id},
+                barbershop_info: {"id": barberData.barbershop_id},
+                client_phone: userPhone,
+                // services
                 // Other reservation details like client phone, services, etc.
             };
 
             createReservation(reservationData)
                 .then((response) => {
-                    if (response.code === 200) {
+                if (response){
+                    console.log('response:', response);
+                    console.log('response.data:', response.data);
+                    if (response.id) {
                         // Handle successful reservation
                         console.log('Reservation successful:', response);
-                    } else {
+                        console.log('response.id:', response.id);
+                        setReservationMessage('Bron muvaffaqiyatli amalga oshirildi.');
+                    } else if (response.message){
+                        setReservationMessage(response.message);
+                    }else{
                         // Handle failed reservation
                         console.log('Reservation failed:', response);
+                        setReservationMessage('Bron amalga oshirilmadi. Iltimos, qaytadan urinib ko\'ring.');
                     }
+                }
                 })
                 .catch((error) => console.error('Error creating reservation:', error));
         }
@@ -168,6 +182,9 @@ const TimeSlots = (props) => {
                         <Button onClick={handleReservationConfirm}>
                             Tasdiqlash
                         </Button>
+                )}
+                {reservationMessage && (
+                    <p>{reservationMessage}</p>
                 )}
 
                 </div>

@@ -1,29 +1,17 @@
-# Use node image as the base
-FROM node:latest as build
-
-# Set the working directory inside the container
+# stage1 - build react app first 
+FROM node:12.16.1-alpine3.9 as build
 WORKDIR /app
-
-# Copy package.json and yarn.lock to the working directory
-COPY package.json yarn.lock ./
-
-# Install dependencies using yarn
-RUN yarn install
-
-# Copy the rest of the application code to the working directory
-COPY . .
-
-# Build the React app
+ENV PATH /app/node_modules/.bin:$PATH
+COPY ./package.json /app/
+COPY ./yarn.lock /app/
+RUN yarn
+COPY . /app
 RUN yarn build
 
-# Start a new stage for production
-FROM nginx:latest
-
-# Copy the built React app from the previous stage to nginx's html directory
+# stage 2 - build the final image and copy the react build files
+FROM nginx:1.17.8-alpine
 COPY --from=build /app/build /usr/share/nginx/html
-
-# Expose port 80
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx/nginx.conf /etc/nginx/conf.d
 EXPOSE 80
-
-# Command to start nginx
 CMD ["nginx", "-g", "daemon off;"]

@@ -32,7 +32,7 @@ const ServiceSelector = (props) => {
   const setSelectedServices = props.setSelectedServices;
   // const serviceChangeCallback = props.serviceChangeCallback
     const handleServiceSelection = (service) => {
-        if (selectedServices.includes(service)) {
+        if (selectedServices.filter((s) => s.id === service.id).length>0) {
             setSelectedServices(selectedServices.filter((s) => s.id !== service.id));
         } else {
             setSelectedServices([...selectedServices, service]);

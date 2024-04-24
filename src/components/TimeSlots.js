@@ -11,6 +11,13 @@ import { Button } from '@mantine/core';
 import { createReservation } from '../api/createReservationApi'; // Import your API functions
 import {sendVerificationCode, verifyVerificationCode} from '../api/sendCodeApi';
 import {reformatPhoneNumber, splitSlot} from '../util';
+
+const calculatePriceSum = (arr) => {
+    return arr.reduce((total, current) => {
+        return total + current.price;
+    }, 0);
+  }
+
 const TimeSlots = (props) => {
     const selectedSlot = props.selectedSlot;
     const setSelectedSlot = props.setSlot;
@@ -26,6 +33,9 @@ const TimeSlots = (props) => {
     const [codeInput, setCodeInput] = useState(null);
 
     const selectedServices=props.selectedServices
+
+    const selectedServiceNames = selectedServices.map((service) => service.name).join(', ')
+    // const selectedServicesPrice = selectedServices.map((service) => service.price).
     // props.selectedDate.onChange(() => {
     //     setSelectedSlot(null);
     // })
@@ -126,8 +136,10 @@ const TimeSlots = (props) => {
                 ))}
             </SlotContainer>
             {selectedSlot && (
-                <div>
-                    <p>Selected Slot: {selectedSlot.Start} - {selectedSlot.End}</p>
+                <div >
+                    <p className='interval'>Tanlangan vaqt: {selectedSlot.Start} - {selectedSlot.End}</p>
+                    <p className='interval'>Tanlangan xizmat(lar): {selectedServiceNames}</p>
+                    <p className='interval'>Umumiy narx: {calculatePriceSum(selectedServices)}</p>
                     <Input.Wrapper id={id} label="Telefon raqam" required maw={320} mx="auto">
                     <Input
                         component={IMaskInput}

@@ -2,12 +2,14 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
 import { Input} from '@mantine/core';
-import { useId } from '@mantine/hooks';
+import { useId, useDisclosure } from '@mantine/hooks';
+import { Modal, Button, TextInput } from '@mantine/core';
+
+
 import { IMaskInput } from 'react-imask';
 import { Link } from 'react-router-dom';
 import {dateFormatter} from '../util';
 
-import { Button } from '@mantine/core';
 import { createReservation } from '../api/createReservationApi'; // Import your API functions
 import {sendVerificationCode, verifyVerificationCode} from '../api/sendCodeApi';
 import {reformatPhoneNumber, splitSlot} from '../util';
@@ -34,7 +36,9 @@ const TimeSlots = (props) => {
 
     const selectedServices=props.selectedServices
 
-    const selectedServiceNames = selectedServices.map((service) => service.name).join(', ')
+    const selectedServiceNames = selectedServices.map((service) => service.name).join(', ');
+    const [opened, { open, close }] = useDisclosure(false);
+
     // const selectedServicesPrice = selectedServices.map((service) => service.price).
     // props.selectedDate.onChange(() => {
     //     setSelectedSlot(null);
@@ -104,8 +108,15 @@ const TimeSlots = (props) => {
         console.log('Phone:', userPhone);
         const response = await sendVerificationCode(userPhone);
         setMessage(response ? '' : 'Kod yuborilmadi. Iltimos, qaytadan urinib ko\'ring.');
-        setIsCodeSent(true)
-        setEnableSendCode(false);
+       
+        const success = response ? true : false;
+        setIsCodeSent(success)
+        setEnableSendCode(!success);
+        console.log('response:', response==null);
+        console.log('success:', success);
+        // if (success){
+            open()
+        // }
     };
 
     const handleCodeInput = async (code) => {
@@ -119,7 +130,6 @@ const TimeSlots = (props) => {
 
     
     const id = useId();
-
     return (
         <div>
             <SlotContainer>
@@ -188,25 +198,33 @@ const TimeSlots = (props) => {
                             setIsCodeSent(false);
                         }}
                     />
-                     {enableSendCode && (
-                        <Button onClick={handleSendCode}>Kod yuborish</Button>
-                    )} 
-                    {message!='' && (
-                        <p>{message}</p>
-                    )}
+                    <Modal opened={opened} onClose={close} title="">
+                    {isCodeSent && (<Input id={id} 
+                            data-autofocus
+                            title="Yuborilgan sms kodni kiriting"
+                            mt="md"
+                            placeholder="Yuborilgan sms kodni kiriting" 
+                            onChange={(event) => handleCodeInput(event.target.value)}
+                            allowNegative={false}
+                            value={codeInput}
+                            disabled={isCodeVerified}
+                        />)
+                        }
+                    {!isCodeSent && (<p>{message}</p>)}
+                    </Modal>
                     </Input.Wrapper>
                    
-                    {isCodeSent && (
-                        <Input.Wrapper id={id} label="Telefon raqamingizga yuborilgan kodni kiriting" required maw={320} mx="auto">
-                        <Input id={id} 
-                        placeholder="Kodni kiriting" 
-                        onChange={(event) => handleCodeInput(event.target.value)}
-                        allowNegative={false}
-                        value={codeInput}
-                        disabled={isCodeVerified}
-                        />   
-                        </Input.Wrapper>
+                    <div className='info-label'>
+                    {enableSendCode && (
+                        <Button onClick={handleSendCode}>Kod yuborish</Button>
                     )}
+                    <p className="info">
+                    {message!='' && (
+                        <p>{message}</p>
+                    )} 
+                    </p>
+                    </div>
+        
 
                 <Link to={{
                     pathname: `/barbers/${barberData.id}`, 
@@ -217,11 +235,12 @@ const TimeSlots = (props) => {
                         </IconWrapper> 
                     )}
                 </Link>
-
                 {isCodeVerified && (
-                        <Button onClick={handleReservationConfirm}>
+
+                        <AcceptButton onClick={handleReservationConfirm}>
                             Tasdiqlash
-                        </Button>
+                        </AcceptButton>
+
                 )}
                 {reservationMessage && (
                     <p>{reservationMessage}</p>
@@ -313,3 +332,16 @@ const Icon = styled.img`
   color: var(--Primary-Orange, #b3532d);
 `;
 
+
+
+const AcceptButton = styled.button`
+background-color: var(--Primary-orange, #b3532d);
+color: #fff;
+font: 700 18px/24px Poppins, sans-serif;
+text-align: right;
+padding: 12px 22px;
+border-radius: 150px;
+margin-top: 0px;
+justify-content: right;
+align-items: right;
+`;

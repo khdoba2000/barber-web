@@ -30,9 +30,10 @@ const BookingPage = () => {
   }
   
   return (
-      <div>
+    <ProfileHeader>
+
           {/* <Button>Click me!</Button>; */}
-          <h2>Booking page</h2>
+          <h2>{barberData.fullname}</h2>
           <ServiceSelector 
             id={id} 
             barberData={barberData} 
@@ -49,9 +50,18 @@ const BookingPage = () => {
           {/* {selectedServices.len > 0 && (
             <p>selectedServices[0].name </p>
           )} */}
-      </div>
+              </ProfileHeader>
+
   );
 };
 
 
+
+const ProfileHeader = styled.header`
+background-color: #fff;
+padding: 2px 10px 6px;
+display: flex;
+flex-direction: column;
+align-items: center;
+`;
 export default BookingPage;

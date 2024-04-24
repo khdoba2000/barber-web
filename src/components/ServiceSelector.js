@@ -113,15 +113,13 @@ const Icon = styled.img`
 const ServiceCard = styled.div`
   justify-content: space-between;
   align: left;
-  gap: 4px;
   padding: 4px 8px;
   margin-top: 4px;
   margin-bottom: 6px;
-  width: 90%;
-  max-width: 293px;
-  background-color: #fff;
+  width: 100%;
+  max-width: 493px;
   border: 1px solid rgba(208, 215, 222, 1);
-  border-radius: 4px;
+  border-radius: 3px;
   font-weight: 400;
 `;
 

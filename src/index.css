@@ -86,7 +86,7 @@ input.checked {
 input.checked::before {
   content: "✔";
   font-size: 1.7em;
-  color: #0d882e;
+  color: #69880d;
   position: absolute;
   right: 1px;
   top: -5px;

@@ -137,9 +137,35 @@ const TimeSlots = (props) => {
             </SlotContainer>
             {selectedSlot && (
                 <div >
-                    <p className='interval'>Tanlangan vaqt: {selectedSlot.Start} - {selectedSlot.End}</p>
-                    <p className='interval'>Tanlangan xizmat(lar): {selectedServiceNames}</p>
-                    <p className='interval'>Umumiy narx: {calculatePriceSum(selectedServices)}</p>
+                            <div>
+                            <p className="info-label">
+                                Tanlangan vaqt: 
+                            </p>
+                            <p className="info">
+                            {selectedSlot.Start} - {selectedSlot.End}
+                            </p>
+                            </div>
+                            
+                            <div>
+                            <p className="info-label">
+                                Tanlangan xizmat(lar):
+                            </p> 
+                            <p className="info">
+                            {selectedServiceNames}
+                            </p>
+
+                            </div>
+
+                            <div>
+                            <p className="info-label">
+                                Umumiy narx: 
+                            </p>
+                            <p className="info">
+                            {calculatePriceSum(selectedServices)} so'm
+                            </p>
+                            </div>
+
+                   
                     <Input.Wrapper id={id} label="Telefon raqam" required maw={320} mx="auto">
                     <Input
                         component={IMaskInput}
@@ -286,3 +312,4 @@ const Icon = styled.img`
   object-fit: contain;
   color: var(--Primary-Orange, #b3532d);
 `;
+

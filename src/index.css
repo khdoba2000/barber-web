@@ -17,11 +17,31 @@ body {
   width: 100%;
 }
 
+
 .weekday {
   margin-bottom: 0;
   text-align: right;
   margin-left: 0px;
   margin-right: 6px;
+}
+
+.info-label {
+  margin-bottom: 0;
+  justify-content: space-between;
+  text-align: left;
+  margin-left: 40px;
+  margin-right: 6px;
+  margin-bottom: 0px;
+  margin-top: 0;
+}
+
+.info {
+  margin-bottom: 10px;
+  text-align: left;
+  font-weight: 700;
+  margin-left: 50px;
+  margin-right: 40px;
+  margin-top: 0;
 }
 
 .interval {

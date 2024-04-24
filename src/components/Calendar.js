@@ -8,35 +8,36 @@ import { fetchAvailableSlots } from '../api/barberSlotsApi';
 const Calendar = (props) => {
     const [selectedDate, setDate] = useState(null);
     const [selectedSlot, setSlot] = useState(null);
-    const [availableSlots, setAvailableSlots] = useState([]);
-  const [selectedDateString, setSelectedDateString] = useState(null);
+    let [availableSlots, setAvailableSlots] = useState([]);
+    const [selectedDateString, setSelectedDateString] = useState(null);
   const barberData=props.barberData
+  const selectedServices=props.selectedServices
+
+  // selectedServices.onChange=()=>{
+  // console.log("Calendar reloaded. selectedServices:", selectedServices)
+  // if (selectedDateString && barberData.id && selectedServices.length > 0) {
+  //       fetchAvailableSlots(barberData.id, selectedDateString, selectedServices)
+  //           .then((slots) => setAvailableSlots(slots))
+  //           .catch((error) => console.error('Error fetching available slots:', error));
+  // }
+
+  // }
+  console.log("Calendar reloaded. selectedServices:", selectedServices)
   // const [resetKey, setResetKey] = useState(0);
   return (
      <CalendarStyle>
       <DatePicker
         value={selectedDate}
         onChange={(selectedDate)=>{ 
-            const year = selectedDate.getFullYear()
-            let month = selectedDate.getMonth() + 1
-            if (month < 10) {
-                month = `0${month}`
-            }
-            let day = selectedDate.getDate()
-            if (day < 10) {
-                day = `0${day}`
-            }
-            const selectedDateString = `${year}-${month}-${day}`
-            setSelectedDateString(selectedDateString)
-            
+            setDate(selectedDate)
+
             if (barberData.id) {
-                fetchAvailableSlots(barberData.id, selectedDateString)
+                fetchAvailableSlots(barberData.id, selectedDate, selectedServices)
                     .then((slots) => setAvailableSlots(slots))
                     .catch((error) => console.error('Error fetching available slots:', error));
             } else {
                     console.log("No selected barber ID", barberData.id)
             }
-            setDate(selectedDate)
 
             setSlot(null)
             // setResetKey((prevKey) => prevKey + 1);
@@ -48,10 +49,10 @@ const Calendar = (props) => {
 
       <TimeSlots 
       // key={resetKey}
-      selectedDate={selectedDateString} 
+      selectedDate={selectedDate} 
       selectedSlot={selectedSlot}
       setSlot={setSlot}
-      
+      selectedServices={selectedServices}
       availableSlots={availableSlots} 
       barberData={barberData}/>
     </CalendarStyle>

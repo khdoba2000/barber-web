@@ -5,6 +5,7 @@ import { Input} from '@mantine/core';
 import { useId } from '@mantine/hooks';
 import { IMaskInput } from 'react-imask';
 import { Link } from 'react-router-dom';
+import {dateFormatter} from '../util';
 
 import { Button } from '@mantine/core';
 import { createReservation } from '../api/createReservationApi'; // Import your API functions
@@ -24,6 +25,7 @@ const TimeSlots = (props) => {
     const [reservationMessage, setReservationMessage] = useState('');
     const [codeInput, setCodeInput] = useState(null);
 
+    const selectedServices=props.selectedServices
     // props.selectedDate.onChange(() => {
     //     setSelectedSlot(null);
     // })
@@ -54,13 +56,13 @@ const TimeSlots = (props) => {
     const handleReservationConfirm = () => {
         if (selectedSlot) {
             const reservationData = {
-                date: selectedDate,
+                date: dateFormatter(selectedDate),
                 time_start: selectedSlot.Start,
                 time_end: selectedSlot.End,
                 barber_info: {"id": barberData.id},
                 barbershop_info: {"id": barberData.barbershop_id},
                 client_phone: userPhone,
-                // services
+                services: selectedServices,
                 // Other reservation details like client phone, services, etc.
             };
 

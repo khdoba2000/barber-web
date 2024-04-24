@@ -30,19 +30,26 @@ const ServiceSelector = (props) => {
 
   const selectedServices = props.selectedServices;
   const setSelectedServices = props.setSelectedServices;
-
+  // const serviceChangeCallback = props.serviceChangeCallback
     const handleServiceSelection = (service) => {
         if (selectedServices.includes(service)) {
-            setSelectedServices(selectedServices.filter((id) => id !== service.id));
+            setSelectedServices(selectedServices.filter((s) => s.id !== service.id));
         } else {
             setSelectedServices([...selectedServices, service]);
         }
         console.log("Selected services", selectedServices);
+        // serviceChangeCallback(selectedServices);
     };
-
+    let defaultCheckedServiceID = ''
     
     let services=props.barberData.services;
-    const mappedServices = services.map((service, index) => {
+    if (services.length>0 &&
+        selectedServices.length==0 &&
+        !selectedServices.includes(services[0])) {//should be selected by default
+            setSelectedServices([...selectedServices, services[0]]);
+            defaultCheckedServiceID=services[0].id;
+    }
+    const mappedServices = services.map((service) => {
       const labelName = `${service.name} ` ;
       return(
       <ServiceCard key={service.id} value={service.id} >
@@ -50,7 +57,7 @@ const ServiceSelector = (props) => {
                 label={labelName} 
                 labelRight={`${service.duration}(min) - ${service.price}`} 
                 onChangeFunc={() => handleServiceSelection(service)}
-                isCheckedIn={index==0?true:false}/>                        
+                isCheckedIn={service.id===defaultCheckedServiceID}/>                        
       </ServiceCard>
       )
     });
@@ -118,31 +125,5 @@ const ServiceCard = styled.div`
   font-weight: 400;
 `;
 
-const ServiceDetails = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 12px;
-`;
-
-const ServiceIcon = styled.img`
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  left: 32px;
-  top: 244px;
-`;
-
-const ServiceName = styled.span`
-  font-family: Roboto, sans-serif;
-`;
-
-const Duration = styled.span`
-  font-weight: 400;
-`;
-
-const Price = styled.span`
-  color: #1d1d1d;
-  font: 20px Roboto, sans-serif;
-`;
 
 export default ServiceSelector;

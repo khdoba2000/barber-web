@@ -44,17 +44,17 @@ function BarberProfile() {
             <BarberStats>
               <Stat>
                 <StatValue>{barberData.rating}</StatValue>
-                <StatLabel>Rating</StatLabel>
+                <StatLabel>Reyting</StatLabel>
               </Stat>
               <StatDivider />
               <Stat>
                 <StatValue>{barberData.rated_cuts}</StatValue>
-                <StatLabel>Review</StatLabel>
+                <StatLabel>Baholar</StatLabel>
               </Stat>
               <StatDivider />
               <Stat>
                 <StatValue>{barberData.total_cuts}</StatValue>
-                <StatLabel>Works</StatLabel>
+                <StatLabel>Ishlari</StatLabel>
               </Stat>
             </BarberStats>
           </BarberInfo>
@@ -63,15 +63,11 @@ function BarberProfile() {
             <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/64e7603049f9aa8e170b26012953b52e60e2b9ca43542e42717f02ca71517af3?apiKey=70b926e372dc42878f761519e49b3044&" alt="Location icon" />
             <span>{barberData.barbershop_info.address}</span>
           </LocationText>
-          <BarberRating>
-            <RatingWrapper>
-              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/f71cb0884877195fec656a359a148165ea905df49ea2e86fc78073cae4ac6a3a?apiKey=70b926e372dc42878f761519e49b3044&" alt="Star icon" />
-              <RatingValue>{barberData.rating} {barberData.bio}</RatingValue>
-            </RatingWrapper>
-            <RatingLabel>{barberData.specialty}</RatingLabel>
-          </BarberRating>
+          <BarberBio>
+              {barberData.bio}
+          </BarberBio>
         
-        <WorkingHoursTitle>Working Hours</WorkingHoursTitle>
+        <WorkingHoursTitle>Ish vaqti</WorkingHoursTitle>
        
         <WorkingHours>
           {
@@ -80,19 +76,24 @@ function BarberProfile() {
         </WorkingHours>
         {/* {console.log("barberData:", barberData)}
         {console.log("testState:", testState)} */}
-
+       
+       <BookNowButton>
         <Link to={{
           pathname: `/booking/${id}`, 
           // state:  {testState},
         }}>
-        <BookNowButton>Book Now</BookNowButton>
-        </Link>
+          <BookNowButtonText>
+          Band qilish
+          </BookNowButtonText>
 
+        </Link>       
+        </BookNowButton>
         
         </ProfileHeader>
         
         <ProfileContent>
-        <HairCutsTitle>Hair cuts</HairCutsTitle>
+
+        <HairCutsTitle>Ishlari</HairCutsTitle>
         <HairCutsGallery>
         {
           getBarberPhotos(barberPhotos).map((hairCut) => (
@@ -105,6 +106,7 @@ function BarberProfile() {
            ))
         }
         </HairCutsGallery>
+        
       </ProfileContent>
 
       </ProfileWrapper>
@@ -119,7 +121,7 @@ const BarberSchedule = ({ schedule }) => {
               {weekdays.en.map((day, index) => (
                     <div key={index} className="schedule-item">
                      {/* <ProfileDay>{weekdays.uz[index]} <ProfileHour>{schedule[`${day.toLowerCase()}_interval`]}</ProfileHour></ProfileDay> */}
-                     <p className="weekday">{day}</p>
+                     <p className="weekday">{weekdays.uz[index]}</p>
                      <p className="interval">{schedule[`${day.toLowerCase()}_interval`]}</p>
                     </div>
                 ))
@@ -145,7 +147,7 @@ const BarberSchedule = ({ schedule }) => {
   
   const ProfileHeader = styled.header`
     background-color: #000;
-    padding: 12px 16px 12px;
+    padding: 2px 10px 6px;
     display: flex;
     flex-direction: column;
   `;
@@ -159,11 +161,11 @@ const BarberSchedule = ({ schedule }) => {
   `;
   
   const BarberAvatar = styled.img`
-    width: 72px;
-    aspect-ratio: 1;
+    width: 90px;
+    aspect-ratio: 0.95;
     object-fit: auto;
     object-position: center;
-    border: 3px solid rgba(255, 255, 255, 1);
+    border: 2px solid rgba(255, 255, 255, 1);
     border-radius: 50%;
   `;
   
@@ -180,11 +182,12 @@ const BarberSchedule = ({ schedule }) => {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
   `;
   
   const StatValue = styled.div`
     color: var(--White-bg, #fff);
-    font: 500 18px Roboto, sans-serif;
+    font: 600 28px Roboto, sans-serif;
     font-feature-settings: "clig" off, "liga" off;
     justify-content: center;
     white-space: nowrap;
@@ -192,9 +195,9 @@ const BarberSchedule = ({ schedule }) => {
   
   const StatLabel = styled.div`
     color: var(--Gray1, #959189);
-    font: 400 12px Roboto, sans-serif;
+    font: 500 14px Roboto, sans-serif;
     font-feature-settings: "clig" off, "liga" off;
-    margin-top: 4px;
+    margin-top: 2px;
   `;
   
   const StatDivider = styled.div`
@@ -228,7 +231,7 @@ const BarberSchedule = ({ schedule }) => {
     }
   `;
   
-  const BarberRating = styled.div`
+  const BarberBio = styled.div`
     display: flex;
     gap: 11px;
     color: var(--White-bg, #fff);
@@ -236,56 +239,40 @@ const BarberSchedule = ({ schedule }) => {
     margin-top: 11px;
   `;
   
-  const RatingWrapper = styled.div`
-    display: flex;
-    gap: 4px;
-    font: 500 16px Poppins, sans-serif;
-    white-space: nowrap;
-    align-self: start;
-  
-    img {
-      width: 16px;
-      aspect-ratio: 1;
-      object-fit: auto;
-      object-position: center;
-    }
-  `;
-  
-  const RatingValue = styled.span`
-    margin: auto 0;
-  `;
-  
-  const RatingLabel = styled.div`
-    font: 400 14px Poppins, sans-serif;
-    flex: 1;
-  `;
+ 
+ 
   
   const WorkingHoursTitle = styled.h2`
     color: var(--White-bg, #fff);
-    font: 700 16px Roboto, sans-serif;
+    font: 700 18px Roboto, sans-serif;
     font-feature-settings: "clig" off, "liga" off;
     letter-spacing: 0.06px;
-    margin-top: 26px;
+    margin-top: 20px;
+    margin-bottom: 0px;
   `;
   
   const WorkingHours = styled.div`
     color: var(--White-bg, #fff);
-    font: 14px Roboto, sans-serif;
+    font: 15px Roboto, sans-serif;
     letter-spacing: 0.15px;
-    margin-top: 21px;
-    padding: 0 1px;
+    padding: 0 2px;
   `;
 
   const BookNowButton = styled.button`
-    background-color: var(--Primary-orange, #c79b5e);
+    background-color: var(--Primary-orange, #b3532d);
     color: #fff;
-    font: 500 14px/24px Poppins, sans-serif;
+    font: 700 18px/24px Poppins, sans-serif;
     text-align: center;
-    padding: 12px 32px;
-    border-radius: 10px;
-    margin-top: 29px;
+    padding: 12px 22px;
+    border-radius: 150px;
+    margin-top: 20px;
     justify-content: center;
     align-items: center;
+  `;
+
+  const BookNowButtonText = styled.div`
+    color: #fff;
+    font: 700 18px/24px Poppins, sans-serif;
   `;
   
   const Tab = styled.div`

@@ -10,6 +10,8 @@ const BookingPage = () => {
   const { id } = useParams(); 
 
   const [barberData, setProfile] = useState(null);
+  const [selectedServices, setSelectedServices] = useState([]);
+
   const barberID = id
 
   console.log("barberID:", barberID) 
@@ -31,9 +33,15 @@ const BookingPage = () => {
       <div>
           {/* <Button>Click me!</Button>; */}
           <h2>Booking page</h2>
-          <ServiceSelector id={id} barberData={barberData} />
+          <ServiceSelector id={id} barberData={barberData} 
+          selectedServices={selectedServices} 
+          setSelectedServices={setSelectedServices}
+           />
           <Calendar barberID={barberID} barberData={barberData}/>
           {/* {/* Add a button to confirm booking */}
+          {/* {selectedServices.len > 0 && (
+            <p>selectedServices[0].name </p>
+          )} */}
       </div>
   );
 };

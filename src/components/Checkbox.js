@@ -2,8 +2,8 @@ import  { useState } from "react";
 import styled from "styled-components";
 
 
-const Checkbox = ({ label, labelRight, onChangeFunc }) => {
-    const [isChecked, setIsChecked] = useState(false);
+const Checkbox = ({ label, labelRight, onChangeFunc, isCheckedIn}) => {
+    const [isChecked, setIsChecked] = useState(isCheckedIn);
 
     return (
     
@@ -11,7 +11,7 @@ const Checkbox = ({ label, labelRight, onChangeFunc }) => {
           <input
             type="checkbox"
             onChange={onChangeFunc!=null?
-                ()=>{setIsChecked(!isChecked);onChangeFunc();}
+                ()=>{setIsChecked(!isChecked); onChangeFunc();}
                 :()=>setIsChecked(!isChecked)}
 
             className={isChecked ? "checked" : ""}

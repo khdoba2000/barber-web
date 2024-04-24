@@ -28,13 +28,16 @@ import Checkbox from './Checkbox';
 
 const ServiceSelector = (props) => {
 
-    const [selectedServices, setSelectedServices] = useState([]);
-    const handleServiceSelection = (serviceId) => {
-        if (selectedServices.includes(serviceId)) {
-            setSelectedServices(selectedServices.filter((id) => id !== serviceId));
+  const selectedServices = props.selectedServices;
+  const setSelectedServices = props.setSelectedServices;
+
+    const handleServiceSelection = (service) => {
+        if (selectedServices.includes(service)) {
+            setSelectedServices(selectedServices.filter((id) => id !== service.id));
         } else {
-            setSelectedServices([...selectedServices, serviceId]);
+            setSelectedServices([...selectedServices, service]);
         }
+        console.log("Selected services", selectedServices);
     };
 
     
@@ -46,8 +49,8 @@ const ServiceSelector = (props) => {
              <Checkbox 
                 label={labelName} 
                 labelRight={`${service.duration}(min) - ${service.price}`} 
-                onChangeFunc={() => handleServiceSelection(service.id)}
-                checked={index==0?true:false}/>                        
+                onChangeFunc={() => handleServiceSelection(service)}
+                isCheckedIn={index==0?true:false}/>                        
       </ServiceCard>
       )
     });
@@ -61,7 +64,7 @@ const ServiceSelector = (props) => {
           </IconWrapper>
           </Link>
         </Header>
-        {mappedServices}       
+        {mappedServices}    
       </Container>
     );
 }

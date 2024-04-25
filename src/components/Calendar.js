@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import styled from "styled-components";
 
 import { DatePicker } from '@mantine/dates';
@@ -6,26 +6,30 @@ import TimeSlots from './TimeSlots';
 import { fetchAvailableSlots } from '../api/barberSlotsApi';
 import ServiceSelector from './ServiceSelector';
 
+
 const Calendar = (props) => {
-    const [selectedDate, setDate] = useState(null);
-    const [selectedSlot, setSlot] = useState(null);
-    let [availableSlots, setAvailableSlots] = useState([]);
+  const [selectedDate, setDate] = useState(null);
+  let [availableSlots, setAvailableSlots] = useState([]);
   const [isReservationSucceeded, setIsReservationSucceeded] = useState(false);
   const barberData=props.barberData
 
   const [selectedServices, setSelectedServices] = useState([]);
+  
+  useEffect(() => {
+    console.log("useEffect reloaded. selectedDate,barberData.id,selectedServices.length:", selectedDate, barberData.id,selectedServices.length)
+    if (barberData.id && selectedDate && selectedServices.length>0) {
+       fetchAvailableSlots(barberData.id, selectedDate, selectedServices)
+          .then((slots) => setAvailableSlots(slots))
+          .catch((error) => console.error('Error fetching available slots:', error));
+    } else {
+          console.log("No selected barber ID", barberData.id)
+    }
+  }, [selectedServices]);
 
-  // selectedServices.onChange=()=>{
-  // console.log("Calendar reloaded. selectedServices:", selectedServices)
-  // if (selectedDateString && barberData.id && selectedServices.length > 0) {
-  //       fetchAvailableSlots(barberData.id, selectedDateString, selectedServices)
-  //           .then((slots) => setAvailableSlots(slots))
-  //           .catch((error) => console.error('Error fetching available slots:', error));
-  // }
-
-  // }
   console.log("Calendar reloaded. selectedServices: ,isReservationSucceeded: ", selectedServices, isReservationSucceeded)
   // const [resetKey, setResetKey] = useState(0);
+  // refreshSlots(selectedServices);
+
   return (
      <CalendarStyle>
       {!isReservationSucceeded && (
@@ -33,26 +37,22 @@ const Calendar = (props) => {
         barberData={barberData} 
         selectedServices={selectedServices} 
         setSelectedServices={setSelectedServices}
-        // serviceChangeCallback={serviceChangeCallback}
        />
       )}
+
       {!isReservationSucceeded &&(
 
-     
       <DatePicker
         value={selectedDate}
         onChange={(selectedDate)=>{ 
-            setDate(selectedDate)
-
+            setDate(selectedDate);
             if (barberData.id) {
-                fetchAvailableSlots(barberData.id, selectedDate, selectedServices)
-                    .then((slots) => setAvailableSlots(slots))
-                    .catch((error) => console.error('Error fetching available slots:', error));
+              fetchAvailableSlots(barberData.id, selectedDate, selectedServices)
+                  .then((slots) => setAvailableSlots(slots))
+                  .catch((error) => console.error('Error fetching available slots:', error));
             } else {
-                    console.log("No selected barber ID", barberData.id)
+                  console.log("No selected barber ID", barberData.id)
             }
-
-            setSlot(null)
             // setResetKey((prevKey) => prevKey + 1);
         }}
         defaultDate={new Date()}
@@ -64,8 +64,6 @@ const Calendar = (props) => {
       <TimeSlots 
       // key={resetKey}
       selectedDate={selectedDate} 
-      selectedSlot={selectedSlot}
-      setSlot={setSlot}
       selectedServices={selectedServices}
       availableSlots={availableSlots} 
       barberData={barberData}

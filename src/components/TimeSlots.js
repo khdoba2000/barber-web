@@ -61,8 +61,10 @@ const ReservationInfo = ({selectedSlot, selectedServices}) => {
    
 
 const TimeSlots = (props) => {
-    const selectedSlot = props.selectedSlot;
-    const setSelectedSlot = props.setSlot;
+    const [selectedSlot, setSelectedSlot] = useState(null);
+
+    // const selectedSlot = props.selectedSlot;
+    // const setSelectedSlot = props.setSlot;
     const availableSlots = props.availableSlots
     const isReservationSucceeded = props.isReservationSucceeded;
     const setIsReservationSucceeded = props.setIsReservationSucceeded
@@ -181,8 +183,8 @@ const TimeSlots = (props) => {
         }
     };
 
-    useEffect(() => {
-    }, {selectedSlot, selectedServices, selectedDate, barberData});
+    // useEffect(() => {
+    // }, {selectedSlot, selectedServices, selectedDate, barberData});
     
     const id = useId();
     return (
@@ -206,7 +208,7 @@ const TimeSlots = (props) => {
                     <Modal 
                     opened={opened} 
                     onClose={handleModalClose} 
-                    title={barberData.fullname + 'da buyurtmani tasdiqlash'}
+                    title={barberData.fullname + ' da buyurtmani tasdiqlash'}
                     position="bottom"
                     classNames={{
                         wrapper: 'custom-modal-wrapper', // Custom class for modal wrapper

@@ -29,12 +29,29 @@ body {
   margin-bottom: 0;
   justify-content: space-between;
   text-align: left;
-  margin-left: 40px;
+  margin-left: 0px;
   margin-right: 6px;
   margin-bottom: 0px;
   margin-top: 0;
 }
 
+.custom-modal-wrapper {
+  align-items: flex-end !important; /* Align modal at the bottom */
+}
+
+.custom-modal-dialog {
+  max-width: 90%; /* Adjust the maximum width of the modal */
+  margin: 10px auto; /* Add margin to center the modal horizontally */
+}
+
+.custom-modal-overlay {
+  background-color: rgba(0, 0, 0, 0.5); /* Customize the overlay background */
+}
+
+.modal-content {
+  padding: 20px; /* Add padding to the modal content */
+  background-color: white; /* Customize the modal content background */
+}
 .info {
   margin-bottom: 10px;
   text-align: left;

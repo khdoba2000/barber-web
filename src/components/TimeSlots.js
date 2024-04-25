@@ -1,5 +1,5 @@
 // TimeSlots.js
-import React, { useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from "styled-components";
 import { Input} from '@mantine/core';
 import { useId, useDisclosure } from '@mantine/hooks';
@@ -38,6 +38,9 @@ const TimeSlots = (props) => {
 
     const selectedServiceNames = selectedServices.map((service) => service.name).join(', ');
     const [opened, { open, close }] = useDisclosure(false);
+    const handleModalClose = () => {
+        close();
+    }
 
     // const selectedServicesPrice = selectedServices.map((service) => service.price).
     // props.selectedDate.onChange(() => {
@@ -65,6 +68,7 @@ const TimeSlots = (props) => {
 
     const handleSlotSelection = (slot) => {
         setSelectedSlot(slot);
+        open();
     };
 
     const handleReservationConfirm = () => {
@@ -91,12 +95,17 @@ const TimeSlots = (props) => {
                         console.log('response.id:', response.id);
                         setReservationMessage('Bron muvaffaqiyatli amalga oshirildi.');
                     } else if (response.message){
-                        setReservationMessage(response.message);
-                    }else{
+                        console.log('Reservation failed:', response.message);
+                        setReservationMessage('Bron amalga oshirilmadi. Iltimos, qaytadan urinib ko\'ring. Xatolik:'+response.message);
+                    } else {
                         // Handle failed reservation
                         console.log('Reservation failed:', response);
                         setReservationMessage('Bron amalga oshirilmadi. Iltimos, qaytadan urinib ko\'ring.');
                     }
+                } else {
+                    // Handle failed reservation
+                    console.log('Reservation failed: no response', response);
+                    setReservationMessage('Bron amalga oshirilmadi. Iltimos, qaytadan urinib ko\'ring.');
                 }
                 })
                 .catch((error) => console.error('Error creating reservation:', error));
@@ -115,7 +124,7 @@ const TimeSlots = (props) => {
         console.log('response:', response==null);
         console.log('success:', success);
         // if (success){
-            open()
+           
         // }
     };
 
@@ -128,6 +137,8 @@ const TimeSlots = (props) => {
         }
     };
 
+    useEffect(() => {
+    }, {selectedSlot, selectedServices, selectedDate, barberData});
     
     const id = useId();
     return (
@@ -146,105 +157,119 @@ const TimeSlots = (props) => {
                 ))}
             </SlotContainer>
             {selectedSlot && (
-                <div >
-                            <div>
+                <div className='modal'> 
+                    <Modal 
+                    opened={opened} 
+                    onClose={handleModalClose} 
+                    title={barberData.fullname + 'da buyurtmani tasdiqlash'}
+                    position="bottom"
+                    classNames={{
+                        wrapper: 'custom-modal-wrapper', // Custom class for modal wrapper
+                        overlay: 'custom-modal-overlay', // Custom class for modal overlay
+                        dialog: 'custom-modal-dialog', // Custom class for modal dialog
+                    }}
+                    >
+
+                    {
+                    <div>
+                        <div>
                             <p className="info-label">
                                 Tanlangan vaqt: 
                             </p>
                             <p className="info">
                             {selectedSlot.Start} - {selectedSlot.End}
                             </p>
-                            </div>
-                            
-                            <div>
+                        </div>
+                     
+                        <div>
                             <p className="info-label">
                                 Tanlangan xizmat(lar):
                             </p> 
                             <p className="info">
                             {selectedServiceNames}
                             </p>
+                        </div>
 
-                            </div>
-
-                            <div>
+                        <div>
                             <p className="info-label">
                                 Umumiy narx: 
                             </p>
                             <p className="info">
-                            {calculatePriceSum(selectedServices)} so'm
+                                {calculatePriceSum(selectedServices)} so'm
+                            </p>
+                        </div>
+                       
+                    </div>
+                    }
+                   
+                        <Input.Wrapper
+                                    id={id} label="Telefon raqamingizni kiriting" 
+                                    required maw={520} 
+                                    message={message}
+                        >
+                        <Input
+                            component={IMaskInput}
+                            mask="+998(00) 000-00-00"
+                            id={id}
+                            placeholder="Telefon raqamingizni kiriting"
+                            defaultValue={userPhone?userPhone:'+998'}
+                            required={true}
+                            onChange={(event) => {
+                                console.log('Phone:', event.target.value);
+                                if (event.target.value.length >= 18) {
+                                    setUserPhone(reformatPhoneNumber(event.target.value));
+                                    setEnableSendCode(true);
+                                }else{
+                                    setEnableSendCode(false);
+                                }
+                                setIsCodeVerified(false);
+                                setMessage('');
+                                setCodeInput('');
+                                setIsCodeSent(false);
+                            }}
+                        />
+
+                            <div className='info-label'>
+                            {enableSendCode && (
+                                <Button 
+                                    onClick={handleSendCode} 
+                                    fullWidth={true}
+                                >
+                                    Kod yuborish
+                                </Button>
+                            )}
+
+                            <p className="info">
+                            {message!='' && (
+                                <p>{message}</p>
+                            )} 
                             </p>
                             </div>
-
-                   
-                    <Input.Wrapper id={id} label="Telefon raqam" required maw={320} mx="auto">
-                    <Input
-                        component={IMaskInput}
-                        mask="+998(00) 000-00-00"
-                        id={id}
-                        placeholder="Telefon raqamingizni kiriting"
-                        defaultValue="+998"
-                        required={true}
-                        onChange={(event) => {
-                            console.log('Phone:', event.target.value);
-                            if (event.target.value.length >= 18) {
-                                setUserPhone(reformatPhoneNumber(event.target.value));
-                                setEnableSendCode(true);
-                            }else{
-                                setEnableSendCode(false);
+                        
+                            {isCodeSent && !isCodeVerified &&(<Input id={id} 
+                                    data-autofocus
+                                    title={"+"+userPhone+" ga yuborilgan sms kodni kiriting"}
+                                    mt="md"
+                                    placeholder={"Tasdiqlash kodini kiriting"}
+                                    onChange={(event) => handleCodeInput(event.target.value)}
+                                    allowNegative={false}
+                                    value={codeInput}
+                                    maxLength={4}
+                                    disabled={isCodeVerified}
+                                />)
                             }
-                            setIsCodeVerified(false);
-                            setMessage('');
-                            setCodeInput('');
-                            setIsCodeSent(false);
-                        }}
-                    />
-                    <Modal opened={opened} onClose={close} title="">
-                    {isCodeSent && (<Input id={id} 
-                            data-autofocus
-                            title="Yuborilgan sms kodni kiriting"
-                            mt="md"
-                            placeholder="Yuborilgan sms kodni kiriting" 
-                            onChange={(event) => handleCodeInput(event.target.value)}
-                            allowNegative={false}
-                            value={codeInput}
-                            disabled={isCodeVerified}
-                        />)
-                        }
-                    {!isCodeSent && (<p>{message}</p>)}
-                    </Modal>
-                    </Input.Wrapper>
+                             {isCodeVerified && (
+                            <AcceptButton onClick={handleReservationConfirm}>
+                                Buyurtmani tasdiqlash
+                            </AcceptButton>)
+                            }
+                            {reservationMessage && (
+                                <p>{reservationMessage}</p>
+                            )}
+                         </Input.Wrapper>
+
                    
-                    <div className='info-label'>
-                    {enableSendCode && (
-                        <Button onClick={handleSendCode}>Kod yuborish</Button>
-                    )}
-                    <p className="info">
-                    {message!='' && (
-                        <p>{message}</p>
-                    )} 
-                    </p>
-                    </div>
-        
-
-                <Link to={{
-                    pathname: `/barbers/${barberData.id}`, 
-                    // state:  {testState},
-                    }}>
-                     {( <IconWrapper>
-                                <Icon src="https://cdn.builder.io/api/v1/image/assets/TEMP/82bdbaf7d9576d129b6a07c4693b6c81faa1282868e1822876c984946f76f55b?apiKey=70b926e372dc42878f761519e49b3044&" alt="Schedule icon" />
-                        </IconWrapper> 
-                    )}
-                </Link>
-                {isCodeVerified && (
-
-                        <AcceptButton onClick={handleReservationConfirm}>
-                            Tasdiqlash
-                        </AcceptButton>
-
-                )}
-                {reservationMessage && (
-                    <p>{reservationMessage}</p>
-                )}
+                    </Modal>
 
                 </div>
             )}

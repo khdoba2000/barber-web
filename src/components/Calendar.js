@@ -4,14 +4,16 @@ import styled from "styled-components";
 import { DatePicker } from '@mantine/dates';
 import TimeSlots from './TimeSlots';
 import { fetchAvailableSlots } from '../api/barberSlotsApi';
+import ServiceSelector from './ServiceSelector';
 
 const Calendar = (props) => {
     const [selectedDate, setDate] = useState(null);
     const [selectedSlot, setSlot] = useState(null);
     let [availableSlots, setAvailableSlots] = useState([]);
-    const [selectedDateString, setSelectedDateString] = useState(null);
+  const [isReservationSucceeded, setIsReservationSucceeded] = useState(false);
   const barberData=props.barberData
-  const selectedServices=props.selectedServices
+
+  const [selectedServices, setSelectedServices] = useState([]);
 
   // selectedServices.onChange=()=>{
   // console.log("Calendar reloaded. selectedServices:", selectedServices)
@@ -22,10 +24,21 @@ const Calendar = (props) => {
   // }
 
   // }
-  console.log("Calendar reloaded. selectedServices:", selectedServices)
+  console.log("Calendar reloaded. selectedServices: ,isReservationSucceeded: ", selectedServices, isReservationSucceeded)
   // const [resetKey, setResetKey] = useState(0);
   return (
      <CalendarStyle>
+      {!isReservationSucceeded && (
+        <ServiceSelector 
+        barberData={barberData} 
+        selectedServices={selectedServices} 
+        setSelectedServices={setSelectedServices}
+        // serviceChangeCallback={serviceChangeCallback}
+       />
+      )}
+      {!isReservationSucceeded &&(
+
+     
       <DatePicker
         value={selectedDate}
         onChange={(selectedDate)=>{ 
@@ -46,7 +59,8 @@ const Calendar = (props) => {
         minDate={new Date(2024, 3, 18)}
         maxDate={new Date(2026, 8, 1)}
       />
-
+      )}
+      
       <TimeSlots 
       // key={resetKey}
       selectedDate={selectedDate} 
@@ -54,7 +68,10 @@ const Calendar = (props) => {
       setSlot={setSlot}
       selectedServices={selectedServices}
       availableSlots={availableSlots} 
-      barberData={barberData}/>
+      barberData={barberData}
+      isReservationSucceeded={isReservationSucceeded}
+      setIsReservationSucceeded={setIsReservationSucceeded} 
+      />
     </CalendarStyle>
   );
 };

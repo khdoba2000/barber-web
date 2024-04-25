@@ -20,10 +20,52 @@ const calculatePriceSum = (arr) => {
     }, 0);
   }
 
+
+const ReservationInfo = ({selectedSlot, selectedServices}) => {
+    const selectedServiceNames = selectedServices.map((service) => service.name).join(', ');
+
+    console.log(`reservationInfo: ${selectedSlot.Start} - ${selectedSlot.End}`);
+    console.log(`selectedServiceNames: ${selectedServiceNames}`);
+    return (
+        <div>
+            <div>
+                <p className="info-label">
+                    Tanlangan vaqt: 
+                </p>
+                <p className="info">
+                {selectedSlot.Start} - {selectedSlot.End}
+                </p>
+            </div>
+         
+            <div>
+                <p className="info-label">
+                    Tanlangan xizmat(lar):
+                </p> 
+                <p className="info">
+                {selectedServiceNames}
+                </p>
+            </div>
+
+            <div>
+                <p className="info-label">
+                    Umumiy narx: 
+                </p>
+                <p className="info">
+                    {calculatePriceSum(selectedServices)} so'm
+                </p>
+            </div>
+           
+        </div>
+        )
+}
+   
+
 const TimeSlots = (props) => {
     const selectedSlot = props.selectedSlot;
     const setSelectedSlot = props.setSlot;
     const availableSlots = props.availableSlots
+    const isReservationSucceeded = props.isReservationSucceeded;
+    const setIsReservationSucceeded = props.setIsReservationSucceeded
     const barberData = props.barberData
     const selectedDate = props.selectedDate
     const [userPhone, setUserPhone] = useState(null);
@@ -36,7 +78,6 @@ const TimeSlots = (props) => {
 
     const selectedServices=props.selectedServices
 
-    const selectedServiceNames = selectedServices.map((service) => service.name).join(', ');
     const [opened, { open, close }] = useDisclosure(false);
     const handleModalClose = () => {
         close();
@@ -91,6 +132,8 @@ const TimeSlots = (props) => {
                     console.log('response.data:', response.data);
                     if (response.id) {
                         // Handle successful reservation
+                        setIsReservationSucceeded(true);
+                        close();
                         console.log('Reservation successful:', response);
                         console.log('response.id:', response.id);
                         setReservationMessage('Bron muvaffaqiyatli amalga oshirildi.');
@@ -114,6 +157,7 @@ const TimeSlots = (props) => {
 
 
     const handleSendCode = async () => {
+        setEnableSendCode(false);
         console.log('Phone:', userPhone);
         const response = await sendVerificationCode(userPhone);
         setMessage(response ? '' : 'Kod yuborilmadi. Iltimos, qaytadan urinib ko\'ring.');
@@ -143,7 +187,7 @@ const TimeSlots = (props) => {
     const id = useId();
     return (
         <div>
-            <SlotContainer>
+            {!isReservationSucceeded && (<SlotContainer>
                 {availableSlots.map((slot, index) => (
                     <SlotItem key={index}>
                         <SlotButton key={index} 
@@ -155,8 +199,9 @@ const TimeSlots = (props) => {
                         </SlotButton>
                     </SlotItem>
                 ))}
-            </SlotContainer>
-            {selectedSlot && (
+            </SlotContainer>)
+            }
+            {selectedSlot && !isReservationSucceeded && (
                 <div className='modal'> 
                     <Modal 
                     opened={opened} 
@@ -170,37 +215,10 @@ const TimeSlots = (props) => {
                     }}
                     >
 
-                    {
-                    <div>
-                        <div>
-                            <p className="info-label">
-                                Tanlangan vaqt: 
-                            </p>
-                            <p className="info">
-                            {selectedSlot.Start} - {selectedSlot.End}
-                            </p>
-                        </div>
-                     
-                        <div>
-                            <p className="info-label">
-                                Tanlangan xizmat(lar):
-                            </p> 
-                            <p className="info">
-                            {selectedServiceNames}
-                            </p>
-                        </div>
-
-                        <div>
-                            <p className="info-label">
-                                Umumiy narx: 
-                            </p>
-                            <p className="info">
-                                {calculatePriceSum(selectedServices)} so'm
-                            </p>
-                        </div>
-                       
-                    </div>
-                    }
+                    <ReservationInfo 
+                        selectedSlot={selectedSlot}
+                        selectedServices={selectedServices}
+                    />
                    
                         <Input.Wrapper
                                     id={id} label="Telefon raqamingizni kiriting" 
@@ -270,6 +288,19 @@ const TimeSlots = (props) => {
 
                    
                     </Modal>
+
+                </div>
+            )}
+            {isReservationSucceeded && (
+                <div>
+                <div style={{"margin-bottom": "10px"}}>
+                <p className="info-label">Sizning buyurtmangiz qabul qilindi</p>
+                </div>
+
+                <ReservationInfo 
+                        selectedSlot={selectedSlot}
+                        selectedServices={selectedServices}
+                    />
 
                 </div>
             )}

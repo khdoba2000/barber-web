@@ -3,14 +3,12 @@ import styled from "styled-components";
 import { useParams } from 'react-router-dom';
 
 import Calendar from './Calendar';
-import ServiceSelector from './ServiceSelector';
 import { fetchBarberProfile } from '../api/barberProfileApi';
 
 const BookingPage = () => {
   const { id } = useParams(); 
 
   const [barberData, setProfile] = useState(null);
-  const [selectedServices, setSelectedServices] = useState([]);
 
   const barberID = id
 
@@ -34,17 +32,9 @@ const BookingPage = () => {
 
           {/* <Button>Click me!</Button>; */}
           <h2>{barberData.fullname}</h2>
-          <ServiceSelector 
-            id={id} 
-            barberData={barberData} 
-            selectedServices={selectedServices} 
-            setSelectedServices={setSelectedServices}
-            // serviceChangeCallback={serviceChangeCallback}
-           />
+          
           <Calendar 
-            barberID={barberID} 
             barberData={barberData}
-            selectedServices={selectedServices}
           />
           {/* {/* Add a button to confirm booking */}
           {/* {selectedServices.len > 0 && (

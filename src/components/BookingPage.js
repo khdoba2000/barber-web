@@ -32,7 +32,7 @@ const BookingPage = () => {
 
           {/* <Button>Click me!</Button>; */}
           <Header>
-        <Link to={`/barbers/${barberData.id}`}>
+        <Link to={`/${barberData.id}`}>
           <IconWrapper>
             <Icon src="https://cdn.builder.io/api/v1/image/assets/TEMP/82bdbaf7d9576d129b6a07c4693b6c81faa1282868e1822876c984946f76f55b?apiKey=70b926e372dc42878f761519e49b3044&" alt="Schedule icon" />
           </IconWrapper>

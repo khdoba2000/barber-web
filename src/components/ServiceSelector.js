@@ -1,7 +1,6 @@
 import * as React from "react";
 import  { useState } from "react";
 import styled from "styled-components";
-import { Link } from 'react-router-dom';
 import Checkbox from './Checkbox';
 // const services = [
 //   {
@@ -64,13 +63,6 @@ const ServiceSelector = (props) => {
 
     return (
       <Container>
-        <Header>
-        <Link to={`/barbers/${props.barberData.id}`}>
-          <IconWrapper>
-            <Icon src="https://cdn.builder.io/api/v1/image/assets/TEMP/82bdbaf7d9576d129b6a07c4693b6c81faa1282868e1822876c984946f76f55b?apiKey=70b926e372dc42878f761519e49b3044&" alt="Schedule icon" />
-          </IconWrapper>
-          </Link>
-        </Header>
         {mappedServices}    
       </Container>
     );
@@ -81,26 +73,6 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   max-width: 375px;
-`;
-
-const Header = styled.header`
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 0 16px 16px;
-  width: 100%;
-`;
-
-const IconWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Icon = styled.img`
-  width: 24px;
-  aspect-ratio: 1;
-  object-fit: contain;
 `;
 
 // const Heading = styled.h1`

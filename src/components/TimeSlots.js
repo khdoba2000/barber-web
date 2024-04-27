@@ -3,11 +3,9 @@ import React, { useEffect, useState, useRef } from 'react';
 import styled from "styled-components";
 import { Input} from '@mantine/core';
 import { useId, useDisclosure } from '@mantine/hooks';
-import { Modal, Button, TextInput } from '@mantine/core';
-
+import { Modal, Button, rem } from '@mantine/core';
 
 import { IMaskInput } from 'react-imask';
-import { Link } from 'react-router-dom';
 import {dateFormatter} from '../util';
 
 import { createReservation } from '../api/createReservationApi'; // Import your API functions
@@ -54,6 +52,8 @@ const ReservationInfo = ({selectedSlot, selectedServices}) => {
                     {calculatePriceSum(selectedServices)} so'm
                 </p>
             </div>
+
+           
            
         </div>
         )
@@ -279,9 +279,29 @@ const TimeSlots = (props) => {
                                 />)
                             }
                              {isCodeVerified && (
-                            <AcceptButton onClick={handleReservationConfirm}>
-                                Buyurtmani tasdiqlash
-                            </AcceptButton>)
+
+                            <Button 
+                                variant="gradient" 
+                                onClick={handleReservationConfirm}
+                                gradient={{ from: 'green', to: 'green' }}
+                                styles={(theme) => ({
+                                root: {
+                                height: rem(42),
+                                marginTop: rem(10),
+                                paddingLeft: rem(40),
+                                paddingRight: rem(40),
+                                '&:not([data-disabled])': theme.fn.hover({
+                                    backgroundColor: theme.fn.darken('#00acee', 0.05),
+                                }),
+                                },
+                                })}
+                            >
+                            Buyurtmani tasdiqlash
+                            </Button>
+                            // <AcceptButton onClick={handleReservationConfirm}>
+                            //     Buyurtmani tasdiqlash
+                            // </AcceptButton>
+                            )
                             }
                             {reservationMessage && (
                                 <p>{reservationMessage}</p>
@@ -296,14 +316,24 @@ const TimeSlots = (props) => {
             {isReservationSucceeded && (
                 <div>
                 <div style={{"margin-bottom": "10px"}}>
-                <p className="info-label">Sizning buyurtmangiz qabul qilindi</p>
+                <p className="info-label">
+                </p>
                 </div>
-
+                    Sizning buyurtmangiz sartaroshga yuborildi. Sartarosh telefoni <a href={`tel:${barberData.phone_number}`}>{barberData.phone_number}</a>
+            
                 <ReservationInfo 
                         selectedSlot={selectedSlot}
                         selectedServices={selectedServices}
                     />
 
+            <div>
+                <h3 className="info-label">
+                    Iltimos, buyurtmangizni kuzatish uchun ilovamizni yuklab oling
+                    </h3>
+                <p className="info" >
+                    <a href="https://t.me/ubarberapp" target="_blank">UBarber ilovasi</a>
+                </p>
+            </div>
                 </div>
             )}
         </div>
@@ -349,7 +379,7 @@ const SlotButton = styled.button`
     width: 80%;
     color: ${({ busy, selected }) => (busy ? '#fff' : (selected ? '#fff' : '--Dark, #323232'))};
 
-    background-color: ${({ busy, selected }) => (busy ? '#ffcccc' : (selected ? `var(--Primary-Orange, #fa5252)` : '#fff'))};
+    background-color: ${({ busy, selected }) => (busy ? '#ffcccc' : (selected ? `var(--Primary-Blue, #248BE6)` : '#fff'))};
     cursor: ${({ busy }) => (busy ? 'not-allowed' : 'pointer')};
 
     align-items: center;
@@ -362,44 +392,4 @@ const SlotButton = styled.button`
         background-color: #ddd;
         cursor: not-allowed;
     }
-`;
-
-const SlotItem2 = styled.button`
-    font-family: Roboto, sans-serif;
-    justify-content: center;
-    border-radius: 14px;
-    border-color: rgba(208, 215, 222, 1);
-    border-style: solid;
-    border-width: 1px;
-    background-color: #fff;
-    color: var(--Dark, #323232);
-`;
-
-
-const IconWrapper = styled.div`
-  display: flex;
-  justify-content: left;
-  align-items: left;
-  color: var(--Primary-Orange, #b3532d);
-`;
-
-const Icon = styled.img`
-  width: 24px;
-  aspect-ratio: 1;
-  object-fit: contain;
-  color: var(--Primary-Orange, #b3532d);
-`;
-
-
-
-const AcceptButton = styled.button`
-background-color: var(--Primary-orange, #b3532d);
-color: #fff;
-font: 700 18px/24px Poppins, sans-serif;
-text-align: right;
-padding: 12px 22px;
-border-radius: 150px;
-margin-top: 0px;
-justify-content: right;
-align-items: right;
 `;

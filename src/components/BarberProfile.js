@@ -177,8 +177,8 @@ const BarberSchedule = ({ schedule }) => {
   
   const BarberAvatar = styled.img`
     width: 90px;
-    aspect-ratio: 0.95;
-    object-fit: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
     object-position: center;
     border: 2px solid rgba(255, 255, 255, 1);
     border-radius: 50%;

@@ -3,7 +3,9 @@ import React, { useEffect, useState, useRef } from 'react';
 import styled from "styled-components";
 import { Input} from '@mantine/core';
 import { useId, useDisclosure } from '@mantine/hooks';
-import { Modal, Button, rem } from '@mantine/core';
+import { Modal, Button, rem, Group } from '@mantine/core';
+
+import OtpInput from 'react-otp-input';
 
 import { IMaskInput } from 'react-imask';
 import {dateFormatter} from '../util';
@@ -63,6 +65,7 @@ const ReservationInfo = ({selectedSlot, selectedServices}) => {
 const TimeSlots = (props) => {
     const [selectedSlot, setSelectedSlot] = useState(null);
 
+
     // const selectedSlot = props.selectedSlot;
     // const setSelectedSlot = props.setSlot;
     const availableSlots = props.availableSlots
@@ -77,7 +80,9 @@ const TimeSlots = (props) => {
     const [isCodeVerified, setIsCodeVerified] = useState(null);
     const [reservationMessage, setReservationMessage] = useState('');
     const [codeInput, setCodeInput] = useState(null);
-
+    const [minutes, setMinutes] = useState(0);
+    const [seconds, setSeconds] = useState(30);
+    
     const selectedServices=props.selectedServices
 
     const [opened, { open, close }] = useDisclosure(false);
@@ -159,6 +164,8 @@ const TimeSlots = (props) => {
 
 
     const handleSendCode = async () => {
+        setMinutes(0);
+        setSeconds(30);
         setEnableSendCode(false);
         console.log('Phone:', userPhone);
         const response = await sendVerificationCode(userPhone);
@@ -182,6 +189,27 @@ const TimeSlots = (props) => {
             setIsCodeVerified(response ? true : false);
         }
     };
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+          if (seconds > 0) {
+            setSeconds(seconds - 1);
+          }
+      
+          if (seconds === 0) {
+            if (minutes === 0) {
+              clearInterval(interval);
+            } else {
+              setSeconds(59);
+              setMinutes(minutes - 1);
+            }
+          }
+        }, 1000);
+      
+        return () => {
+          clearInterval(interval);
+        };
+      }, [seconds]);
 
     // useEffect(() => {
     // }, {selectedSlot, selectedServices, selectedDate, barberData});
@@ -233,6 +261,7 @@ const TimeSlots = (props) => {
                             id={id}
                             placeholder="Telefon raqamingizni kiriting"
                             defaultValue={userPhone?userPhone:'+998'}
+                            size="middle"
                             required={true}
                             onChange={(event) => {
                                 console.log('Phone:', event.target.value);
@@ -266,18 +295,47 @@ const TimeSlots = (props) => {
                             </p>
                             </div>
                         
-                            {isCodeSent && !isCodeVerified &&(<Input id={id} 
-                                    data-autofocus
-                                    title={"+"+userPhone+" ga yuborilgan sms kodni kiriting"}
-                                    mt="md"
-                                    placeholder={"Tasdiqlash kodini kiriting"}
-                                    onChange={(event) => handleCodeInput(event.target.value)}
-                                    allowNegative={false}
-                                    value={codeInput}
-                                    maxLength={4}
-                                    disabled={isCodeVerified}
-                                />)
+                            {isCodeSent && !isCodeVerified && (
+                                <p>+{userPhone} ga yuborilgan sms kodni kiriting</p>
+                            )
                             }
+                            {isCodeSent &&!isCodeVerified && (
+                               <p> <OtpInput 
+                               value={codeInput}
+                               inputStyle={{fontSize:24}}
+                               onChange={handleCodeInput}
+                               numInputs={4}
+                               renderSeparator={<span> - </span>}
+                               renderInput={(props) => <input {...props} />}
+                             />
+                             </p>
+                            )
+                            }
+                            {isCodeSent && !isCodeVerified && (
+                                <Group >
+                                {seconds > 0 || minutes > 0 ? (
+                                    <p>  
+                                     {minutes < 10 ? `0${minutes}` : minutes}: 
+                                    {seconds < 10 ? `0${seconds}` : seconds} dan keyin
+                                    </p>
+                                ) : (
+                                    <p>Kod kelmadimi?</p>
+                                )}
+
+                                <Button
+                                    disabled={seconds > 0 || minutes > 0}
+                                    style={{
+                                    color: seconds > 0 || minutes > 0 ? "grey" : "black",
+                                    }}
+                                    onClick={handleSendCode}
+                                >
+                                   Qaytadan yuborish
+                                </Button>
+                                
+                                </Group>
+                            )}
+                    
+
                              {isCodeVerified && (
 
                             <Button 

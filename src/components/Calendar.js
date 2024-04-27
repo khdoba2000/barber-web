@@ -56,8 +56,8 @@ const Calendar = (props) => {
             // setResetKey((prevKey) => prevKey + 1);
         }}
         defaultDate={new Date()}
-        minDate={new Date(2024, 3, 18)}
-        maxDate={new Date(2026, 8, 1)}
+        minDate={new Date()}
+        maxDate={new Date().setMonth(new Date().getMonth() + 1)}
       />
       )}
       

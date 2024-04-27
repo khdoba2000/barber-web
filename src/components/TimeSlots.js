@@ -349,7 +349,7 @@ const SlotButton = styled.button`
     width: 80%;
     color: ${({ busy, selected }) => (busy ? '#fff' : (selected ? '#fff' : '--Dark, #323232'))};
 
-    background-color: ${({ busy, selected }) => (busy ? '#ffcccc' : (selected ? `var(--Primary-Orange, #b3532d)` : '#fff'))};
+    background-color: ${({ busy, selected }) => (busy ? '#ffcccc' : (selected ? `var(--Primary-Orange, #fa5252)` : '#fff'))};
     cursor: ${({ busy }) => (busy ? 'not-allowed' : 'pointer')};
 
     align-items: center;

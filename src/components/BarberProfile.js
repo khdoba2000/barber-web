@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useParams } from 'react-router-dom';
 import { fetchBarberProfile } from '../api/barberProfileApi';
 import { fetchBarberPhotos } from '../api/barberPhotosApi';
+import { Button, Group, rem} from '@mantine/core';
 
 // import {BookingPage} from './BookingPage';
 
@@ -76,19 +77,30 @@ function BarberProfile() {
         </WorkingHours>
         {/* {console.log("barberData:", barberData)}
         {console.log("testState:", testState)} */}
-       
-       <BookNowButton>
-        <Link to={{
+    <Group position="center">
+       <Link to={{
           pathname: `/booking/${id}`, 
           // state:  {testState},
         }}>
-          <BookNowButtonText>
+       <Button 
+       variant="gradient" 
+       gradient={{ from: 'orange', to: '#fa5252' }}
+       styles={(theme) => ({
+        root: {
+          height: rem(42),
+          marginTop: rem(10),
+          paddingLeft: rem(40),
+          paddingRight: rem(40),
+          '&:not([data-disabled])': theme.fn.hover({
+            backgroundColor: theme.fn.darken('#00acee', 0.05),
+          }),
+        },
+      })}
+      >
           Band qilish
-          </BookNowButtonText>
-
+        </Button>
         </Link>       
-        </BookNowButton>
-        
+    </Group>
         </ProfileHeader>
         
         <ProfileContent>
@@ -140,24 +152,27 @@ const BarberSchedule = ({ schedule }) => {
     return barberPhotos.photos
   }
   const ProfileWrapper = styled.div`
-    max-width: 375px;
+    max-width: 475px;
+    width: 100%;
+    margin: 0;
     display: flex;
     flex-direction: column;
   `;
   
   const ProfileHeader = styled.header`
     background-color: #000;
-    padding: 2px 10px 6px;
+    padding: 2px 10px 6px 10px;
     display: flex;
+    margin: 0;
     flex-direction: column;
   `;
   
   const BarberInfo = styled.div`
-    display: flex;
     justify-content: space-between;
-    gap: 20px;
+    gap: 12px;
     letter-spacing: 0.07px;
     margin-top: 17px;
+    display: flex;
   `;
   
   const BarberAvatar = styled.img`
@@ -171,10 +186,10 @@ const BarberSchedule = ({ schedule }) => {
   
   const BarberStats = styled.div`
     display: flex;
-    gap: 20px;
-    margin: auto 0;
-    padding-right: 31px;
-    align-items: start;
+    gap: 5px;
+    margin: 20px 0 0 0;
+    padding-right: 30px;
+    align-items: center;
     justify-content: center;
   `;
   
@@ -187,7 +202,7 @@ const BarberSchedule = ({ schedule }) => {
   
   const StatValue = styled.div`
     color: var(--White-bg, #fff);
-    font: 600 28px Roboto, sans-serif;
+    font: 550 28px Roboto, sans-serif;
     font-feature-settings: "clig" off, "liga" off;
     justify-content: center;
     white-space: nowrap;
@@ -195,16 +210,18 @@ const BarberSchedule = ({ schedule }) => {
   
   const StatLabel = styled.div`
     color: var(--Gray1, #959189);
-    font: 500 14px Roboto, sans-serif;
     font-feature-settings: "clig" off, "liga" off;
     margin-top: 2px;
+    font: 400 16px Roboto, sans-serif;
   `;
   
   const StatDivider = styled.div`
-    width: 1px;
+    width: 0.5px;
+    margin: 0px;
+    padding: 0px;
     height: 41px;
     background-color: #323232;
-    border: 1px solid rgba(50, 50, 50, 1);
+    border: 0px solid rgba(50, 50, 50, 1);
     align-self: stretch;
   `;
   
@@ -221,7 +238,7 @@ const BarberSchedule = ({ schedule }) => {
     gap: 4px;
     color: var(--Grey, #8fa0b4);
     font: 400 14px Roboto, sans-serif;
-    margin-top: 9px;
+    margin-top: 0px;
   
     img {
       width: 16px;
@@ -258,23 +275,6 @@ const BarberSchedule = ({ schedule }) => {
     padding: 0 2px;
   `;
 
-  const BookNowButton = styled.button`
-    background-color: var(--Primary-orange, #b3532d);
-    color: #fff;
-    font: 700 18px/24px Poppins, sans-serif;
-    text-align: center;
-    padding: 12px 22px;
-    border-radius: 150px;
-    margin-top: 20px;
-    justify-content: center;
-    align-items: center;
-  `;
-
-  const BookNowButtonText = styled.div`
-    color: #fff;
-    font: 700 18px/24px Poppins, sans-serif;
-  `;
-  
   const Tab = styled.div`
     display: flex;
     flex-direction: column;
@@ -300,7 +300,7 @@ const BarberSchedule = ({ schedule }) => {
   
 
 const ProfileContent = styled.main`
-  padding: 8px 16px 0;
+  padding: 8px 8px 8px 8px;
 `;
 
 const HairCutsTitle = styled.h2`

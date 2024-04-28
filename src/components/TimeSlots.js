@@ -426,6 +426,7 @@ const SlotContainer = styled.div`
     gap: 8px;
     justify-content: center;
     align-items: center;
+    margin-bottom: 30px;
 `;
 
 const SlotItem = styled.div`
@@ -445,7 +446,7 @@ const SlotButton = styled.button`
     width: 80%;
     color: ${({ busy, selected }) => (busy ? '#fff' : (selected ? '#fff' : '--Dark, #323232'))};
 
-    background-color: ${({ busy, selected }) => (busy ? '#ffcccc' : (selected ? `var(--Primary-Blue, #248BE6)` : '#fff'))};
+    background-color: ${({ busy, selected }) => (busy ? '#ffcccc' : (selected ? `var(--Primary-Blue, #248BE6)` : '#f9f6ed'))};
     cursor: ${({ busy }) => (busy ? 'not-allowed' : 'pointer')};
 
     align-items: center;

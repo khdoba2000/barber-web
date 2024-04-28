@@ -93,6 +93,7 @@ const ServiceCard = styled.div`
   border: 1px solid rgba(208, 215, 222, 1);
   border-radius: 3px;
   font-weight: 400;
+  background-color:  #f9f6ed;
 `;
 
 

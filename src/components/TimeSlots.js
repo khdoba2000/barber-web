@@ -127,7 +127,7 @@ const TimeSlots = (props) => {
                 time_end: selectedSlot.End,
                 barber_info: {"id": barberData.id},
                 barbershop_info: {"id": barberData.barbershop_id},
-                client_phone: '+'+userPhone,
+                client_phone: userPhone,
                 services: selectedServices,
                 // Other reservation details like client phone, services, etc.
             };
@@ -298,7 +298,7 @@ const TimeSlots = (props) => {
                             </div>
                         
                             {isCodeSent && !isCodeVerified && (
-                                <p>+{userPhone} ga yuborilgan sms kodni kiriting</p>
+                                <p>{userPhone} ga yuborilgan sms kodni kiriting</p>
                             )
                             }
                             {isCodeSent &&!isCodeVerified && (
@@ -375,26 +375,31 @@ const TimeSlots = (props) => {
                 </div>
             )}
             {isReservationSucceeded && (
-                <div>
+                <div style={{"margin-left": "20px"}}>
                 <div style={{"margin-bottom": "10px"}}>
-                <p className="info-label">
-                </p>
+                <h3 className="info-label">
+                Sizning buyurtmangiz sartaroshga yuborildi!
+                </h3>
                 </div>
-                    Sizning buyurtmangiz sartaroshga yuborildi. Sartarosh telefoni <a href={`tel:${barberData.phone_number}`}>{barberData.phone_number}</a>
             
                 <ReservationInfo 
                         selectedSlot={selectedSlot}
                         selectedServices={selectedServices}
                     />
 
-            <div>
+                  <div>
                 <h3 className="info-label">
-                    Iltimos, buyurtmangizni kuzatish uchun ilovamizni yuklab oling
+                    Iltimos, buyurtmangizni kuzatish uchun ilovamizga {userPhone} bilan kiring
                     </h3>
                 <p className="info" >
                     <a href="https://t.me/ubarberapp" target="_blank" rel="noreferrer">UBarber ilovasi</a>
-                </p>
-            </div>
+                    </p>
+
+                <p className="info-label" >
+                 Sartarosh telefoni <p className="info" ><a href={`tel:${barberData.phone_number}`}>{barberData.phone_number}</a>
+                 </p>
+                 </p>
+                </div>
                 </div>
             )}
         </div>

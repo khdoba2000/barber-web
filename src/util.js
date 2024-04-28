@@ -9,7 +9,7 @@ function reformatPhoneNumber(phoneNumber) {
     // }
   
     // If the cleaned number doesn't start with '998', return it as is
-    return cleanedNumber;
+    return '+'+cleanedNumber;
   };
 
 

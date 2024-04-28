@@ -1,5 +1,5 @@
 // TimeSlots.js
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
 import { Input} from '@mantine/core';
 import { useId, useDisclosure } from '@mantine/hooks';
@@ -12,7 +12,7 @@ import {dateFormatter} from '../util';
 
 import { createReservation } from '../api/createReservationApi'; // Import your API functions
 import {sendVerificationCode, verifyVerificationCode} from '../api/sendCodeApi';
-import {reformatPhoneNumber, splitSlot} from '../util';
+import {reformatPhoneNumber} from '../util';
 
 const calculatePriceSum = (arr) => {
     return arr.reduce((total, current) => {
@@ -127,7 +127,7 @@ const TimeSlots = (props) => {
                 time_end: selectedSlot.End,
                 barber_info: {"id": barberData.id},
                 barbershop_info: {"id": barberData.barbershop_id},
-                client_phone: userPhone,
+                client_phone: '+'+userPhone,
                 services: selectedServices,
                 // Other reservation details like client phone, services, etc.
             };
@@ -261,10 +261,12 @@ const TimeSlots = (props) => {
                             id={id}
                             placeholder="Telefon raqamingizni kiriting"
                             defaultValue={userPhone?userPhone:'+998'}
-                            size="middle"
+                            size="large"
                             required={true}
+                            maxLength="18"
                             onChange={(event) => {
                                 console.log('Phone:', event.target.value);
+                                console.log('Length:', event.target.value.length);
                                 if (event.target.value.length >= 18) {
                                     setUserPhone(reformatPhoneNumber(event.target.value));
                                     setEnableSendCode(true);
@@ -289,7 +291,7 @@ const TimeSlots = (props) => {
                             )}
 
                             <p className="info">
-                            {message!='' && (
+                            {message!=='' && (
                                 <p>{message}</p>
                             )} 
                             </p>
@@ -390,7 +392,7 @@ const TimeSlots = (props) => {
                     Iltimos, buyurtmangizni kuzatish uchun ilovamizni yuklab oling
                     </h3>
                 <p className="info" >
-                    <a href="https://t.me/ubarberapp" target="_blank">UBarber ilovasi</a>
+                    <a href="https://t.me/ubarberapp" target="_blank" rel="noreferrer">UBarber ilovasi</a>
                 </p>
             </div>
                 </div>

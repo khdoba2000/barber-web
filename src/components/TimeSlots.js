@@ -237,11 +237,11 @@ const TimeSlots = (props) => {
                     opened={opened} 
                     onClose={handleModalClose} 
                     title={barberData.fullname + ' da buyurtmani tasdiqlash'}
-                    position="bottom"
                     classNames={{
                         wrapper: 'custom-modal-wrapper', // Custom class for modal wrapper
                         overlay: 'custom-modal-overlay', // Custom class for modal overlay
                         dialog: 'custom-modal-dialog', // Custom class for modal dialog
+                        title: 'custom-modal-title', // Custom class
                     }}
                     >
 
@@ -300,19 +300,20 @@ const TimeSlots = (props) => {
                             )
                             }
                             {isCodeSent &&!isCodeVerified && (
-                               <p> <OtpInput 
+                                <OtpInput 
                                value={codeInput}
-                               inputStyle={{fontSize:24}}
+                               inputStyle={{fontSize:24, color:'black', width: 50, height: 50}}
                                onChange={handleCodeInput}
                                numInputs={4}
+                               inputType="number"
                                renderSeparator={<span> - </span>}
                                renderInput={(props) => <input {...props} />}
                              />
-                             </p>
+                             
                             )
                             }
                             {isCodeSent && !isCodeVerified && (
-                                <Group >
+                                <Group className="countdown-text">
                                 {seconds > 0 || minutes > 0 ? (
                                     <p>  
                                      {minutes < 10 ? `0${minutes}` : minutes}: 

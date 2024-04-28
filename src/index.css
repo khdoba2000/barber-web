@@ -31,11 +31,18 @@ body {
   text-align: left;
   margin-left: 0px;
   margin-right: 6px;
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
 .custom-modal-wrapper {
   align-items: flex-end !important; /* Align modal at the bottom */
+}
+
+.custom-modal-title{
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 0;
+  margin-top: 0;
 }
 
 .custom-modal-dialog {
@@ -112,3 +119,51 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+
+.countdown-text {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 24px 0px;
+}
+
+.countdown-text > p {
+  font-size: 13px;
+  font-weight: 400;
+  color: #2D1D35;
+}
+
+.countdown-text > button {
+  background-color: #fff;
+  border: none;
+  color: #FE5B00;
+  font-weight: 500;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.submit-btn {
+  width: 100%;
+  border: none;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 10px;
+  background: linear-gradient(91deg, #9076FC 0%, #6950FF 100%);
+}
+
+
+input {
+  background-color: #f9f6ed;
+  border-radius: 10px;
+  border: 1.5px solid #DEE1EA;
+  padding: 12px 10px;
+}
+
+input:focus {
+  border-color: #506CFF;
+  font-display: auto;
+} 

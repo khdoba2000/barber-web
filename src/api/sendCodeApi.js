@@ -5,11 +5,12 @@ import {generateHMAC, getCurrentEpochTime} from '../util';
 
 const sendVerificationCode = async (phoneNumber) => {
     try {
+        const reqBody = {"phone_number": phoneNumber}
         const response = await axios.post(
             `${API_URL}/send-code/`, 
-           {"phone_number": phoneNumber},
+            reqBody,
            { 
-            headers: { "Authorization-HMAC" :  generateHMAC(null, getCurrentEpochTime()), "Timestamp" : getCurrentEpochTime()},
+            headers: { "Authorization-HMAC" :  generateHMAC(reqBody, getCurrentEpochTime()), "Timestamp" : getCurrentEpochTime()},
          }
         );
         return response.data;

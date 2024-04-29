@@ -1,5 +1,4 @@
 import * as React from "react";
-import  { useState } from "react";
 import styled from "styled-components";
 import Checkbox from './Checkbox';
 // const services = [
@@ -36,7 +35,7 @@ const ServiceSelector = (props) => {
         } else {
             setSelectedServices([...selectedServices, service]);
         }
-        console.log("Selected services", selectedServices);
+        // console.log("Selected services", selectedServices);
         // serviceChangeCallback(selectedServices);
     };
     let defaultCheckedServiceID = ''

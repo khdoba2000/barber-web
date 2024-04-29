@@ -4,10 +4,10 @@ import { API_URL } from '../config';
 import {generateHMAC, getCurrentEpochTime} from '../util';
 
 const createReservation = async (reservationData) => {
-    console.log('reservationData:',reservationData)
+    // console.log('reservationData:',reservationData)
     try {
         const response = await axios.post(`${API_URL}/web-reservations/`, reservationData, { 
-            headers: { "Authorization-HMAC" :  generateHMAC(null, getCurrentEpochTime()), "Timestamp" : getCurrentEpochTime()},
+            headers: { "Authorization-HMAC" :  generateHMAC(reservationData, getCurrentEpochTime()), "Timestamp" : getCurrentEpochTime()},
         });
         return response.data;
     } catch (error) {

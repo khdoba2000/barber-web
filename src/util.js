@@ -18,7 +18,7 @@ function reformatPhoneNumber(phoneNumber) {
 
 
 function generateHMAC(data, timestamp){
-    const message = `${data+timestamp}`
+    const message = data!=null?`${JSON.stringify(data)}${timestamp}`:`${timestamp}`
     const hmac = CryptoJS.HmacSHA256(message, API_KEY);
     return hmac.toString(CryptoJS.enc.Hex);
 };

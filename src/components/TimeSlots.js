@@ -80,7 +80,7 @@ const TimeSlots = (props) => {
     const [isCodeVerified, setIsCodeVerified] = useState(null);
     const [reservationMessage, setReservationMessage] = useState('');
     const [codeInput, setCodeInput] = useState(null);
-    const [minutes, setMinutes] = useState(0);
+    const [minutes, setMinutes] = useState(1);
     const [seconds, setSeconds] = useState(30);
     
     const selectedServices=props.selectedServices
@@ -164,10 +164,9 @@ const TimeSlots = (props) => {
 
 
     const handleSendCode = async () => {
-        setMinutes(0);
+        setMinutes(1);
         setSeconds(30);
         setEnableSendCode(false);
-        console.log('Phone:', userPhone);
         const response = await sendVerificationCode(userPhone);
         setMessage(response ? '' : 'Kod yuborilmadi. Iltimos, qaytadan urinib ko\'ring.');
        
@@ -176,14 +175,10 @@ const TimeSlots = (props) => {
         setEnableSendCode(!success);
         console.log('response:', response==null);
         console.log('success:', success);
-        // if (success){
-           
-        // }
     };
 
     const handleCodeInput = async (code) => {
         setCodeInput(code);
-        console.log('CodeInput:', code);
         if (code.length >= 4) {
             const response = await verifyVerificationCode(userPhone, code);
             setIsCodeVerified(response ? true : false);
@@ -211,9 +206,6 @@ const TimeSlots = (props) => {
         };
       }, [seconds]);
 
-    // useEffect(() => {
-    // }, {selectedSlot, selectedServices, selectedDate, barberData});
-    
     const id = useId();
     return (
         <div>

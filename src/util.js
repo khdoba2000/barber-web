@@ -1,3 +1,7 @@
+import CryptoJS from 'crypto-js';
+import { API_KEY } from './config';
+
+
 function reformatPhoneNumber(phoneNumber) {
     // Remove all non-numeric characters from the input string
     const cleanedNumber = phoneNumber.replace(/\D/g, '');
@@ -13,7 +17,17 @@ function reformatPhoneNumber(phoneNumber) {
   };
 
 
+function generateHMAC(data, timestamp){
+    const message = `${data+timestamp}`
+    const hmac = CryptoJS.HmacSHA256(message, API_KEY);
+    return hmac.toString(CryptoJS.enc.Hex);
+};
+  
+function getCurrentEpochTime(){
+    return Math.floor(new Date().getTime() / 1000);
+}
 
+  
 function dateFormatter(date){
   const year = date.getFullYear()
   let month = date.getMonth() + 1
@@ -27,4 +41,4 @@ function dateFormatter(date){
   return `${year}-${month}-${day}`
 };
 
-export {reformatPhoneNumber, dateFormatter};
+export {reformatPhoneNumber, dateFormatter, getCurrentEpochTime, generateHMAC};

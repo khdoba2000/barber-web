@@ -207,10 +207,17 @@ const TimeSlots = (props) => {
       }, [seconds]);
 
     const id = useId();
+    // Get the current time
+    const now = new Date();
+    const currentHour = now.getHours();
+    const currentMinute = now.getMinutes();
+    const currentTime = `${currentHour.toString().padStart(2, '0')}:${currentMinute.toString().padStart(2, '0')}`;
+
     return (
         <div>
             {!isReservationSucceeded && (<SlotContainer>
-                {availableSlots.map((slot, index) => (
+                {availableSlots.filter(slot => slot.Start >= currentTime).
+                map((slot, index) => (
                     <SlotItem key={index}>
                         <SlotButton key={index} 
                             busy={slot.Busy} 

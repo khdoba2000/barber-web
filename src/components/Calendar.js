@@ -1,6 +1,7 @@
 import { useState,useEffect } from 'react';
 import styled from "styled-components";
 
+import { rem } from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
 import TimeSlots from './TimeSlots';
 import { fetchAvailableSlots } from '../api/barberSlotsApi';
@@ -41,24 +42,23 @@ const Calendar = (props) => {
       )}
 
       {!isReservationSucceeded &&(
-
-      <DatePicker
-        value={selectedDate}
-        onChange={(selectedDate)=>{ 
-            setDate(selectedDate);
-            if (barberData.id) {
-              fetchAvailableSlots(barberData.id, selectedDate, selectedServices)
-                  .then((slots) => setAvailableSlots(slots))
-                  .catch((error) => console.error('Error fetching available slots:', error));
-            } else {
-                  console.log("No selected barber ID", barberData.id)
-            }
-            // setResetKey((prevKey) => prevKey + 1);
-        }}
-        defaultDate={new Date()}
-        minDate={new Date()}
-        maxDate={new Date().setMonth(new Date().getMonth() + 1)}
-      />
+          <DatePicker
+            value={selectedDate}
+            onChange={(selectedDate)=>{ 
+                setDate(selectedDate);
+                if (barberData.id) {
+                  fetchAvailableSlots(barberData.id, selectedDate, selectedServices)
+                      .then((slots) => setAvailableSlots(slots))
+                      .catch((error) => console.error('Error fetching available slots:', error));
+                } else {
+                      console.log("No selected barber ID", barberData.id)
+                }
+                // setResetKey((prevKey) => prevKey + 1);
+            }}
+            defaultDate={new Date()}
+            minDate={new Date()}
+            maxDate={new Date().setMonth(new Date().getMonth() + 1)}
+          />
       )}
       
       <TimeSlots 

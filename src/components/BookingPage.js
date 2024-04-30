@@ -39,7 +39,6 @@ const BookingPage = () => {
           </Link>
         </Header>
           <h2>{barberData.fullname}</h2>
-
           <Calendar 
             barberData={barberData}
           />
@@ -75,6 +74,7 @@ const IconWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 10px;
 `;
 
 const Icon = styled.img`

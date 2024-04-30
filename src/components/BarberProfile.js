@@ -89,6 +89,7 @@ function BarberProfile() {
         root: {
           height: rem(42),
           marginTop: rem(10),
+          marginBottom: rem(8),
           paddingLeft: rem(40),
           paddingRight: rem(40),
           '&:not([data-disabled])': theme.fn.hover({
@@ -134,7 +135,7 @@ const BarberSchedule = ({ schedule }) => {
                     <div key={index} className="schedule-item">
                      {/* <ProfileDay>{weekdays.uz[index]} <ProfileHour>{schedule[`${day.toLowerCase()}_interval`]}</ProfileHour></ProfileDay> */}
                      <p className="weekday">{weekdays.uz[index]}</p>
-                     <p className="interval">{schedule[`${day.toLowerCase()}_interval`]}</p>
+                     <p className="interval">{schedule[`${day.toLowerCase()}_interval`].split("-")[0]} - {schedule[`${day.toLowerCase()}_interval`].split("-")[1]}</p>
                     </div>
                 ))
             }

@@ -68,10 +68,6 @@ const ServiceSelector = (props) => {
 }
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 375px;
 `;
 
 // const Heading = styled.h1`
@@ -82,15 +78,11 @@ const Container = styled.div`
 // `;
 
 const ServiceCard = styled.div`
-  justify-content: space-between;
-  align: left;
   padding: 4px 8px;
-  margin-top: 4px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   width: 100%;
-  max-width: 493px;
   border: 1px solid rgba(208, 215, 222, 1);
-  border-radius: 3px;
+  border-radius: 5px;
   font-weight: 400;
   background-color:  #f9f6ed;
 `;

@@ -273,14 +273,14 @@ const TimeSlots = (props) => {
                         />
 
                             <div className='info-label'>
-                            {enableSendCode && (
                                 <Button 
-                                    onClick={handleSendCode} 
-                                    fullWidth={true}
+                                        onClick={handleSendCode} 
+                                        fullWidth={true}
+                                        disabled={!enableSendCode}  
                                 >
-                                    Kod yuborish
+                                        Kod yuborish
                                 </Button>
-                            )}
+                            
 
                             <p className="info">
                             {message!=='' && (

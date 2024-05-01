@@ -41,6 +41,11 @@ const Calendar = (props) => {
       )}
 
       {!isReservationSucceeded &&(
+        <div style={{
+          display: 'flex', 
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}>  
           <DatePicker
             value={selectedDate}
             onChange={(selectedDate)=>{ 
@@ -58,12 +63,11 @@ const Calendar = (props) => {
             minDate={new Date()}
             maxDate={new Date().setMonth(new Date().getMonth() + 1)}
             size={"lg"}
-            style={{ marginLeft: '5px',
-            marginRight: '5px',
-            // display: 'flex',
-            // flexDirection: 'column',
+            style={{ marginLeft: '10px',
+            marginRight: '10px',
             }} // Add margin here
           />
+         </div>
       )}
       
       <TimeSlots 

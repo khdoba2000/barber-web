@@ -16,7 +16,7 @@ const Checkbox = ({ label, duration, onChangeFunc, isCheckedIn}) => {
             className={isChecked ? "checked" : ""}
           />
          <ServiceName>{label}</ServiceName>
-         {duration != null && <Duration> ({duration} minut)</Duration>}
+         {duration != null && <Duration> ({duration} min)</Duration>}
       </div>
     );
   };

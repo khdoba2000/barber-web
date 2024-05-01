@@ -423,13 +423,13 @@ export default TimeSlots;
 
 // Define styled components
 const SlotContainer = styled.div`
-    margin-top: 16px;
+    margin-top: 10px;
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 14px;
     justify-content: space-around;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 `;
 
 const SlotItem = styled.div`
@@ -444,7 +444,9 @@ const SlotButton = styled.button`
     border-color: rgba(208, 215, 222, 1);
     border-style: solid;
     border-width: 1px;
-    padding: 16px;
+    padding: 14px;
+    margin-left: 10px;
+    margin-right: 10px;
     color: ${({ busy, selected }) => (busy ? '#fff' : (selected ? '#fff' : '--Dark, #323232'))};
 
     background-color: ${({ busy, selected }) => (busy ? '#ffcccc' : (selected ? `var(--Primary-Blue, #248BE6)` : '#f9f6ed'))};

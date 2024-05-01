@@ -2,11 +2,10 @@ import  { useState } from "react";
 import styled from "styled-components";
 
 
-const Checkbox = ({ label, labelRight, onChangeFunc, isCheckedIn}) => {
+const Checkbox = ({ label, duration, onChangeFunc, isCheckedIn}) => {
     const [isChecked, setIsChecked] = useState(isCheckedIn);
 
     return (
-    
       <div className="checkbox-wrapper">
           <input
             type="checkbox"
@@ -16,7 +15,8 @@ const Checkbox = ({ label, labelRight, onChangeFunc, isCheckedIn}) => {
 
             className={isChecked ? "checked" : ""}
           />
-         <ServiceName>{label}</ServiceName> {labelRight != null && <RightItem> - {labelRight} so‘m</RightItem>}
+         <ServiceName>{label}</ServiceName>
+         {duration != null && <Duration> ({duration} minut)</Duration>}
       </div>
     );
   };
@@ -25,15 +25,15 @@ const Checkbox = ({ label, labelRight, onChangeFunc, isCheckedIn}) => {
 
 
 const ServiceName = styled.span`
-margin: auto 0;
-font: 14px Roboto, sans-serif;
+margin-left: 16px;
+font: 16px Roboto, sans-serif;
 flex: 1;
-font-weight: 700;
+font-weight: 600;
 `;
 
 
-const RightItem = styled.span`
-margin: auto 0;
-font: 14px Roboto, sans-serif;
-font-weight: 500;
+const Duration = styled.span`
+margin-left: 8px;
+font: 16px Roboto, sans-serif;
+font-weight: 400;
 `;

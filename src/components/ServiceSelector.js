@@ -1,6 +1,8 @@
 import * as React from "react";
 import styled from "styled-components";
 import Checkbox from './Checkbox';
+
+import {formatToCurrency} from '../util';
 // const services = [
 //   {
 //     id: 1,
@@ -53,9 +55,12 @@ const ServiceSelector = (props) => {
       <ServiceCard key={service.id} value={service.id} >
              <Checkbox 
                 label={labelName} 
-                labelRight={`${service.duration}(min) - ${service.price}`} 
+                duration={`${service.duration}`} 
                 onChangeFunc={() => handleServiceSelection(service)}
-                isCheckedIn={service.id===defaultCheckedServiceID}/>                        
+                isCheckedIn={service.id===defaultCheckedServiceID}/>
+        <div>
+            {service.price != null && <RightItem> {formatToCurrency(service.price, "UZ", "UZS")} so‘m</RightItem>}
+        </div>                           
       </ServiceCard>
       )
     });
@@ -68,6 +73,7 @@ const ServiceSelector = (props) => {
 }
 
 const Container = styled.div`
+  margin-bottom: 20px;
 `;
 
 // const Heading = styled.h1`
@@ -78,14 +84,24 @@ const Container = styled.div`
 // `;
 
 const ServiceCard = styled.div`
-  padding: 4px 8px;
-  margin-bottom: 8px;
+  padding: 0px 18px;
+  margin-bottom: 12px;
   width: 100%;
-  border: 1px solid rgba(208, 215, 222, 1);
-  border-radius: 5px;
+  height: 48px;
+  border: 1px solid #D0D7DE;
+  border-radius: 8px;
   font-weight: 400;
-  background-color:  #f9f6ed;
+  background-color:  #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
+
+const RightItem = styled.span`
+margin: auto 0;
+font: 14px Roboto, sans-serif;
+font-weight: 500;
+`;
 
 export default ServiceSelector;

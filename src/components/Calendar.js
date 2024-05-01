@@ -1,7 +1,6 @@
 import { useState,useEffect } from 'react';
 import styled from "styled-components";
 
-import { rem } from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
 import TimeSlots from './TimeSlots';
 import { fetchAvailableSlots } from '../api/barberSlotsApi';
@@ -47,9 +46,9 @@ const Calendar = (props) => {
             onChange={(selectedDate)=>{ 
                 setDate(selectedDate);
                 if (barberData.id) {
-                  fetchAvailableSlots(barberData.id, selectedDate, selectedServices)
-                      .then((slots) => setAvailableSlots(slots))
-                      .catch((error) => console.error('Error fetching available slots:', error));
+                    fetchAvailableSlots(barberData.id, selectedDate, selectedServices)
+                        .then((slots) => setAvailableSlots(slots))
+                        .catch((error) => console.error('Error fetching available slots:', error));
                 } else {
                       console.log("No selected barber ID", barberData.id)
                 }
@@ -58,6 +57,8 @@ const Calendar = (props) => {
             defaultDate={new Date()}
             minDate={new Date()}
             maxDate={new Date().setMonth(new Date().getMonth() + 1)}
+            size={"lg"}
+            sx={{ "calendar": { width: "100%" }}}
           />
       )}
       
@@ -78,11 +79,8 @@ export default Calendar;
 
 
 const CalendarStyle = styled.div`
-  display: flex;
   width: 100%;
-  flex-direction: column;
-  font-size: 14px;
+  font-size: 24px;
   font-weight: 400;
-  padding: 20 24px;
-  align-items: center;
+  padding: 10px 15px;
 `;

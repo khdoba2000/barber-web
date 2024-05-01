@@ -31,14 +31,14 @@ const BookingPage = () => {
     <ProfileHeader>
 
           {/* <Button>Click me!</Button>; */}
-          <Header>
+        <Header>
         <Link to={`/${barberData.id}`}>
           <IconWrapper>
             <Icon src="https://cdn.builder.io/api/v1/image/assets/TEMP/82bdbaf7d9576d129b6a07c4693b6c81faa1282868e1822876c984946f76f55b?apiKey=70b926e372dc42878f761519e49b3044&" alt="Schedule icon" />
           </IconWrapper>
           </Link>
         </Header>
-          <h2>{barberData.fullname}</h2>
+          <h3 className="barber-name">{barberData.fullname}</h3>
           <Calendar 
             barberData={barberData}
           />

@@ -1,7 +1,18 @@
 import CryptoJS from 'crypto-js';
 import { API_KEY } from './config';
 
+export const formatToCurrency = (money, region, currency) => {
+    return Intl.NumberFormat(region, {
+      style: "currency",
+      currency,
+    })
+      .format(money)
+      .replace("UZS", "")
+      .replace(".00", "")
+      .trim();
+};
 
+  
 function reformatPhoneNumber(phoneNumber) {
     // Remove all non-numeric characters from the input string
     const cleanedNumber = phoneNumber.replace(/\D/g, '');

@@ -63,16 +63,17 @@ const ReservationInfo = ({selectedSlot, selectedServices}) => {
    
 
 const TimeSlots = (props) => {
-    const [selectedSlot, setSelectedSlot] = useState(null);
-
 
     // const selectedSlot = props.selectedSlot;
     // const setSelectedSlot = props.setSlot;
-    const availableSlots = props.availableSlots
-    const isReservationSucceeded = props.isReservationSucceeded;
-    const setIsReservationSucceeded = props.setIsReservationSucceeded
-    const barberData = props.barberData
-    const selectedDate = props.selectedDate
+    const { availableSlots, 
+        isReservationSucceeded, 
+        setIsReservationSucceeded,
+        barberData, 
+        selectedDate,
+        selectedServices} = props;
+  
+    const [selectedSlot, setSelectedSlot] = useState(null);
     const [userPhone, setUserPhone] = useState(null);
     const [enableSendCode, setEnableSendCode] = useState(false);
     const [message, setMessage] = useState('');
@@ -82,8 +83,6 @@ const TimeSlots = (props) => {
     const [codeInput, setCodeInput] = useState(null);
     const [minutes, setMinutes] = useState(1);
     const [seconds, setSeconds] = useState(30);
-    
-    const selectedServices=props.selectedServices
 
     const [opened, { open, close }] = useDisclosure(false);
     const handleModalClose = () => {
@@ -204,7 +203,7 @@ const TimeSlots = (props) => {
         return () => {
           clearInterval(interval);
         };
-      }, [seconds]);
+    }, [seconds]);
 
     const id = useId();
     // Get the current time
@@ -216,7 +215,12 @@ const TimeSlots = (props) => {
     return (
         <div>
             {!isReservationSucceeded && (<SlotContainer>
-                {availableSlots.filter(slot => slot.Start >= currentTime).
+                {availableSlots.filter((slot) => {
+                    if (selectedDate === dateFormatter(now)) {
+                        return slot.Start > currentTime;
+                    }
+                    return true;
+                }).
                 map((slot, index) => (
                     <SlotItem key={index}>
                         <SlotButton key={index} 
@@ -224,7 +228,7 @@ const TimeSlots = (props) => {
                             selected={selectedSlot === slot}
                             onClick={() => handleSlotSelection(slot)}
                             disabled={slot.IsBusy}>
-                        <p>{slot.Start} - {slot.End}</p>
+                        <span style={{fontSize: "16px"}}>{slot.Start} - {slot.End}</span>
                         </SlotButton>
                     </SlotItem>
                 ))}
@@ -422,16 +426,14 @@ const SlotContainer = styled.div`
     margin-top: 16px;
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
+    gap: 20px;
+    justify-content: space-around;
     align-items: center;
     margin-bottom: 30px;
 `;
 
 const SlotItem = styled.div`
     flex:  calc(45% - 30px);
-    max-width: calc(45% - 30px);
-    margin-left: 10px;
 `;
 
 
@@ -442,7 +444,7 @@ const SlotButton = styled.button`
     border-color: rgba(208, 215, 222, 1);
     border-style: solid;
     border-width: 1px;
-    width: 80%;
+    padding: 16px;
     color: ${({ busy, selected }) => (busy ? '#fff' : (selected ? '#fff' : '--Dark, #323232'))};
 
     background-color: ${({ busy, selected }) => (busy ? '#ffcccc' : (selected ? `var(--Primary-Blue, #248BE6)` : '#f9f6ed'))};

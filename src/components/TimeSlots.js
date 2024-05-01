@@ -430,7 +430,7 @@ const SlotContainer = styled.div`
     margin-top: 10px;
     display: flex;
     flex-wrap: wrap;
-    gap: 14px;
+    gap: 12px;
     justify-content: space-around;
     align-items: center;
     margin-bottom: 20px;
@@ -449,8 +449,7 @@ const SlotButton = styled.button`
     border-style: solid;
     border-width: 1px;
     padding: 14px;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 30px;
     color: ${({ busy, selected }) => (busy ? '#fff' : (selected ? '#fff' : '--Dark, #323232'))};
 
     background-color: ${({ busy, selected }) => (busy ? '#ffcccc' : (selected ? `var(--Primary-Blue, #248BE6)` : '#f9f6ed'))};

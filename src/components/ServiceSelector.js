@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import Checkbox from './Checkbox';
 
-import {formatToCurrency} from '../util';
+import {formattedNumber} from '../util';
 // const services = [
 //   {
 //     id: 1,
@@ -59,7 +59,7 @@ const ServiceSelector = (props) => {
                 onChangeFunc={() => handleServiceSelection(service)}
                 isCheckedIn={service.id===defaultCheckedServiceID}/>
         <div>
-            {service.price != null && <RightItem> {formatToCurrency(service.price, "UZ", "UZS")} so‘m</RightItem>}
+            {service.price != null && <RightItem> {formattedNumber(service.price)} so‘m</RightItem>}
         </div>                           
       </ServiceCard>
       )

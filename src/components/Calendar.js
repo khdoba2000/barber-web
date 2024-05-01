@@ -1,4 +1,4 @@
-import { useState,useEffect } from 'react';
+import { useState,useEffect,useRef} from 'react';
 import styled from "styled-components";
 
 import { DatePicker } from '@mantine/dates';
@@ -14,7 +14,7 @@ const Calendar = (props) => {
   const barberData=props.barberData
 
   const [selectedServices, setSelectedServices] = useState([]);
-  
+  const ref = useRef(null);
   useEffect(() => {
     console.log("useEffect reloaded. selectedDate,barberData.id,selectedServices.length:", selectedDate, barberData.id,selectedServices.length)
     if (barberData.id && selectedDate && selectedServices.length>0) {
@@ -25,6 +25,10 @@ const Calendar = (props) => {
           console.log("No selected barber ID", barberData.id)
     }
   }, [selectedServices]);
+
+  const scrollToLowerPart = () => {
+    ref.current?.scrollIntoView({behavior: 'smooth'});
+  };
 
   console.log("Calendar reloaded. selectedServices: ,isReservationSucceeded: ", selectedServices, isReservationSucceeded)
   // const [resetKey, setResetKey] = useState(0);
@@ -52,7 +56,7 @@ const Calendar = (props) => {
                 setDate(selectedDate);
                 if (barberData.id) {
                     fetchAvailableSlots(barberData.id, selectedDate, selectedServices)
-                        .then((slots) => setAvailableSlots(slots))
+                        .then((slots) => {setAvailableSlots(slots);scrollToLowerPart();})
                         .catch((error) => console.error('Error fetching available slots:', error));
                 } else {
                       console.log("No selected barber ID", barberData.id)
@@ -70,6 +74,7 @@ const Calendar = (props) => {
          </div>
       )}
       
+      <div ref={ref}>
       <TimeSlots 
       // key={resetKey}
       selectedDate={selectedDate} 
@@ -79,6 +84,7 @@ const Calendar = (props) => {
       isReservationSucceeded={isReservationSucceeded}
       setIsReservationSucceeded={setIsReservationSucceeded} 
       />
+        </div>
     </CalendarStyle>
   );
 };

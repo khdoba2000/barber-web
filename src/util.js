@@ -5,11 +5,12 @@ export const formatToCurrency = (money, region, currency) => {
     return Intl.NumberFormat(region, {
       style: "currency",
       currency,
-      useGrouping: true, 
+    //   useGrouping: true, 
     })
       .format(money)
       .replace(currency, "")
       .replace(".00", "")
+    //   .replace(",00", "")
       .trim();
 };
 

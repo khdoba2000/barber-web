@@ -25,7 +25,7 @@ const Checkbox = ({ label, duration, onChangeFunc, isCheckedIn}) => {
 
 
 const ServiceName = styled.span`
-margin-left: 16px;
+margin-left: 12px;
 font: 16px Roboto, sans-serif;
 flex: 1;
 font-weight: 600;
@@ -33,7 +33,7 @@ font-weight: 600;
 
 
 const Duration = styled.span`
-margin-left: 8px;
+margin-left: 4px;
 font: 16px Roboto, sans-serif;
 font-weight: 400;
 `;

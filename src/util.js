@@ -9,8 +9,8 @@ export const formatToCurrency = (money, region, currency) => {
     })
       .format(money)
       .replace(currency, "")
-      .replace(".00", "")
       .replace(" 00", "")
+      .replace(".00", "")
       .replace(",", " ")
       .trim();
 };

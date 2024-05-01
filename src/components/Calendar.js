@@ -49,14 +49,22 @@ const Calendar = (props) => {
           display: 'flex', 
           flexDirection: 'column',
           alignItems: 'center',
-        }}>  
+        }}
+        >  
           <DatePicker
             value={selectedDate}
+            onSelect={(selectedDate)=>{ 
+              console.log("onSelect:", selectedDate)
+              // setResetKey((prevKey) => prevKey + 1);
+          }}
             onChange={(selectedDate)=>{ 
                 setDate(selectedDate);
                 if (barberData.id) {
                     fetchAvailableSlots(barberData.id, selectedDate, selectedServices)
-                        .then((slots) => {setAvailableSlots(slots);scrollToLowerPart();})
+                        .then((slots) => {
+                          setAvailableSlots(slots);
+                          scrollToLowerPart();
+                        })
                         .catch((error) => console.error('Error fetching available slots:', error));
                 } else {
                       console.log("No selected barber ID", barberData.id)
@@ -73,8 +81,7 @@ const Calendar = (props) => {
           />
          </div>
       )}
-      
-      <div ref={ref}>
+      <div ref={ref}></div>
       <TimeSlots 
       // key={resetKey}
       selectedDate={selectedDate} 
@@ -84,7 +91,6 @@ const Calendar = (props) => {
       isReservationSucceeded={isReservationSucceeded}
       setIsReservationSucceeded={setIsReservationSucceeded} 
       />
-        </div>
     </CalendarStyle>
   );
 };

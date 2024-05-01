@@ -214,10 +214,9 @@ const TimeSlots = (props) => {
 
     return (
         <div>
-            {!isReservationSucceeded && (<SlotContainer>
+            {!isReservationSucceeded && (
+            <SlotContainer>
                 {availableSlots.filter((slot) => {
-                    console.log('selectedDate:', selectedDate);
-                    console.log('dateFormatter(now):', dateFormatter(now));
                     if (selectedDate.getDate() === now.getDate() &&
                         selectedDate.getMonth() === now.getMonth() && 
                         selectedDate.getFullYear() === now.getFullYear()) {
@@ -449,7 +448,7 @@ const SlotButton = styled.button`
     border-style: solid;
     border-width: 1px;
     padding: 14px;
-    margin-left: 30px;
+    margin-left: 20px;
     color: ${({ busy, selected }) => (busy ? '#fff' : (selected ? '#fff' : '--Dark, #323232'))};
 
     background-color: ${({ busy, selected }) => (busy ? '#ffcccc' : (selected ? `var(--Primary-Blue, #248BE6)` : '#f9f6ed'))};

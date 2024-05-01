@@ -84,7 +84,7 @@ const Container = styled.div`
 // `;
 
 const ServiceCard = styled.div`
-  padding: 0px 18px;
+  padding: 0px 12px;
   margin-bottom: 12px;
   width: 100%;
   height: 48px;

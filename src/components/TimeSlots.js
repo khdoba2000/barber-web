@@ -216,7 +216,11 @@ const TimeSlots = (props) => {
         <div>
             {!isReservationSucceeded && (<SlotContainer>
                 {availableSlots.filter((slot) => {
-                    if (selectedDate === dateFormatter(now)) {
+                    console.log('selectedDate:', selectedDate);
+                    console.log('dateFormatter(now):', dateFormatter(now));
+                    if (selectedDate.getDate() === now.getDate() &&
+                        selectedDate.getMonth() === now.getMonth() && 
+                        selectedDate.getFullYear() === now.getFullYear()) {
                         return slot.Start > currentTime;
                     }
                     return true;

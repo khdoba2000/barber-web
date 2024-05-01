@@ -5,9 +5,10 @@ export const formatToCurrency = (money, region, currency) => {
     return Intl.NumberFormat(region, {
       style: "currency",
       currency,
+      useGrouping: true, 
     })
       .format(money)
-      .replace("UZS", "")
+      .replace(currency, "")
       .replace(".00", "")
       .trim();
 };

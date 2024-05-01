@@ -58,7 +58,7 @@ const Calendar = (props) => {
             minDate={new Date()}
             maxDate={new Date().setMonth(new Date().getMonth() + 1)}
             size={"lg"}
-            sx={{ "calendar": { width: "100%" }}}
+            style={{ margin: '10px' }} // Add margin here
           />
       )}
       

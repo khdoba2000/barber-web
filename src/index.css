@@ -11,6 +11,9 @@ body {
 
 .barber-name{
   font-family: 'Roboto', sans-serif;
+  font-size: x-large;
+  font-weight: 700;
+  margin-bottom: 10px;
 }
 
 .schedule-list{

@@ -21,6 +21,7 @@ const sendVerificationCode = async (phoneNumber) => {
 };
 
 
+
 const verifyVerificationCode = async (phoneNumber, code) => {
     try {
         const response = await axios.get(`${API_URL}/verify/${phoneNumber}/${code}/`, { 
@@ -32,4 +33,24 @@ const verifyVerificationCode = async (phoneNumber, code) => {
         return null;
     }
 };
-export { verifyVerificationCode, sendVerificationCode }
+
+
+
+const removeAccount = async (phoneNumber, code) => {
+    try {
+        const reqBody = {"phone_number": phoneNumber, "code": code}
+        const response = await axios.post(
+            `${API_URL}/remove-account/`, 
+            reqBody,
+           { 
+            headers: { "Authorization-HMAC" :  generateHMAC(reqBody, getCurrentEpochTime()), "Timestamp" : getCurrentEpochTime()},
+         }
+        );
+        return response.data;
+    } catch (error) {
+        console.error('Error sending verification code:', error);
+        return null;
+    }
+};
+
+export { removeAccount, verifyVerificationCode, sendVerificationCode }

@@ -4,6 +4,7 @@ import BarberProfile from './components/BarberProfile';
 // import BarberSlots from './components/BarberSlots';
 import BookingPage from './components/BookingPage';
 import { Analytics } from "@vercel/analytics/react"
+import DeleteAccount from './components/deleteAccount';
 
 const App = () => {
     return (
@@ -13,6 +14,7 @@ const App = () => {
                 <Route path="/:id" element={<BarberProfile />} />
                 {/* <Route path="/slots" element={<BarberSlots />} /> */}
                 <Route path="/booking/:id" element={<BookingPage />} />
+                <Route path="/delete-account/" element={<DeleteAccount />} />
             </Routes>
         </Router>
         <Analytics />

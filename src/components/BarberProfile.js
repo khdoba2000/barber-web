@@ -238,7 +238,7 @@ const BarberSchedule = ({ schedule }) => {
   
   const BarberName = styled.h1`
     color: var(--White-bg, #fff);
-    font: 600 16px Roboto, sans-serif;
+    font: 600 20px Roboto, sans-serif;
     font-feature-settings: "clig" off, "liga" off;
     letter-spacing: 0.06px;
     margin-top: 19px;
@@ -275,8 +275,7 @@ const BarberSchedule = ({ schedule }) => {
     font: 700 18px Roboto, sans-serif;
     font-feature-settings: "clig" off, "liga" off;
     letter-spacing: 0.06px;
-    margin-top: 20px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
   `;
   
   const WorkingHours = styled.div`
@@ -284,6 +283,8 @@ const BarberSchedule = ({ schedule }) => {
     font: 15px Roboto, sans-serif;
     letter-spacing: 0.15px;
     padding: 2px 2px;
+    margin-bottom: 10px;
+    
   `;
 
   const Tab = styled.div`
@@ -325,7 +326,8 @@ const HairCutsGallery = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 21px;
+  margin-top: 15px;
+  margin-bottom: 30px;
 `;
 
 const HairCutImage = styled.img`

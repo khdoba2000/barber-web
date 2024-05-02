@@ -77,31 +77,7 @@ function BarberProfile() {
         </WorkingHours>
         {/* {console.log("barberData:", barberData)}
         {console.log("testState:", testState)} */}
-    <Group position="center">
-       <Link to={{
-          pathname: `/booking/${id}`, 
-          // state:  {testState},
-        }}>
-       <Button 
-       variant="gradient" 
-       gradient={{ from: 'orange', to: '#fa5252' }}
-       styles={(theme) => ({
-        root: {
-          height: rem(42),
-          marginTop: rem(10),
-          marginBottom: rem(8),
-          paddingLeft: rem(40),
-          paddingRight: rem(40),
-          '&:not([data-disabled])': theme.fn.hover({
-            backgroundColor: theme.fn.darken('#00acee', 0.05),
-          }),
-        },
-      })}
-      >
-          Band qilish
-        </Button>
-        </Link>       
-    </Group>
+    
         </ProfileHeader>
         
         <ProfileContent>
@@ -121,8 +97,40 @@ function BarberProfile() {
         </HairCutsGallery>
         
       </ProfileContent>
-
-      </ProfileWrapper>
+      <Link to={{
+          pathname: `/booking/${id}`, 
+          // state:  {testState},
+        }}>
+          <Button 
+       variant="gradient" 
+       gradient={{ to: '#FF7043', from: '#A65F5D' }}
+       styles={(theme) => ({
+        root: {
+          position: 'fixed',
+          bottom: '10px',
+          right: '10px',
+          boxSizing: 'unset',
+          zIndex: 999,
+          borderTopLeftRadius: '15px',
+          borderBottomLeftRadius: '15px',
+          borderTopRightRadius: '20px',
+          borderBottomRightRadius: '20px',
+          height: '20px',
+          opacity: '0.9',
+          fontSize: '18px',
+          border: '2px solid rgba(255, 255, 255, 1)',
+          // border: '2px solid #ff0',
+          padding: '15px 16px',
+          '&:not([data-disabled])': theme.fn.hover({
+            backgroundColor: theme.fn.darken('#00acee', 0.05),
+          }),
+        },
+      })}
+      >
+          Band qilish
+        </Button>
+        </Link>
+        </ProfileWrapper>
     );
   }
   
@@ -152,6 +160,8 @@ const BarberSchedule = ({ schedule }) => {
     }
     return barberPhotos.photos
   }
+
+  
   const ProfileWrapper = styled.div`
     max-width: 475px;
     width: 100%;
@@ -273,7 +283,7 @@ const BarberSchedule = ({ schedule }) => {
     color: var(--White-bg, #fff);
     font: 15px Roboto, sans-serif;
     letter-spacing: 0.15px;
-    padding: 0 2px;
+    padding: 2px 2px;
   `;
 
   const Tab = styled.div`
@@ -305,9 +315,9 @@ const ProfileContent = styled.main`
 `;
 
 const HairCutsTitle = styled.h2`
-  margin-top: 0px;
+  margin-top: 2px;
   color: #000;
-  font: 700 16px Roboto, sans-serif;
+  font: 700 18px Roboto, sans-serif;
   letter-spacing: 0.06px;
 `;
 

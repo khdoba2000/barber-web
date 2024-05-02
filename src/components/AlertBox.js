@@ -27,8 +27,8 @@ export default function AlertBox() {
         {t("delete account text5")}
       </Text>
       <Box mt={"sm"}>
-        <Anchor href="mailto:apexpizzauz@gmail.com" target="_blank">
-          apexpizzauz@gmail.com
+        <Anchor href="mailto:ubarberadm@gmail.com" target="_blank">
+          ubarberadm@gmail.com
         </Anchor>
       </Box>
     </Alert>

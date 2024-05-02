@@ -1,6 +1,6 @@
 
 import Navbar from './Navbar';
-// import AlertBox from './AlertBox';
+import AlertBox from './AlertBox';
 import Form from './Form';
 import  React  from "react";
 
@@ -8,7 +8,7 @@ const DeleteAccount= () =>{
     return (
       <div>
         <Navbar />
-        {/* <AlertBox /> */}
+        <AlertBox />
         <Form />
       </div>
     );

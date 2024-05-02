@@ -1,0 +1,17 @@
+{
+    "translation": {
+      "error":"Error",
+      "removeAccount":"Delete account",
+      "alert":"Alert",
+      "delete account text1":"Deleting your Apex Pizza account means saying goodbye to:",
+      "delete account text2":"Reservation history: Your reservation history will be deleted",
+      "delete account text3":"Rewards & points: Built up a stack of delicious rewards? Poof! They'll disappear with your account.",
+      "delete account text5":"Still want to delete? We understand. If you're sure, proceed. But if you have any questions or want to talk about your account status, our friendly Apex Pizza Support team is always happy to help!",
+      "getCode":"get code",
+      "wrong phone number":"Wrong phone number",
+      "wrong verification code":"Please enter the verification code",
+      "verification code prompt":"We've sent a verification code to your phone number. Please enter the code here to continue",
+      "successfully":"Successfully",
+      "account deleted successfully":"Account deletion complete. We hope to see you again someday!"
+    }
+}

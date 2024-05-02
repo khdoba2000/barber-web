@@ -37,7 +37,22 @@ export default function Navbar() {
           uBarber
         </Text>
       </Flex>
-
+      <Select
+        onChange={(lang) => {
+          changeLanguage(lang);
+          localStorage.setItem("currentLanguage", lang);
+          setCurrentLanguage(lang);
+        }}
+        sx={{ width: 100 }}
+        value={currentLang}
+        placeholder="select a language"
+        data={[
+          { value: "ru", label: "ru" },
+          { value: "uz", label: "uz" },
+          { value: "en", label: "en" },
+        ]}
+        icon={<IconWorld size="1rem" />}
+      />
     </Flex>
   );
 }

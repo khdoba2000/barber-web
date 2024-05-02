@@ -20,9 +20,9 @@ export default function AlertBox() {
         <List.Item>{t("delete account text2")}</List.Item>
         <List.Item>{t("delete account text3")}</List.Item>
       </List>
-      <Text mt={"md"} sx={{ fontSize: 14, fontFamily: "Rubik" }}>
+      {/* <Text mt={"md"} sx={{ fontSize: 14, fontFamily: "Rubik" }}>
         {t("delete account text4")}
-      </Text>
+      </Text> */}
       <Text mt={"sm"} sx={{ fontSize: 14, fontFamily: "Rubik" }}>
         {t("delete account text5")}
       </Text>

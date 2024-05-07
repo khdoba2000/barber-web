@@ -1,7 +1,7 @@
 import  React, {useEffect, useState}  from "react";
 import styled from "styled-components";
 import { useParams, Link } from 'react-router-dom';
-
+import Footer from './Footer';
 import Calendar from './Calendar';
 import { fetchBarberProfile } from '../api/barberProfileApi';
 
@@ -28,6 +28,8 @@ const BookingPage = () => {
   }
   
   return (
+    <div>
+  
     <ProfileHeader>
 
           {/* <Button>Click me!</Button>; */}
@@ -47,13 +49,26 @@ const BookingPage = () => {
           {/* {selectedServices.len > 0 && (
             <p>selectedServices[0].name </p>
           )} */}
-      </ProfileHeader>
-            
 
+      </ProfileHeader> 
+      <Footer/>
+
+      </div>
   );
 };
 
 
+
+// const Footer = () => {
+//   return (
+//     <footer className="footer">
+//       <ul className="footer-list">
+//         <li><a href="" className="footer-link">Sartaroshmisiz? uBarberni yuklab oling</a></li>
+
+//       </ul>
+//     </footer>
+//   );
+// };
 
 const ProfileHeader = styled.header`
 background-color: #fff;

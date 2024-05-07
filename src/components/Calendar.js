@@ -75,7 +75,8 @@ const Calendar = (props) => {
             minDate={new Date()}
             maxDate={new Date().setMonth(new Date().getMonth() + 1)}
             size={"lg"}
-            style={{ marginLeft: '10px',
+            style={{ 
+              marginLeft: '10px',
             marginRight: '10px',
             }} // Add margin here
           />
@@ -102,7 +103,5 @@ const CalendarStyle = styled.div`
   width: 100%;
   font-size: 24px;
   font-weight: 400;
-  padding: 10px 15px;
-  
-
+  padding: 5px 15px;
 `;

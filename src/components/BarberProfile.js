@@ -3,7 +3,11 @@ import styled from "styled-components";
 import { useParams } from 'react-router-dom';
 import { fetchBarberProfile } from '../api/barberProfileApi';
 import { fetchBarberPhotos } from '../api/barberPhotosApi';
-import { Button, Group, rem} from '@mantine/core';
+import { Button,Image, Group, rem} from '@mantine/core';
+import Footer from './Footer';
+import google_play from "../assets/google_play.png";
+import prof_photo from "../assets/prof_photo.jpg";
+import avatar from "../assets/avatar.png";
 
 // import {BookingPage} from './BookingPage';
 
@@ -41,7 +45,10 @@ function BarberProfile() {
       <ProfileWrapper>
         <ProfileHeader>
           <BarberInfo>
-            <BarberAvatar src={barberData.profile_photo} alt="Barber avatar" />
+            <BarberAvatar 
+            src={barberData?.profile_photo==''?avatar:barberData?.profile_photo} 
+            alt={barberData?.profile_photo}
+             />
             <BarberStats>
               <Stat>
                 <StatValue>{barberData.rating}</StatValue>
@@ -61,7 +68,8 @@ function BarberProfile() {
           </BarberInfo>
           <BarberName>{barberData.fullname}</BarberName>
           <LocationText>
-            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/64e7603049f9aa8e170b26012953b52e60e2b9ca43542e42717f02ca71517af3?apiKey=70b926e372dc42878f761519e49b3044&" alt="Location icon" />
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/64e7603049f9aa8e170b26012953b52e60e2b9ca43542e42717f02ca71517af3?apiKey=70b926e372dc42878f761519e49b3044&" 
+            alt="Location icon" />
             <span>{barberData.barbershop_info.address}</span>
           </LocationText>
           <BarberBio>
@@ -85,13 +93,20 @@ function BarberProfile() {
         <HairCutsTitle>Ishlari</HairCutsTitle>
         <HairCutsGallery>
         {
-          getBarberPhotos(barberPhotos).map((hairCut) => (
-            // console.log("hairCut:", hairCut),
-            <HairCutImage 
+          getBarberPhotos(barberPhotos).
+          filter((photo) => photo.photo !='').
+          map((hairCut) => (
+            console.log("hairCut:", hairCut),
+            <HairCutContainer>
+            <HairCutImageContainer 
               key={hairCut.id} 
               src={hairCut.photo} 
-              alt={`Hair Cut ${hairCut.id}`}             
+              // src={prof_photo}
+              alt={`Yuklashda xato`}
+              // className='HairCutImage'  
             />
+            <p style={{margin: '0px', marginLeft: '3px'}}>{hairCut.name}</p>
+            </HairCutContainer>
            ))
         }
         </HairCutsGallery>
@@ -101,13 +116,13 @@ function BarberProfile() {
           pathname: `/booking/${id}`, 
           // state:  {testState},
         }}>
-          <Button 
+      <Button 
        variant="gradient" 
        gradient={{ to: '#FF7043', from: '#A65F5D' }}
        styles={(theme) => ({
         root: {
           position: 'fixed',
-          bottom: '10px',
+          bottom: '50px',
           right: '10px',
           boxSizing: 'unset',
           zIndex: 999,
@@ -130,6 +145,7 @@ function BarberProfile() {
           Band qilish
         </Button>
         </Link>
+        <Footer></Footer>
         </ProfileWrapper>
     );
   }
@@ -330,10 +346,22 @@ const HairCutsGallery = styled.div`
   margin-bottom: 30px;
 `;
 
-const HairCutImage = styled.img`
-  width: calc(33.33% - 5.33px);
+const HairCutImageContainer = styled.img`
+  width: calc(100%);
   aspect-ratio: 0.75;
-  object-fit: cover;
+  border-top-left-radius: 5%;
+  border-top-right-radius: 5%;
+  border: 1px solid black;
+    object-fit: cover;
+    object-position: center;
+    border: 0px solid black;
+`;
+
+const HairCutContainer = styled.div`
+  width: calc(33.33% - 5.33px);
+  aspect-ratio: 0.65;
+  border-radius: 5%;
+  border: 0px solid black;
 `;
 
   

@@ -5,7 +5,7 @@ import BarberProfile from './components/BarberProfile';
 import BookingPage from './components/BookingPage';
 import { Analytics } from "@vercel/analytics/react"
 import DeleteAccount from './components/deleteAccount';
-
+import Footer from './components/Footer';
 const App = () => {
     return (
         <>

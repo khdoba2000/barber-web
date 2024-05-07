@@ -67,6 +67,7 @@ body {
   padding: 20px; /* Add padding to the modal content */
   background-color: white; /* Customize the modal content background */
 }
+
 .info {
   text-align: left;
   font-weight: 700;
@@ -176,3 +177,37 @@ input:focus {
   border-color: #506CFF;
   font-display: auto;
 } 
+
+.HairCutImage{
+  /* aspect-ratio: 0.75; */
+  /* object-fit: auto; */
+  border-radius: 40%;
+  border: 2px solid black;
+}
+  
+.footer {
+  box-sizing: border-box;
+  margin: 0;
+  margin-top: 30px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  position: relative;
+  background-color: #f9f6ed;
+  color: white;
+  text-align: center;
+  justify-items: space-between;
+}
+
+.footer-list {
+  list-style-type: none;
+  padding: 5px;
+}
+
+.footer-link {
+  color: black;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}

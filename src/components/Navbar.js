@@ -2,8 +2,8 @@ import { Flex, Image, Select, Text } from "@mantine/core";
 import { IconWorld } from "@tabler/icons-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import logo from "../assets/barber.ico";
-export default function Navbar() {
+import logo from "../assets/ubarber.png";
+export default function Navbar(props) {
   const {
     i18n: { changeLanguage },
   } = useTranslation();
@@ -13,16 +13,21 @@ export default function Navbar() {
   );
 
   return (
-    <Flex p={"xs"} align={"center"} justify={"space-between"}>
+    <Flex p={"xs"} 
+    align={"center"} 
+    justify={"space-between"}
+    padding={"10px"}
+    >
       <Flex align={"center"}>
         <Image
           fit="cover"
-          width={70}
-          height={70}
+          width={110}
+          height={22}
           src={logo}
           alt="Random image"
           radius={"md"}
         />
+        {!props.only_logo && (
         <Text
           weight={500}
           sx={{
@@ -35,8 +40,10 @@ export default function Navbar() {
           ml={"md"}
         >
           uBarber
-        </Text>
+        </Text>)
+        }
       </Flex>
+      {!props.without_languagePicker && (
       <Select
         onChange={(lang) => {
           changeLanguage(lang);
@@ -53,6 +60,7 @@ export default function Navbar() {
         ]}
         icon={<IconWorld size="1rem" />}
       />
+      )}
     </Flex>
   );
 }

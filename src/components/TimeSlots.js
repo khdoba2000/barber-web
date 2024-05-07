@@ -56,9 +56,7 @@ const ReservationInfo = ({selectedSlot, selectedServices}) => {
                     {calculatePriceSum(selectedServices)} so'm
                 </p>
             </div>
-
-           
-           
+  
         </div>
         )
 }
@@ -395,16 +393,19 @@ const TimeSlots = (props) => {
                         selectedServices={selectedServices}
                     />
 
-                  <div>
-                <h4 className="info-label">
-                    Iltimos, buyurtmangizni kuzatish uchun ilovamizga {userPhone} bilan kiring
-                    </h4>
-                    <h4 className="info-label">
+                  <div style={{
+                    "margin-bottom": "20px",
+                  }}>
+                <p className="info-label">
+                    Iltimos, buyurtmangizni kuzatish uchun ilovamizga 
+                     <b>{' '}{userPhone}{' '}</b>bilan kiring
+                    </p>
+                    <p className="info-label">
                         Ubarber ilovasi
-                    </h4>
+                    </p>
                 <p className="info" >
                     <Group >
-                
+                    <a href="https://play.google.com/store/apps/details?id=com.nest_app.ubarber">
                     <Image href="https://play.google.com/store/apps/details?id=com.nest_app.ubarber"
                      fit="cover"
                      width={50}
@@ -413,12 +414,20 @@ const TimeSlots = (props) => {
                      alt="Random image"
                      radius={"md"}
                      target="_blank" rel="noreferrer"/>
-                      {/* <a href="https://play.google.com/store/apps/details?id=com.nest_app.ubarber">(Play Market) </a> */}
+                      </a>
                       </Group>
                     </p>
                     
                 <p className="info-label" >
-                 Sartarosh telefoni <p className="info" ><a href={`tel:${barberData.phone_number}` } target="_blank" rel="noreferrer">{barberData.phone_number}</a>
+                 Sartarosh telefoni 
+                 <p className="info" >
+                <a 
+                    href={`tel:${barberData.phone_number}` 
+                    } target="_blank" rel="noreferrer"
+                    style={{color: 'black'}}
+                    >
+                        {barberData.phone_number}
+                </a>
                  </p>
                  </p>
                 </div>

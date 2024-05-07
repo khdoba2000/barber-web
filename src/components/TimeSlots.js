@@ -3,7 +3,9 @@ import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
 import { Input} from '@mantine/core';
 import { useId, useDisclosure } from '@mantine/hooks';
-import { Modal, Button, rem, Group } from '@mantine/core';
+import { Modal, Button, Image, rem, Group } from '@mantine/core';
+
+import google_play from "../assets/google_play.png";
 
 import OtpInput from 'react-otp-input';
 
@@ -383,9 +385,9 @@ const TimeSlots = (props) => {
             {isReservationSucceeded && (
                 <div style={{"margin-left": "20px"}}>
                 <div style={{"margin-bottom": "10px"}}>
-                <h3 className="info-label">
+                <h4 className="info-label">
                 Sizning buyurtmangiz sartaroshga yuborildi!
-                </h3>
+                </h4>
                 </div>
             
                 <ReservationInfo 
@@ -394,15 +396,29 @@ const TimeSlots = (props) => {
                     />
 
                   <div>
-                <h3 className="info-label">
+                <h4 className="info-label">
                     Iltimos, buyurtmangizni kuzatish uchun ilovamizga {userPhone} bilan kiring
-                    </h3>
+                    </h4>
+                    <h4 className="info-label">
+                        Ubarber ilovasi
+                    </h4>
                 <p className="info" >
-                    <a href="https://t.me/ubarberapp" target="_blank" rel="noreferrer">UBarber ilovasi</a>
+                    <Group >
+                
+                    <Image href="https://play.google.com/store/apps/details?id=com.nest_app.ubarber"
+                     fit="cover"
+                     width={50}
+                     height={50}
+                     src={google_play}
+                     alt="Random image"
+                     radius={"md"}
+                     target="_blank" rel="noreferrer"/>
+                      {/* <a href="https://play.google.com/store/apps/details?id=com.nest_app.ubarber">(Play Market) </a> */}
+                      </Group>
                     </p>
-
+                    
                 <p className="info-label" >
-                 Sartarosh telefoni <p className="info" ><a href={`tel:${barberData.phone_number}`}>{barberData.phone_number}</a>
+                 Sartarosh telefoni <p className="info" ><a href={`tel:${barberData.phone_number}` } target="_blank" rel="noreferrer">{barberData.phone_number}</a>
                  </p>
                  </p>
                 </div>

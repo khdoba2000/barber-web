@@ -419,8 +419,8 @@ const TimeSlots = (props) => {
                       <a href="https://apps.apple.com/us/app/ubarber/id6502838564">
                     <Image href="https://apps.apple.com/us/app/ubarber/id6502838564"
                      fit="cover"
-                     width={50}
-                     height={50}
+                     width={55}
+                     height={60}
                      src={app_store} 
                      alt="Random image"
                      radius={"md"}

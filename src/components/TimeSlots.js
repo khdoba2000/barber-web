@@ -406,7 +406,7 @@ const TimeSlots = (props) => {
                     </p>
                 <p className="info" >
                     <Group >
-                    <a href="https://play.google.com/store/apps/details?id=com.nest_app.ubarber">
+                    <a href="https://play.google.com/store/apps/details?id=com.nest_app.ubarber" target="_blank" rel="noreferrer">
                     <Image href="https://play.google.com/store/apps/details?id=com.nest_app.ubarber"
                      fit="cover"
                      width={50}
@@ -416,7 +416,7 @@ const TimeSlots = (props) => {
                      radius={"md"}
                      target="_blank" rel="noreferrer"/>
                       </a>
-                      <a href="https://apps.apple.com/us/app/ubarber/id6502838564">
+                      <a href="https://apps.apple.com/us/app/ubarber/id6502838564" target="_blank" rel="noreferrer">
                     <Image href="https://apps.apple.com/us/app/ubarber/id6502838564"
                      fit="cover"
                      width={55}

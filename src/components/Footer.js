@@ -9,7 +9,7 @@ export default function Footer() {
     >
 
   <div className="info-label">  
-      <a href="https://www.instagram.com/u_barber_uz?igsh=MXBzZ2M5Y2NjZ25scg==">
+      <a href="https://www.instagram.com/u_barber_uz?igsh=MXBzZ2M5Y2NjZ25scg=="  target="_blank" rel="noreferrer">
         <Image
         // href="https://www.instagram.com/u_barber_uz?igsh=MXBzZ2M5Y2NjZ25scg=="
           fit="contain"

@@ -1,5 +1,4 @@
 import {  Image, Group } from "@mantine/core";
-import google_play from "../assets/google_play.png";
 import logo from "../assets/ubarber.png";
 
 export default function Footer() {
@@ -10,7 +9,6 @@ export default function Footer() {
     >
 
   <div className="info-label">  
-
       <a href="https://www.instagram.com/u_barber_uz?igsh=MXBzZ2M5Y2NjZ25scg==">
         <Image
         // href="https://www.instagram.com/u_barber_uz?igsh=MXBzZ2M5Y2NjZ25scg=="
@@ -24,22 +22,7 @@ export default function Footer() {
         </a>
     </div>
 
-    <div className="info-label">  
-  
-        <a href="https://play.google.com/store/apps/details?id=com.nest_app.ubarber">
-                    <Image 
-                    // href="https://play.google.com/store/apps/details?id=com.nest_app.ubarber"
-                     fit="contain"
-                     width={40}
-                     height={40}
-                     src={google_play}
-                     alt="Random image"
-                     radius={"md"}
-                   
-                     target="_blank" rel="noreferrer"/>
-                    
-                    </a>
-        </div>      
+    
     </Group>
   );
 }

@@ -6,6 +6,7 @@ import { useId, useDisclosure } from '@mantine/hooks';
 import { Modal, Button, Image, rem, Group } from '@mantine/core';
 
 import google_play from "../assets/google_play.png";
+import app_store from "../assets/app_store.png";
 
 import OtpInput from 'react-otp-input';
 
@@ -303,13 +304,14 @@ const TimeSlots = (props) => {
                             </p>
                             </div>
                         
-                            {isCodeSent && !isCodeVerified && (
+                            {isCodeSent && (
                                 <p>{userPhone} ga yuborilgan sms kodni kiriting</p>
                             )
                             }
-                            {isCodeSent &&!isCodeVerified && (
+                            {isCodeSent && (
                                 <OtpInput 
                                value={codeInput}
+                               disabled={isCodeVerified==true}
                                inputStyle={{fontSize:24, color:'black', width: 50, height: 50}}
                                onChange={handleCodeInput}
                                numInputs={4}
@@ -345,11 +347,12 @@ const TimeSlots = (props) => {
                             )}
                     
 
-                             {isCodeVerified && (
-
+                            
+                          <div>
                             <Button 
                                 variant="gradient" 
                                 onClick={handleReservationConfirm}
+                                disabled={!isCodeVerified || isCodeVerified==false}
                                 gradient={{ from: 'green', to: 'green' }}
                                 styles={(theme) => ({
                                 root: {
@@ -365,11 +368,9 @@ const TimeSlots = (props) => {
                             >
                             Buyurtmani tasdiqlash
                             </Button>
-                            // <AcceptButton onClick={handleReservationConfirm}>
-                            //     Buyurtmani tasdiqlash
-                            // </AcceptButton>
-                            )
-                            }
+                            </div>
+                          
+                            
                             {reservationMessage && (
                                 <p>{reservationMessage}</p>
                             )}
@@ -397,8 +398,8 @@ const TimeSlots = (props) => {
                     "margin-bottom": "20px",
                   }}>
                 <p className="info-label">
-                    Iltimos, buyurtmangizni kuzatish uchun ilovamizga 
-                     <b>{' '}{userPhone}{' '}</b>bilan kiring
+                    Iltimos, buyurtmangizni kuzatish uchun 
+                     <b>{' '}{userPhone}{' '}</b> bilan <a href="https://ubarber.app.link" style={{color: 'black'}}><strong>ilovamizga</strong> </a> kiring
                     </p>
                     <p className="info-label">
                         Ubarber ilovasi
@@ -411,6 +412,16 @@ const TimeSlots = (props) => {
                      width={50}
                      height={50}
                      src={google_play}
+                     alt="Random image"
+                     radius={"md"}
+                     target="_blank" rel="noreferrer"/>
+                      </a>
+                      <a href="https://apps.apple.com/us/app/ubarber/id6502838564">
+                    <Image href="https://apps.apple.com/us/app/ubarber/id6502838564"
+                     fit="cover"
+                     width={50}
+                     height={50}
+                     src={app_store} 
                      alt="Random image"
                      radius={"md"}
                      target="_blank" rel="noreferrer"/>

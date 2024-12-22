@@ -204,7 +204,7 @@ const TimeSlots = (props) => {
         return () => {
           clearInterval(interval);
         };
-    }, [seconds]);
+    }, [seconds, minutes]);
 
     const id = useId();
     // Get the current time
@@ -217,15 +217,14 @@ const TimeSlots = (props) => {
         <div>
             {!isReservationSucceeded && (
             <SlotContainer>
-                {availableSlots.filter((slot) => {
+                {availableSlots && availableSlots.filter((slot) => {
                     if (selectedDate.getDate() === now.getDate() &&
                         selectedDate.getMonth() === now.getMonth() && 
                         selectedDate.getFullYear() === now.getFullYear()) {
                         return slot.Start > currentTime;
                     }
                     return true;
-                }).
-                map((slot, index) => (
+                }).map((slot, index) => (
                     <SlotItem key={index}>
                         <SlotButton key={index} 
                             busy={slot.Busy} 

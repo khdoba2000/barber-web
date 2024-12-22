@@ -11,7 +11,7 @@ const fetchAvailableSlots = async (barberId, date, selectedServices) => {
        
         const serviceIDs = selectedServices.map((service) => service.id)
         console.log('Fetching slots serviceIDs:', serviceIDs);
-        const response = await axios.get(`${API_URL}/clients/barber/${barberId}/${dateFormatter(date)}/slots/?service_ids=${serviceIDs}&serevice_ids=${serviceIDs}`, { 
+        const response = await axios.get(`${API_URL}/clients/barber/${barberId}/${dateFormatter(date)}/slots/?service_ids=${serviceIDs}`, { 
             headers: { "Authorization-HMAC" :  generateHMAC(null, getCurrentEpochTime()), "Timestamp" : getCurrentEpochTime()},
         });
         console.log('api: barber Slots:', response);

@@ -40,15 +40,16 @@ const ServiceSelector = (props) => {
         // console.log("Selected services", selectedServices);
         // serviceChangeCallback(selectedServices);
     };
-    let defaultCheckedServiceID = ''
+    // let defaultCheckedServiceID = ''
     
     let services=props.barberData.services;
-    if (services.length>0 &&
-        selectedServices.length==0 &&
-        !selectedServices.includes(services[0])) {//should be selected by default
-            setSelectedServices([...selectedServices, services[0]]);
-            defaultCheckedServiceID=services[0].id;
-    }
+    // if (services.length>0 &&
+    //     selectedServices.length==0)
+    //     // !selectedServices.includes(services[0])) //should be selected by default
+    //     {
+    //         setSelectedServices([...selectedServices, services[0]]);
+    //         defaultCheckedServiceID=services[0].id;
+    //      }
     const mappedServices = services.map((service) => {
       const labelName = `${service.name} ` ;
       return(
@@ -57,7 +58,8 @@ const ServiceSelector = (props) => {
                 label={labelName} 
                 duration={`${service.duration}`} 
                 onChangeFunc={() => handleServiceSelection(service)}
-                isCheckedIn={service.id===defaultCheckedServiceID}/>
+                // isCheckedIn={false}
+                />
         <div>
             {service.price != null && <RightItem> {formattedNumber(service.price)} so‘m</RightItem>}
         </div>                           

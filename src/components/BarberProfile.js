@@ -49,7 +49,7 @@ function BarberProfile() {
             src={barberData?.profile_photo==''?avatar:barberData?.profile_photo} 
             alt={barberData?.profile_photo}
              />
-            <BarberStats>
+            {/* <BarberStats>
               <Stat>
                 <StatValue>{barberData.rating}</StatValue>
                 <StatLabel>Reyting</StatLabel>
@@ -64,7 +64,7 @@ function BarberProfile() {
                 <StatValue>{barberData.total_cuts}</StatValue>
                 <StatLabel>Ishlari</StatLabel>
               </Stat>
-            </BarberStats>
+            </BarberStats> */}
           </BarberInfo>
           <BarberName>{barberData.fullname}</BarberName>
           <LocationText>

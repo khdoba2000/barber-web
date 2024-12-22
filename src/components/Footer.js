@@ -1,5 +1,5 @@
 import {  Image, Group } from "@mantine/core";
-import logo from "../assets/ubarber.png";
+import logo from "../assets/logo-no-background.png";
 
 export default function Footer() {
 
@@ -9,9 +9,9 @@ export default function Footer() {
     >
 
   <div className="info-label">  
-      <a href="https://www.instagram.com/u_barber_uz?igsh=MXBzZ2M5Y2NjZ25scg=="  target="_blank" rel="noreferrer">
+      <a href="https://www.instagram.com/topmaster_uz"  target="_blank" rel="noreferrer">
         <Image
-        // href="https://www.instagram.com/u_barber_uz?igsh=MXBzZ2M5Y2NjZ25scg=="
+        // href="https://www.instagram.com/topmaster_uz"
           fit="contain"
           width={200}
           height={35}

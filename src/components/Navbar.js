@@ -2,7 +2,7 @@ import { Flex, Image, Select, Text } from "@mantine/core";
 import { IconWorld } from "@tabler/icons-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import logo from "../assets/ubarber.png";
+import logo from "../assets/logo-no-background.png";
 export default function Navbar(props) {
   const {
     i18n: { changeLanguage },
@@ -39,7 +39,7 @@ export default function Navbar(props) {
           }}
           ml={"md"}
         >
-          uBarber
+          TopMaster
         </Text>)
         }
       </Flex>

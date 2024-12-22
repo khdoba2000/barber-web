@@ -1,6 +1,6 @@
 {
-  "short_name": "Ubarber",
-  "name": "Sartaroshingizni bronlang",
+  "short_name": "TopMaster",
+  "name": "Masteringizni bronlang",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,7 +8,7 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo1.png",
+      "src": "logo2.png",
       "type": "image/png",
       "sizes": "192x192"
     }

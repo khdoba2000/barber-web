@@ -24,7 +24,7 @@ const calculatePriceSum = (arr) => {
   }
 
 
-const ReservationInfo = ({selectedSlot, selectedServices}) => {
+const ReservationInfo = ({selectedDate, selectedSlot, selectedServices}) => {
     const selectedServiceNames = selectedServices.map((service) => service.name).join(', ');
 
     console.log(`reservationInfo: ${selectedSlot.Start} - ${selectedSlot.End}`);
@@ -36,7 +36,7 @@ const ReservationInfo = ({selectedSlot, selectedServices}) => {
                     Tanlangan vaqt: 
                 </p>
                 <p className="info">
-                {selectedSlot.Start} - {selectedSlot.End}
+                {selectedDate} ({selectedSlot.Start}-{selectedSlot.End})
                 </p>
             </div>
          
@@ -252,6 +252,7 @@ const TimeSlots = (props) => {
                     >
 
                     <ReservationInfo 
+                        selectedDate={dateFormatter(selectedDate)}
                         selectedSlot={selectedSlot}
                         selectedServices={selectedServices}
                     />
@@ -389,6 +390,7 @@ const TimeSlots = (props) => {
                 </div>
             
                 <ReservationInfo 
+                        selectedDate={dateFormatter(selectedDate)}
                         selectedSlot={selectedSlot}
                         selectedServices={selectedServices}
                     />
@@ -396,14 +398,14 @@ const TimeSlots = (props) => {
                   <div style={{
                     "margin-bottom": "20px",
                   }}>
-                <p className="info-label">
+                {/* <p className="info-label">
                     Iltimos, buyurtmangizni kuzatish uchun 
                      <b>{' '}{userPhone}{' '}</b> bilan <a href="https://ubarber.app.link" style={{color: 'black'}}><strong>ilovamizga</strong> </a> kiring
                     </p>
                     <p className="info-label">
                         Ubarber ilovasi
-                    </p>
-                <p className="info" >
+                    </p> */}
+                {/* <p className="info" >
                     <Group >
                     <a href="https://play.google.com/store/apps/details?id=com.nest_app.ubarber" target="_blank" rel="noreferrer">
                     <Image href="https://play.google.com/store/apps/details?id=com.nest_app.ubarber"
@@ -427,7 +429,7 @@ const TimeSlots = (props) => {
                       </a>
                       </Group>
                     </p>
-                    
+                     */}
                 <p className="info-label" >
                  Sartarosh telefoni 
                  <p className="info" >

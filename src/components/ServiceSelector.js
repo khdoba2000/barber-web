@@ -57,9 +57,7 @@ const ServiceSelector = (props) => {
     //      }
     const mappedServices = services.map((service) => {
      const lan = window.localStorage.getItem("currentLanguage") || "ru"
-      if (lan=="uz"){
-
-      }
+    
       const serviceTypeInfo =service.service_type_info
       const description = `${service.description}`
       const labelName = `${

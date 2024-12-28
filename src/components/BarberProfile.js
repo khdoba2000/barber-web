@@ -83,7 +83,7 @@ function BarberProfile() {
               {barberData.bio}
           </BarberBio>
         
-        <WorkingHoursTitle>Ish vaqti</WorkingHoursTitle>
+        <WorkingHoursTitle>{t("Ish vaqti")}</WorkingHoursTitle>
        
         <WorkingHours>
           {
@@ -160,17 +160,25 @@ function BarberProfile() {
   }
   
 
-const BarberSchedule = ({ schedule }) => {
+const BarberSchedule = ({ schedule }) => {  
+  const lan = window.localStorage.getItem("currentLanguage") || "ru"
+
   return (
       <div>
           <div className="schedule-list">
               {weekdays.en.map((day, index) => (
                     <div key={index} className="schedule-item">
                      {/* <ProfileDay>{weekdays.uz[index]} <ProfileHour>{schedule[`${day.toLowerCase()}_interval`]}</ProfileHour></ProfileDay> */}
-                     <p className="weekday">{weekdays.uz[index]}</p>
+                     <p className="weekday">{
+                     lan=="uz"
+                      ?weekdays.uz[index]
+                      :lan=='en'?
+                         weekdays.en[index]
+                         :weekdays.ru[index]
+                      }</p>
                      <p className="interval">{schedule[`${day.toLowerCase()}_interval`].split("-")[0]} - {schedule[`${day.toLowerCase()}_interval`].split("-")[1]}</p>
                     </div>
-                ))
+              ))
             }
           </div>
       </div>

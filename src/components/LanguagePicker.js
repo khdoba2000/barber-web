@@ -23,7 +23,7 @@ export default function LanguagePicker(){
           setCurrentLanguage(lang);
         }}
         sx={{ width: 100 }}
-        value={currentLang}
+        value={currentLang.slice({start:0, end:2})}
         placeholder="select a language"
         data={[
           { value: "ru", label: "Русский" },

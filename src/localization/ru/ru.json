@@ -19,6 +19,17 @@
       "Band qilish": "Бронировать",
       "min": "мин.",
       "sum": "сум",
-      "Ish vaqti": "Рабочее время"
+      "Ish vaqti": "Рабочее время",
+      " da buyurtmani tasdiqlash": " подтверждение заказа",
+      "Tanlangan vaqt": "Выбранное время",
+      "Tanlangan xizmat(lar)": "Выбранные услуг(и)",
+      "Umumiy narx": "Общая стоимость",
+      "Telefon raqamingizni kiriting": "Введите свой номер телефона",
+      "Kod yuborish": "Отправить код",
+      "Buyurtmani tasdiqlash": "Подтвердить заказ",
+      "Sizning buyurtmangiz masterga yuborildi!": "Ваш заказ отправлен мастеру!",
+      "Master telefoni": "Телефон мастера",
+      "Kod kelmadimi?": "Код не пришел?",
+      "Qaytadan yuborish": "Отправить код повторно"
     }
 }

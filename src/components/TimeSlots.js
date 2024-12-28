@@ -4,9 +4,7 @@ import styled from "styled-components";
 import { Input} from '@mantine/core';
 import { useId, useDisclosure } from '@mantine/hooks';
 import { Modal, Button, Image, rem, Group } from '@mantine/core';
-
-import google_play from "../assets/google_play.png";
-import app_store from "../assets/app_store.png";
+import { useTranslation } from "react-i18next";
 
 import OtpInput from 'react-otp-input';
 
@@ -25,15 +23,29 @@ const calculatePriceSum = (arr) => {
 
 
 const ReservationInfo = ({selectedDate, selectedSlot, selectedServices}) => {
-    const selectedServiceNames = selectedServices.map((service) => service.name).join(', ');
+   
+    const lan = window.localStorage.getItem("currentLanguage") || "ru"
+    
+    
+    const selectedServiceNames = selectedServices.map((service) => {
+        const serviceTypeInfo =service.service_type_info
+        const  serviceName = `${
+        lan=="uz"
+        ?serviceTypeInfo.name_uz:
+        lan=='en'
+        ?serviceTypeInfo.name_en
+        :serviceTypeInfo.name_ru}` ;
+      return serviceName
+    }).join(', ');
 
+    const { t } = useTranslation();
     console.log(`reservationInfo: ${selectedSlot.Start} - ${selectedSlot.End}`);
     console.log(`selectedServiceNames: ${selectedServiceNames}`);
     return (
         <div>
             <div>
                 <p className="info-label">
-                    Tanlangan vaqt: 
+                   {t("Tanlangan vaqt")}: 
                 </p>
                 <p className="info">
                 {selectedDate} ({selectedSlot.Start}-{selectedSlot.End})
@@ -42,7 +54,7 @@ const ReservationInfo = ({selectedDate, selectedSlot, selectedServices}) => {
          
             <div>
                 <p className="info-label">
-                    Tanlangan xizmat(lar):
+                {t("Tanlangan xizmat(lar)")}:
                 </p> 
                 <p className="info">
                 {selectedServiceNames}
@@ -51,7 +63,7 @@ const ReservationInfo = ({selectedDate, selectedSlot, selectedServices}) => {
 
             <div>
                 <p className="info-label">
-                    Umumiy narx: 
+                {t("Umumiy narx")}: 
                 </p>
                 <p className="info">
                     {calculatePriceSum(selectedServices)} so'm
@@ -213,6 +225,8 @@ const TimeSlots = (props) => {
     const currentMinute = now.getMinutes();
     const currentTime = `${currentHour.toString().padStart(2, '0')}:${currentMinute.toString().padStart(2, '0')}`;
 
+    const { t } = useTranslation();
+
     return (
         <div>
             {!isReservationSucceeded && (
@@ -242,7 +256,7 @@ const TimeSlots = (props) => {
                     <Modal 
                     opened={opened} 
                     onClose={handleModalClose} 
-                    title={barberData.fullname + ' da buyurtmani tasdiqlash'}
+                    title={barberData.fullname + t(" da buyurtmani tasdiqlash")}
                     classNames={{
                         wrapper: 'custom-modal-wrapper', // Custom class for modal wrapper
                         overlay: 'custom-modal-overlay', // Custom class for modal overlay
@@ -258,7 +272,7 @@ const TimeSlots = (props) => {
                     />
                    
                         <Input.Wrapper
-                                    id={id} label="Telefon raqamingizni kiriting" 
+                                    id={id} label={t("Telefon raqamingizni kiriting")} 
                                     required maw={520} 
                                     message={message}
                         >
@@ -293,7 +307,7 @@ const TimeSlots = (props) => {
                                         fullWidth={true}
                                         disabled={!enableSendCode}  
                                 >
-                                        Kod yuborish
+                                        {t("Kod yuborish")}
                                 </Button>
                             
 
@@ -330,7 +344,7 @@ const TimeSlots = (props) => {
                                     {seconds < 10 ? `0${seconds}` : seconds} dan keyin
                                     </p>
                                 ) : (
-                                    <p>Kod kelmadimi?</p>
+                                    <p>{t("Kod kelmadimi?")}</p>
                                 )}
 
                                 <Button
@@ -340,7 +354,7 @@ const TimeSlots = (props) => {
                                     }}
                                     onClick={handleSendCode}
                                 >
-                                   Qaytadan yuborish
+                                   {t("Qaytadan yuborish")}
                                 </Button>
                                 
                                 </Group>
@@ -366,7 +380,7 @@ const TimeSlots = (props) => {
                                 },
                                 })}
                             >
-                            Buyurtmani tasdiqlash
+                             {t("Buyurtmani tasdiqlash")}
                             </Button>
                             </div>
                           
@@ -385,7 +399,7 @@ const TimeSlots = (props) => {
                 <div style={{"margin-left": "20px"}}>
                 <div style={{"margin-bottom": "10px"}}>
                 <h4 className="info-label">
-                Sizning buyurtmangiz sartaroshga yuborildi!
+                {t("Sizning buyurtmangiz masterga yuborildi!")}
                 </h4>
                 </div>
             
@@ -431,7 +445,7 @@ const TimeSlots = (props) => {
                     </p>
                      */}
                 <p className="info-label" >
-                 Sartarosh telefoni 
+                 {t("Master telefoni")} 
                  <p className="info" >
                 <a 
                     href={`tel:${barberData.phone_number}` 

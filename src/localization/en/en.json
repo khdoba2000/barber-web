@@ -18,6 +18,17 @@
       "Band qilish": "Reserve now",
       "sum": "sum",
       "min": "min",
-      "Ish vaqti": "Working hours"
+      "Ish vaqti": "Working hours",
+      " da buyurtmani tasdiqlash": "confirm reservation",
+      "Tanlangan vaqt": "Chosen time",
+      "Tanlangan xizmat(lar)": "Chosen service(s)",
+      "Umumiy narx": "Total price",
+      "Telefon raqamingizni kiriting": "Enter your phone number",
+      "Kod yuborish": "Send code",
+      "Buyurtmani tasdiqlash":  "Confirm order",
+      "Sizning buyurtmangiz masterga yuborildi!": "Your order has been sent to the master!",
+      "Master telefoni": "Master's phone",
+      "Kod kelmadimi?": "Didn't get the code?",
+      "Qaytadan yuborish": "Resend the code"
     }
 }

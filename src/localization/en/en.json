@@ -15,6 +15,8 @@
       "account deleted successfully":"Account deletion complete. We hope to see you again someday!",
       "loading": "Loading ....",
       "Ishlari": "Works",
-      "Band qilish": "Reserve now"
+      "Band qilish": "Reserve now",
+      "sum": "sum",
+      "min": "min"
     }
 }

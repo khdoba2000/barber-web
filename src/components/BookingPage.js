@@ -5,10 +5,13 @@ import Footer from './Footer';
 import Calendar from './Calendar';
 import { fetchBarberProfile } from '../api/barberProfileApi';
 import Navbar from './Navbar';
+import { useTranslation } from "react-i18next";
 
 
 const BookingPage = () => {
   const { id } = useParams(); 
+
+  const { t } = useTranslation();
 
   const [barberData, setProfile] = useState(null);
 
@@ -26,7 +29,7 @@ const BookingPage = () => {
   }, []);
 
   if (!barberData) {
-        return <div>Loading...</div>;
+        return <div>{t("loading")}</div>;
   }
   
   return (
@@ -35,14 +38,14 @@ const BookingPage = () => {
     <ProfileHeader>
 
           {/* <Button>Click me!</Button>; */}
-          <Header>
+          {/* <Header> */}
         {/* <Link to={`/${barberData.id}`}>
           <IconWrapper>
             <Icon src="https://cdn.builder.io/api/v1/image/assets/TEMP/82bdbaf7d9576d129b6a07c4693b6c81faa1282868e1822876c984946f76f55b?apiKey=70b926e372dc42878f761519e49b3044&" alt="Schedule icon" />
           </IconWrapper>
           </Link> */}
          
-        </Header>
+        {/* </Header> */}
         {/* <div className="barber-name">{barberData.fullname}</div> */}
           <Calendar 
             barberData={barberData}

@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import Checkbox from './Checkbox';
+import { useTranslation } from "react-i18next";
 
 import {formattedNumber} from '../util';
 // const services = [
@@ -28,6 +29,10 @@ import {formattedNumber} from '../util';
 
 const ServiceSelector = (props) => {
 
+  const lan = window.localStorage.getItem("currentLanguage") || "ru"
+  console.log("language", lan)
+  const { t } = useTranslation();
+
   const selectedServices = props.selectedServices;
   const setSelectedServices = props.setSelectedServices;
   // const serviceChangeCallback = props.serviceChangeCallback
@@ -51,17 +56,30 @@ const ServiceSelector = (props) => {
     //         defaultCheckedServiceID=services[0].id;
     //      }
     const mappedServices = services.map((service) => {
-      const labelName = `${service.name} ` ;
+     const lan = window.localStorage.getItem("currentLanguage") || "ru"
+      if (lan=="uz"){
+
+      }
+      const serviceTypeInfo =service.service_type_info
+      const description = `${service.description}`
+      const labelName = `${
+        lan=="uz"
+        ?serviceTypeInfo.name_uz:
+         lan=='en'
+         ?serviceTypeInfo.name_en
+         :serviceTypeInfo.name_ru}` ;
+      
       return(
       <ServiceCard key={service.id} value={service.id} >
              <Checkbox 
                 label={labelName} 
+                description={description}
                 duration={`${service.duration}`} 
                 onChangeFunc={() => handleServiceSelection(service)}
                 // isCheckedIn={false}
                 />
         <div>
-            {service.price != null && <RightItem> {formattedNumber(service.price)} so‘m</RightItem>}
+            {service.price != null && <RightItem> {formattedNumber(service.price)} {t("sum")}</RightItem>}
         </div>                           
       </ServiceCard>
       )
@@ -89,7 +107,6 @@ const ServiceCard = styled.div`
   padding: 0px 12px;
   margin-bottom: 12px;
   width: 100%;
-  height: 48px;
   border: 1px solid #D0D7DE;
   border-radius: 8px;
   font-weight: 400;
@@ -102,7 +119,7 @@ const ServiceCard = styled.div`
 
 const RightItem = styled.span`
 margin: auto 0;
-font: 14px Roboto, sans-serif;
+font: 13px Roboto, sans-serif;
 font-weight: 500;
 `;
 

@@ -4,9 +4,8 @@ import { IconPhone, IconKey, IconInfoCircle } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
 import { useTranslation } from "react-i18next";
 import { notifications } from "@mantine/notifications";
-import {removeAccount, sendVerificationCode, verifyVerificationCode} from '../api/sendCodeApi';
+import {removeAccount, sendVerificationCode} from '../api/sendCodeApi';
 
-import axios from 'axios';
 
 export default function Form() {
   const { t } = useTranslation();

@@ -1,16 +1,10 @@
-import { Flex, Image, Select, Text } from "@mantine/core";
-import { IconWorld } from "@tabler/icons-react";
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { Flex, Image, Text } from "@mantine/core";
+import {  Link } from 'react-router-dom';
+import styled from "styled-components";
+import LanguagePicker from './LanguagePicker';
+
 import logo from "../assets/logo-no-background.png";
 export default function Navbar(props) {
-  const {
-    i18n: { changeLanguage },
-  } = useTranslation();
-
-  const [currentLang, setCurrentLanguage] = useState(
-    window.localStorage.getItem("currentLanguage") || "ru"
-  );
 
   return (
     <Flex p={"xs"} 
@@ -19,6 +13,14 @@ export default function Navbar(props) {
     padding={"10px"}
     >
       <Flex align={"center"}>
+        {props.link_to && (
+           <Link to={`/${props.link_to}`}>
+          <IconWrapper>
+            <Icon src="https://cdn.builder.io/api/v1/image/assets/TEMP/82bdbaf7d9576d129b6a07c4693b6c81faa1282868e1822876c984946f76f55b?apiKey=70b926e372dc42878f761519e49b3044&" alt="Schedule icon" />
+          </IconWrapper>
+          </Link> 
+        )}
+        {!props.link_to &&(
         <Image
           fit="cover"
           width={110}
@@ -26,7 +28,7 @@ export default function Navbar(props) {
           src={logo}
           alt="Random image"
           radius={"md"}
-        />
+        /> )}
         {!props.only_logo && (
         <Text
           weight={500}
@@ -39,28 +41,26 @@ export default function Navbar(props) {
           }}
           ml={"md"}
         >
-          TopMaster
+          {props.title}
         </Text>)
         }
       </Flex>
       {!props.without_languagePicker && (
-      <Select
-        onChange={(lang) => {
-          changeLanguage(lang);
-          localStorage.setItem("currentLanguage", lang);
-          setCurrentLanguage(lang);
-        }}
-        sx={{ width: 100 }}
-        value={currentLang}
-        placeholder="select a language"
-        data={[
-          { value: "ru", label: "ru" },
-          { value: "uz", label: "uz" },
-          { value: "en", label: "en" },
-        ]}
-        icon={<IconWorld size="1rem" />}
-      />
+         <LanguagePicker />
       )}
     </Flex>
   );
 }
+
+const IconWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+`;
+
+const Icon = styled.img`
+  width: 24px;
+  aspect-ratio: 1;
+  object-fit: contain;
+`;

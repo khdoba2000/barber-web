@@ -3,10 +3,9 @@ import styled from "styled-components";
 import { useParams } from 'react-router-dom';
 import { fetchBarberProfile } from '../api/barberProfileApi';
 import { fetchBarberPhotos } from '../api/barberPhotosApi';
-import { Button,Image, Group, rem} from '@mantine/core';
+import { Button, Image, Group, rem} from '@mantine/core';
 import Footer from './Footer';
-import google_play from "../assets/google_play.png";
-import prof_photo from "../assets/prof_photo.jpg";
+import LanguagePicker from './LanguagePicker';
 import avatar from "../assets/avatar.png";
 
 // import {BookingPage} from './BookingPage';
@@ -42,6 +41,7 @@ function BarberProfile() {
     }
 
     return (
+      
       <ProfileWrapper>
         <ProfileHeader>
           <BarberInfo>
@@ -49,6 +49,7 @@ function BarberProfile() {
             src={barberData?.profile_photo==''?avatar:barberData?.profile_photo} 
             alt={barberData?.profile_photo}
              />
+              <LanguagePicker />
             {/* <BarberStats>
               <Stat>
                 <StatValue>{barberData.rating}</StatValue>

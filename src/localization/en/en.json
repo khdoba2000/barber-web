@@ -12,6 +12,9 @@
       "wrong verification code":"Please enter the verification code",
       "verification code prompt":"We've sent a verification code to your phone number. Please enter the code here to continue",
       "successfully":"Successfully",
-      "account deleted successfully":"Account deletion complete. We hope to see you again someday!"
+      "account deleted successfully":"Account deletion complete. We hope to see you again someday!",
+      "loading": "Loading ....",
+      "Ishlari": "Works",
+      "Band qilish": "Reserve now"
     }
 }

@@ -13,6 +13,9 @@
       "wrong verification code":"Iltimos,tasdiqlash kodini kiriting",
       "verification code prompt":"Telefon raqamingizga tasdiqlash kodini yubordik. Davom etish uchun kodni shu yerga kiriting",
       "successfully":"muvaffaqiyatli",
-      "account deleted successfully":"Hisobni oʻchirish tugallandi. Sizni yana bir kun ko'rishga umid qilamiz!"
+      "account deleted successfully":"Hisobni oʻchirish tugallandi. Sizni yana bir kun ko'rishga umid qilamiz!",
+      "loading": "Yuklanyapti ....",
+      "Ishlari": "Ishlari",
+      "Band qilish": "Band qilish"
     }
 }

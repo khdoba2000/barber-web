@@ -7,8 +7,8 @@ import { Button, Image, Group, rem} from '@mantine/core';
 import Footer from './Footer';
 import LanguagePicker from './LanguagePicker';
 import avatar from "../assets/avatar.png";
+import { useTranslation } from "react-i18next";
 
-// import {BookingPage} from './BookingPage';
 
 import { Link } from 'react-router-dom';
 
@@ -23,6 +23,8 @@ function BarberProfile() {
     const { id } = useParams(); // Get the ID parameter from the URL path
     const [barberData, setProfile] = useState(null);
     const [barberPhotos, setPhotos] = useState(null);
+    const { t } = useTranslation();
+
     useEffect(() => {
         const getBarberProfile = async () => {
             const profile = await fetchBarberProfile(id);
@@ -37,7 +39,11 @@ function BarberProfile() {
     }, []);
 
     if (!barberData) {
-        return <div>Loading...</div>;
+      return (
+      <div>{
+        t("loading")
+      }</div>
+    );
     }
 
     return (
@@ -91,7 +97,9 @@ function BarberProfile() {
         
         <ProfileContent>
 
-        <HairCutsTitle>Ishlari</HairCutsTitle>
+        <HairCutsTitle>{
+        t("Ishlari")
+         }</HairCutsTitle>
         <HairCutsGallery>
         {
           getBarberPhotos(barberPhotos).
@@ -143,7 +151,7 @@ function BarberProfile() {
         },
       })}
       >
-          Band qilish
+        {t("Band qilish")}
         </Button>
         </Link>
         <Footer></Footer>
